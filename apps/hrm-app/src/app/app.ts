@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { HrmLib } from '@hrm-monorepo/hrm-lib';
+import { Layout } from './core/layout/layout';
 
 @Component({
-  imports: [RouterModule, HrmLib],
+  imports: [Layout],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',

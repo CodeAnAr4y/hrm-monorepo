@@ -4,10 +4,10 @@
     "outDir": "../../dist/out-tsc",
     "declaration": true,
     "declarationMap": true,
-    "inlineSources": true,
-    "types": []
+    "inlineSources": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["../../node_modules/@angular/**/*.d.ts", "src/**/*.ts"],
+
   "exclude": [
     "src/**/*.spec.ts",
     "src/**/*.test.ts",

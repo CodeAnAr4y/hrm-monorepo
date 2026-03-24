@@ -4,7 +4,8 @@
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "types": ["node"],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -15,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@hrm-monorepo/hrm-lib": ["libs/hrm-lib/src/index.ts"]
+      "@hrm-monorepo/hrm-lib": ["libs/hrm-lib/src/index.ts"],
+      "@angular/material/*": ["node_modules/@angular/material/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

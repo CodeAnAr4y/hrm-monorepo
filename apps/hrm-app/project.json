@@ -4,11 +4,15 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "apps/hrm-app/src",
-  "tags": ["type:app"],
+  "tags": [
+    "type:app"
+  ],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/hrm-app",
         "browser": "apps/hrm-app/src/main.ts",
@@ -19,7 +23,10 @@
             "input": "apps/hrm-app/public"
           }
         ],
-        "styles": ["apps/hrm-app/src/styles.css"]
+        "styles": [
+          "apps/hrm-app/src/material-theme.scss",
+          "apps/hrm-app/src/styles.css"
+        ]
       },
       "configurations": {
         "production": {

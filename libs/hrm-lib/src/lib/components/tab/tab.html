@@ -1,0 +1,10 @@
+<a
+  mat-tab-link
+  [routerLink]="source()"
+  routerLinkActive
+  #rla="routerLinkActive"
+  [active]="rla.isActive"
+  class="!text-textPrimary !font-medium uppercase !opacity-100"
+>
+  <ng-content></ng-content>
+</a>
