@@ -1,0 +1,11 @@
+<button
+  [disabled]="disabled()"
+  class="lib-button"
+  [ngClass]="{
+    'contained': variant() === ButtonVariant.CONTAINED,
+    'outlined': variant() === ButtonVariant.OUTLINED,
+    'text': variant() === ButtonVariant.TEXT
+  }"
+>
+  <ng-content />
+</button>

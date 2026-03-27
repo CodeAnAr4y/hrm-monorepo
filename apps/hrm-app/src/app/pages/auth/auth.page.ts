@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
-import { LoginPage } from '../login/login.page';
-import { SignupPage } from '../signup/signup.page';
-import { Tab, Tabs } from '@hrm-monorepo/hrm-lib';
+import { TabsComponent } from '@hrm-monorepo/hrm-lib';
+import { RouterOutlet } from '@angular/router';
+
 @Component({
   selector: 'app-auth-page',
-  imports: [LoginPage, SignupPage, Tabs, Tab],
+  imports: [TabsComponent, RouterOutlet],
   templateUrl: './auth.page.html',
   standalone: true,
+  host: {}
 })
-export class AuthPage {}
+export class AuthPage {
+  libTabsData: { title: string, link: string }[] = [{ title: 'log in', link: 'login' }, {
+    title: 'sign up',
+    link: 'signup'
+  }];
+}

@@ -1,0 +1,17 @@
+  <nav class="flex w-80 mx-auto">
+    @for (tab of tabs(); track tab.link) {
+      <a
+        [routerLink]="tab.link"
+        routerLinkActive="active"
+        #rla="routerLinkActive"
+        [class.active]="rla.isActive"
+        class="tab-item"
+      >
+        {{ tab.title | uppercase }}
+      </a>
+    }
+  </nav>
+
+  <div class="flex-1 flex items-center">
+    <ng-content />
+  </div>

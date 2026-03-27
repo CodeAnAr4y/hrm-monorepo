@@ -6,7 +6,7 @@
     "declarationMap": true,
     "inlineSources": true
   },
-  "include": ["../../node_modules/@angular/**/*.d.ts", "src/**/*.ts"],
+  "include": ["src/**/*.ts"],
 
   "exclude": [
     "src/**/*.spec.ts",

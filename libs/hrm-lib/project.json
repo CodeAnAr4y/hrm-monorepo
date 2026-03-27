@@ -4,11 +4,15 @@
   "sourceRoot": "libs/hrm-lib/src",
   "prefix": "lib",
   "projectType": "library",
-  "tags": ["type:lib"],
+  "tags": [
+    "type:lib"
+  ],
   "targets": {
     "build": {
       "executor": "@nx/angular:ng-packagr-lite",
-      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/dist/{projectRoot}"
+      ],
       "options": {
         "project": "libs/hrm-lib/ng-package.json",
         "tsConfig": "libs/hrm-lib/tsconfig.lib.json"
@@ -40,12 +44,16 @@
     },
     "build-storybook": {
       "executor": "@storybook/angular:build-storybook",
-      "outputs": ["{options.outputDir}"],
+      "outputs": [
+        "{options.outputDir}"
+      ],
       "options": {
         "outputDir": "dist/storybook/hrm-lib",
         "configDir": "libs/hrm-lib/.storybook",
         "browserTarget": "hrm-lib:build-storybook",
-        "styles": ["libs/hrm-lib/.storybook/styles.scss"],
+        "styles": [
+          "apps/hrm-app/src/styles.scss"
+        ],
         "compodoc": false
       },
       "configurations": {
@@ -62,7 +70,9 @@
     },
     "static-storybook": {
       "executor": "@nx/web:file-server",
-      "dependsOn": ["build-storybook"],
+      "dependsOn": [
+        "build-storybook"
+      ],
       "options": {
         "buildTarget": "hrm-lib:build-storybook",
         "staticFilePath": "dist/storybook/hrm-lib",

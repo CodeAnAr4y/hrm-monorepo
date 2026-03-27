@@ -1,0 +1,9 @@
+.tab-item {
+  @apply relative py-2 text-sm font-medium cursor-pointer transition w-[100%] text-center;
+  color: var(--color-text-primary);
+}
+
+.tab-item.active {
+  border-bottom: 2px solid var(--color-primary);
+  color: var(--color-primary);
+}

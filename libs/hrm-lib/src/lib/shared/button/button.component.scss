@@ -1,0 +1,24 @@
+.lib-button {
+  @apply px-8 py-3 rounded-full font-medium transition;
+
+  &.contained {
+    background-color: var(--color-primary);
+    color: white;
+  }
+
+  &.outlined {
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    background: transparent;
+  }
+
+  &.text {
+    color: var(--color-primary);
+    background: transparent;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

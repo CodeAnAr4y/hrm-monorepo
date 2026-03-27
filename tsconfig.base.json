@@ -9,15 +9,14 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
+    "target": "ES2022",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": ["es2022", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@hrm-monorepo/hrm-lib": ["libs/hrm-lib/src/index.ts"],
-      "@angular/material/*": ["node_modules/@angular/material/*"]
+      "@hrm-monorepo/hrm-lib": ["libs/hrm-lib/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

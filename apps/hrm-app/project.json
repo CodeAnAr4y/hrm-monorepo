@@ -14,6 +14,7 @@
         "{options.outputPath}"
       ],
       "options": {
+        "inlineStyleLanguage": "scss",
         "outputPath": "dist/apps/hrm-app",
         "browser": "apps/hrm-app/src/main.ts",
         "tsConfig": "apps/hrm-app/tsconfig.app.json",
@@ -24,8 +25,7 @@
           }
         ],
         "styles": [
-          "apps/hrm-app/src/material-theme.scss",
-          "apps/hrm-app/src/styles.css"
+          "apps/hrm-app/src/styles.scss"
         ]
       },
       "configurations": {
