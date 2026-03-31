@@ -1,16 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { ButtonComponent, InputComponent } from '@hrm-monorepo/hrm-lib';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ButtonVariant } from '@hrm-monorepo/hrm-lib';
-import { RouterLink } from '@angular/router';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ButtonComponent, InputComponent, ButtonVariant } from '@hrm-monorepo/hrm-lib';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../../../services/core/auth/auth.service';
 
 @Component({
   selector: 'app-signup-page',
   imports: [
-    ButtonComponent,
-    FormsModule,
-    InputComponent,
     ReactiveFormsModule,
+    ButtonComponent,
+    InputComponent,
     RouterLink
   ],
   templateUrl: './signup.page.html',
@@ -20,6 +19,8 @@ import { RouterLink } from '@angular/router';
 export class SignupPage {
   protected readonly ButtonVariant = ButtonVariant;
   private fb = inject(FormBuilder);
+  private auth = inject(AuthService);
+  private router = inject(Router);
 
   form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
@@ -29,6 +30,16 @@ export class SignupPage {
   submit() {
     if (this.form.invalid) return;
 
-    console.log(this.form.getRawValue());
+    const { email, password } = this.form.getRawValue();
+
+    this.auth.signup({ email, password }).subscribe({
+      next: (data) => {
+        console.log('Signup successful', data);
+        this.router.navigate(['/users']);
+      },
+      error: (err) => {
+        console.error('Signup error', err);
+      }
+    });
   }
 }

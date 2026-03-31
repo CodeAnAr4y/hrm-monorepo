@@ -1,24 +1,26 @@
 import { Component, inject } from '@angular/core';
-import { ButtonComponent, InputComponent } from '@hrm-monorepo/hrm-lib';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ButtonVariant } from '@hrm-monorepo/hrm-lib';
-import { RouterLink } from '@angular/router';
-
+import { ButtonComponent, InputComponent, ButtonVariant } from '@hrm-monorepo/hrm-lib';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../../../services/core/auth/auth.service';
 
 @Component({
-  selector: 'app-restore-password.page',
+  selector: 'app-restore-password-page',
   imports: [
+    ReactiveFormsModule,
     ButtonComponent,
     InputComponent,
-    ReactiveFormsModule,
     RouterLink
   ],
   templateUrl: './restore-password.page.html',
-  styleUrl: './restore-password.page.scss'
+  styleUrl: './restore-password.page.scss',
+  standalone: true
 })
 export class RestorePasswordPage {
   protected readonly ButtonVariant = ButtonVariant;
   private fb = inject(FormBuilder);
+  private auth = inject(AuthService);
+  private router = inject(Router);
 
   form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]]
@@ -27,6 +29,16 @@ export class RestorePasswordPage {
   submit() {
     if (this.form.invalid) return;
 
-    console.log(this.form.getRawValue());
+    const { email } = this.form.getRawValue();
+
+    this.auth.forgotPassword({ email }).subscribe({
+      next: () => {
+        console.log('Reset password email sent');
+        this.router.navigate(['/auth/login']);
+      },
+      error: (err) => {
+        console.error('Forgot password error', err);
+      }
+    });
   }
 }

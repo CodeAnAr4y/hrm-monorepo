@@ -1,23 +1,15 @@
 import { Component, computed, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { ButtonComponent, InputComponent } from '@hrm-monorepo/hrm-lib';
-import { ButtonVariant } from '@hrm-monorepo/hrm-lib';
-import { RouterLink } from '@angular/router';
+import { ButtonComponent, InputComponent, ButtonVariant } from '@hrm-monorepo/hrm-lib';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../../../services/core/auth/auth.service';
 
 @Component({
   selector: 'app-login-page',
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatIconModule,
     ButtonComponent,
     InputComponent,
     RouterLink
@@ -29,6 +21,8 @@ import { RouterLink } from '@angular/router';
 export class LoginPage {
   protected readonly ButtonVariant = ButtonVariant;
   private fb = inject(FormBuilder);
+  private auth = inject(AuthService);
+  private router = inject(Router);
 
   form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
@@ -38,6 +32,16 @@ export class LoginPage {
   submit() {
     if (this.form.invalid) return;
 
-    console.log(this.form.getRawValue());
+    const { email, password } = this.form.getRawValue();
+
+    this.auth.login({ email, password }).subscribe({
+      next: (data) => {
+        console.log('Login successful', data);
+        this.router.navigate(['/users']);
+      },
+      error: (err) => {
+        console.error('Login error', err);
+      }
+    });
   }
 }
