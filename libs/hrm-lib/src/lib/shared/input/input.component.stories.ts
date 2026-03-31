@@ -19,13 +19,11 @@ const meta: Meta<InputComponent> = {
     }),
   ],
 
-  // 🔥 дефолтные значения
   args: {
     type: 'text',
     placeholder: 'Enter value',
   },
 
-  // 🔥 controls
   argTypes: {
     type: {
       control: 'inline-radio',

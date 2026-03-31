@@ -42,10 +42,8 @@ export class InputComponent implements ControlValueAccessor {
   private _disabled = signal(false);
   value = signal<string>('');
 
-  // 🔥 toggle состояния
   hide = signal(true);
 
-  // 🔥 реальный тип input
   inputType = computed(() => {
     if (this.type() === 'password') {
       return this.hide() ? 'password' : 'text';
