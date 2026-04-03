@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { LOGIN, SIGNUP, FORGOT_PASSWORD, RESET_PASSWORD, UPDATE_TOKEN } from './auth.graphql';
 import {
@@ -9,21 +9,56 @@ import {
   ResetPasswordInput,
   UpdateTokenResult
 } from './auth.models';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { HttpHeaders } from '@angular/common/http';
+import { map, tap, take } from 'rxjs/operators';
+import { Observable, of, ReplaySubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private apollo = inject(Apollo);
 
   private sessionSignal = signal<LoginResult['login'] | null>(null);
 
-  public isAuthenticated = computed(() => !!this.sessionSignal);
-  // session = computed(() => this.sessionSignal());
-  // userId = computed(() => this.sessionSignal()?.user.id ?? '');
-  // isAdmin = computed(() => this.sessionSignal()?.user.role === 'Admin');
+  private isInitialized$ = new ReplaySubject<boolean>(1);
 
-  constructor(private apollo: Apollo) {
+  public isAuthenticated = computed(() => !!this.sessionSignal());
+  public session = computed(() => this.sessionSignal());
+  public accessToken = computed(() => this.sessionSignal()?.access_token ?? null);
+
+  constructor() {
+    this.initSession();
+  }
+
+  private initSession() {
+    const access = localStorage.getItem('access_token');
+    const refresh = localStorage.getItem('refresh_token');
+
+    if (access && refresh) {
+      // 1. Предварительно восстанавливаем состояние из хранилища, чтобы Guard разрешил переход
+      this.sessionSignal.set({ access_token: access, refresh_token: refresh } as any);
+
+      // 2. Проверяем валидность сессии, пытаясь обновить access_token
+      this.updateToken().pipe(take(1)).subscribe({
+        next: () => {
+          console.log('Session restored successfully');
+          this.isInitialized$.next(true);
+        },
+        error: (err) => {
+          console.error('Session validation failed:', err);
+          // Если сервер подтвердил, что refresh-токен невалиден (401), разлогиниваем
+          this.logout();
+          this.isInitialized$.next(true);
+        }
+      });
+    } else {
+      this.isInitialized$.next(true);
+    }
+  }
+
+  // Используется в authGuard
+  checkAuthStatus(): Observable<boolean> {
+    return this.isInitialized$.asObservable().pipe(
+      map(() => this.isAuthenticated())
+    );
   }
 
   login(auth: AuthInput): Observable<LoginResult['login']> {
@@ -32,19 +67,11 @@ export class AuthService {
       variables: { auth },
       fetchPolicy: 'no-cache'
     }).pipe(
-      map(result => {
-        if (!result.data) {
-          throw new Error('No data returned from login query');
-        }
-
-        const loginData = result.data.login;
-        this.sessionSignal.set(loginData);
-
-        localStorage.setItem('access_token', loginData.access_token);
-        localStorage.setItem('refresh_token', loginData.refresh_token);
-
-        return loginData;
-      })
+      map(res => {
+        if (!res.data) throw new Error('No login data');
+        return res.data.login;
+      }),
+      tap(loginData => this.setSession(loginData))
     );
   }
 
@@ -53,20 +80,50 @@ export class AuthService {
       mutation: SIGNUP,
       variables: { auth }
     }).pipe(
-      map(result => {
-        if (!result.data) {
-          throw new Error('No data returned from signup mutation');
-        }
+      map(res => {
+        if (!res.data) throw new Error('No signup data');
+        return res.data.signup;
+      }),
+      tap(signupData => this.setSession(signupData as any))
+    );
+  }
 
-        const signupData = result.data.signup;
-        console.log('signupData', signupData);
-        this.sessionSignal.set(signupData as any);
+  logout() {
+    this.sessionSignal.set(null);
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+  }
 
-        localStorage.setItem('access_token', signupData.access_token);
-        localStorage.setItem('refresh_token', signupData.refresh_token);
+  private setSession(data: any) {
+    this.sessionSignal.set(data);
+    localStorage.setItem('access_token', data.access_token);
+    localStorage.setItem('refresh_token', data.refresh_token);
+  }
 
-        return signupData;
-      })
+  updateToken(): Observable<UpdateTokenResult['updateToken']> {
+    const refreshToken = localStorage.getItem('refresh_token');
+
+    if (!refreshToken) {
+      this.logout();
+      return of();
+    }
+
+    return this.apollo.mutate<UpdateTokenResult>({
+      mutation: UPDATE_TOKEN,
+      context: {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`
+        } as any,
+        // КЛЮЧЕВОЙ МОМЕНТ: флаг для authLink в app.config.ts
+        useRefreshToken: true
+      }
+    }).pipe(
+      map(res => {
+        if (!res.data) throw new Error('No updateToken data');
+        return res.data.updateToken;
+      }),
+      tap(data => this.setSession(data))
+      // catchError убран, чтобы ошибку обрабатывал вызывающий код (initSession или errorLink)
     );
   }
 
@@ -82,43 +139,5 @@ export class AuthService {
       mutation: RESET_PASSWORD,
       variables: { auth }
     });
-  }
-
-  logout() {
-    this.sessionSignal.set(null);
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-  }
-
-  updateToken(): Observable<UpdateTokenResult['updateToken']> {
-    const refreshToken = localStorage.getItem('refresh_token');
-
-    if (!refreshToken) {
-      throw new Error('No refresh token');
-    }
-
-    return this.apollo.mutate<UpdateTokenResult>({
-      mutation: UPDATE_TOKEN,
-      context: {
-        headers: {
-          Authorization: `Bearer ${refreshToken}`
-        } as any
-      }
-    }).pipe(
-      map(result => {
-        if (!result.data) {
-          throw new Error('No data returned from update token mutation');
-        }
-
-        const updateTokenData = result.data.updateToken;
-
-        this.sessionSignal.set(updateTokenData as any);
-
-        localStorage.setItem('access_token', updateTokenData.access_token);
-        localStorage.setItem('refresh_token', updateTokenData.refresh_token);
-
-        return updateTokenData;
-      })
-    );
   }
 }

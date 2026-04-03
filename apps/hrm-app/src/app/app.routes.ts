@@ -7,16 +7,23 @@ import { RestorePasswordPage } from './pages/auth/components/restore-password/re
 import { authGuard } from './core/guards/auth/auth-guard';
 
 export const appRoutes: Route[] = [
-  {path: '', redirectTo: '/auth/login', pathMatch: 'full'},
+  { path: '', redirectTo: '/users', pathMatch: 'full' },
+
   {
     path: 'auth',
     component: AuthPage,
     children: [
-      { path: 'login', component: LoginPage },
-      { path: 'signup', component: SignupPage },
+      { path: 'login', component: LoginPage /* canActivate: [guestGuard] */ },
+      { path: 'signup', component: SignupPage /* canActivate: [guestGuard] */ },
       { path: '', redirectTo: 'login', pathMatch: 'full' }
     ]
   },
+
   { path: 'restore-password', component: RestorePasswordPage },
-  { path: 'users', canActivate: [authGuard], component: UsersPage },
+
+  {
+    path: 'users',
+    canActivate: [authGuard],
+    component: UsersPage
+  }
 ];

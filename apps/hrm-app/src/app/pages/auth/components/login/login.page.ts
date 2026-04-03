@@ -15,14 +15,16 @@ import { AuthService } from '../../../../services/core/auth/auth.service';
     RouterLink
   ],
   templateUrl: './login.page.html',
-  styleUrl: './login.page.scss',
+  styleUrls: ['./login.page.scss'],
   standalone: true
 })
 export class LoginPage {
   protected readonly ButtonVariant = ButtonVariant;
+
   private fb = inject(FormBuilder);
-  private auth = inject(AuthService);
   private router = inject(Router);
+
+  private auth = inject(AuthService);
 
   form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
