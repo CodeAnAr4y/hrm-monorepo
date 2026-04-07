@@ -5,9 +5,9 @@ module.exports = {
   darkMode: 'class',
 
   content: [
-    join(__dirname, '../../apps/**/*.{ts,html}'),
-    join(__dirname, '../../libs/**/*.{ts,html}'),
-    join(__dirname, '../../.storybook/**/*.{ts,html}'),
+    join(__dirname, '../../apps/**/*.{ts,html,scss,css}'),
+    join(__dirname, '../../libs/**/*.{ts,html,scss,css}'),
+    join(__dirname, '../../.storybook/**/*.{ts,html,scss,css}'),
   ],
 
   theme: {

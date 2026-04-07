@@ -1,1 +1,50 @@
-<p>sidebar works!</p>
+<aside
+  class="aside-sidebar"
+  [ngClass]="isOpen() ? 'is-open' : 'is-closed'"
+>
+  <nav class="nav-container">
+    @for (link of navLinks(); track link.name) {
+      @if (link.isDivider) {
+        <mat-divider class="my-2 border-gray-600 max-md:hidden"></mat-divider>
+      } @else {
+        <a
+          [routerLink]="link.to"
+          routerLinkActive="active"
+          class="nav-link"
+          [title]="!isOpen() ? link.name : ''"
+        >
+          <mat-icon class="min-w-[24px]">{{ link.icon }}</mat-icon>
+          <span
+            class="link-text"
+            [ngClass]="isOpen() ? 'visible-text' : 'hidden-text'"
+          >
+            {{ link.name }}
+          </span>
+        </a>
+      }
+    }
+  </nav>
+
+  <div class="aside-footer">
+    <div class="user-profile">
+      <div class="avatar">R</div>
+      <span class="user-name" [ngClass]="{'hidden-text': !isOpen()}">
+         Rostislav
+       </span>
+    </div>
+
+    <button mat-icon-button (click)="toggleNavigation()" class="toggle-btn">
+      <mat-icon
+        class="toggle-icon"
+        [style.transform]="isOpen() ? 'rotate(0deg)' : 'rotate(180deg)'"
+      >
+        keyboard_arrow_left
+      </mat-icon>
+    </button>
+  </div>
+</aside>
+
+<div
+  class="content-spacer"
+  [style.margin-left]="isOpen() ? '240px' : '70px'"
+></div>
