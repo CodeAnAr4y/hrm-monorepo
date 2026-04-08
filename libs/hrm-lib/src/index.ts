@@ -6,3 +6,5 @@ export * from './lib/shared/button/models/button-variant.model';
 export * from './lib/shared/sidebar/sidebar.component';
 
 export * from './lib/shared/sidebar/sidebar.component';
+
+export * from './lib/shared/table/table.component';

@@ -1,4 +1,77 @@
 <div class="page-content">
-  <lib-sidebar></lib-sidebar>
-  <main class="test">qwe</main>
+  <lib-sidebar [user]="userService.user()"></lib-sidebar>
+  <lib-table [columns]="columns()" [items]="employees()" [loading]="isLoading()"></lib-table>
 </div>
+<!--  <lib-table-->
+<!--    [items]="employees()"-->
+<!--    [loading]="isLoading()"-->
+<!--    [searchBy]="['email', 'profile.first_name', 'profile.last_name']"-->
+<!--    defaultSortBy="department_name"-->
+<!--  >-->
+<!--    <ng-template #toolTemplate let-onSearch="onSearch">-->
+<!--      <div class="relative w-full max-w-md">-->
+<!--        <mat-icon class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">search</mat-icon>-->
+<!--        <input-->
+<!--          type="text"-->
+<!--          (input)="onSearch(input.value)" #input-->
+<!--          placeholder="Search..."-->
+<!--          class="w-full bg-[#2a2a2a] border-none rounded-full py-2 pl-10 pr-4 text-white focus:ring-1 ring-orange-500 outline-none"-->
+<!--        >-->
+<!--      </div>-->
+<!--    </ng-template>-->
+
+<!--    <ng-template #headerTemplate>-->
+<!--      <tr>-->
+<!--        <th></th>-->
+<!--        <th>First Name</th>-->
+<!--        <th>Last Name</th>-->
+<!--        <th>Email</th>-->
+<!--        <th>Department</th>-->
+<!--        <th>Position</th>-->
+<!--        <th></th>-->
+<!--      </tr>-->
+<!--    </ng-template>-->
+
+<!--    <ng-template #rowTemplate let-item>-->
+<!--      @if (item.id === userService.user().id) {-->
+<!--        <tr>-->
+<!--          <td>qwe</td>-->
+<!--        </tr>-->
+<!--      } @else {-->
+<!--        <tr>-->
+<!--          <td>-->
+<!--            <div-->
+<!--              class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center overflow-hidden text-[10px] uppercase font-bold text-white shrink-0">-->
+<!--              @if (item.profile?.avatar) {-->
+<!--                <img [src]="item.profile.avatar" [alt]="item.profile.full_name">-->
+<!--              } @else {-->
+<!--                <span>-->
+<!--              {{ (item.profile?.first_name?.[0] ?? item.email[0]) }}-->
+<!--            </span>-->
+<!--              }-->
+<!--            </div>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <div class="flex items-center gap-3">-->
+<!--              {{ item.profile?.first_name }}-->
+<!--            </div>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <div class="flex items-center gap-3">-->
+<!--              {{ item.profile?.last_name }}-->
+<!--            </div>-->
+<!--          </td>-->
+<!--          <td>{{ item.email }}</td>-->
+<!--          <td>{{ item.department?.name }}</td>-->
+<!--          <td>{{ item.position?.name }}</td>-->
+<!--          <td>-->
+<!--            <a [routerLink]="item.id" class="hover:bg-white/10 rounded-full w-8 h-8 flex items-center justify-center">-->
+<!--              <mat-icon>-->
+<!--                keyboard_arrow_right-->
+<!--              </mat-icon>-->
+<!--            </a>-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--      }-->
+<!--    </ng-template>-->
+<!--  </lib-table>-->

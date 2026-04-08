@@ -56,6 +56,17 @@ export const RESET_PASSWORD = gql`
 export const UPDATE_TOKEN = gql`
   mutation UpdateToken {
     updateToken {
+      user {
+        id
+        email
+        profile {
+          id
+          full_name
+          avatar
+        }
+        role
+        is_verified
+      }
       access_token
       refresh_token
     }

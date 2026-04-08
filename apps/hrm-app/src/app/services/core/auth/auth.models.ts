@@ -1,38 +1,15 @@
-export interface UserProfile {
-  id: string;
-  full_name: string;
-  avatar: string;
-}
-
-export interface User {
-  id: string;
-  email: string;
-  profile: UserProfile;
-  role: 'Admin' | 'User';
-  is_verified: boolean;
-}
+import { AuthResult } from '../../../core/models/core.model';
 
 export interface LoginResult {
-  login: {
-    user: User;
-    access_token: string;
-    refresh_token: string;
-  };
+  login: AuthResult;
 }
 
 export interface SignupResult {
-  signup: {
-    user: User;
-    access_token: string;
-    refresh_token: string;
-  };
+  signup: AuthResult;
 }
 
 export interface UpdateTokenResult {
-  updateToken: {
-    access_token: string;
-    refresh_token: string;
-  };
+  updateToken: AuthResult;
 }
 
 export interface AuthInput {

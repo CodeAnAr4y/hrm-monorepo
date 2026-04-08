@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { ADMIN_LINKS, USER_LINKS } from './sidebar.constants';
+import { User, UserRole } from 'apps/hrm-app/src/app/core/models/core.model';
 
 @Component({
   selector: 'lib-sidebar',
@@ -19,14 +20,21 @@ import { ADMIN_LINKS, USER_LINKS } from './sidebar.constants';
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent {
-  isAdmin = signal(true);
+  user = input<User | null>(null);
+  isAdmin = computed(()=> this.user()?.role === UserRole.Admin);
 
   isOpen = signal(localStorage.getItem('navigation') === 'true');
 
   navLinks = computed(() => this.isAdmin() ? ADMIN_LINKS : USER_LINKS);
+
+  constructor() {
+    effect(() => {
+      console.log(this.user())
+    });
+  }
 
   toggleNavigation() {
     this.isOpen.update(value => {

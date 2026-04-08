@@ -11,10 +11,12 @@ import {
 } from './auth.models';
 import { map, tap, take } from 'rxjs/operators';
 import { Observable, of, ReplaySubject } from 'rxjs';
+import { UserService } from '../../shared/user/user.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private apollo = inject(Apollo);
+  private userService = inject(UserService);
 
   private sessionSignal = signal<LoginResult['login'] | null>(null);
 
@@ -33,10 +35,8 @@ export class AuthService {
     const refresh = localStorage.getItem('refresh_token');
 
     if (access && refresh) {
-      // 1. Предварительно восстанавливаем состояние из хранилища, чтобы Guard разрешил переход
       this.sessionSignal.set({ access_token: access, refresh_token: refresh } as any);
 
-      // 2. Проверяем валидность сессии, пытаясь обновить access_token
       this.updateToken().pipe(take(1)).subscribe({
         next: () => {
           console.log('Session restored successfully');
@@ -44,7 +44,6 @@ export class AuthService {
         },
         error: (err) => {
           console.error('Session validation failed:', err);
-          // Если сервер подтвердил, что refresh-токен невалиден (401), разлогиниваем
           this.logout();
           this.isInitialized$.next(true);
         }
@@ -54,7 +53,6 @@ export class AuthService {
     }
   }
 
-  // Используется в authGuard
   checkAuthStatus(): Observable<boolean> {
     return this.isInitialized$.asObservable().pipe(
       map(() => this.isAuthenticated())
@@ -69,6 +67,7 @@ export class AuthService {
     }).pipe(
       map(res => {
         if (!res.data) throw new Error('No login data');
+        this.userService.user.set(res.data.login.user);
         return res.data.login;
       }),
       tap(loginData => this.setSession(loginData))
@@ -82,6 +81,7 @@ export class AuthService {
     }).pipe(
       map(res => {
         if (!res.data) throw new Error('No signup data');
+        this.userService.user.set(res.data.signup.user)
         return res.data.signup;
       }),
       tap(signupData => this.setSession(signupData as any))
@@ -114,7 +114,6 @@ export class AuthService {
         headers: {
           Authorization: `Bearer ${refreshToken}`
         } as any,
-        // КЛЮЧЕВОЙ МОМЕНТ: флаг для authLink в app.config.ts
         useRefreshToken: true
       }
     }).pipe(
@@ -123,7 +122,6 @@ export class AuthService {
         return res.data.updateToken;
       }),
       tap(data => this.setSession(data))
-      // catchError убран, чтобы ошибку обрабатывал вызывающий код (initSession или errorLink)
     );
   }
 

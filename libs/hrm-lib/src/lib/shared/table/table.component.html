@@ -1,0 +1,75 @@
+<div class="table-container">
+  <div class="table-tools">
+    <div class="search">
+      <mat-icon matPrefix class="text-gray-500 mr-2">search</mat-icon>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search employees..." #input class="text-white">
+    </div>
+  </div>
+  <div class="table-wrapper">
+    <table mat-table [dataSource]="dataSource" matSort class="custom-table">
+
+      @for (col of columns(); track col.sourceName) {
+        <ng-container [matColumnDef]="col.sourceName">
+          <th mat-header-cell *matHeaderCellDef
+              mat-sort-header
+              [disabled]="!col.sortable"
+              class="table-header">
+            {{ col.title }}
+          </th>
+          <td mat-cell *matCellDef="let row">
+            @switch (col.sourceName) {
+              @case ('avatar') {
+                <div
+                  class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center overflow-hidden text-[10px] uppercase font-bold text-white shrink-0">
+                  @if (row.profile?.avatar) {
+                    <img [src]="row.profile.avatar" [alt]="row.profile.full_name">
+                  } @else {
+                    <span>{{ (row.profile?.first_name?.[0] ?? row.email[0]) }}</span>
+                  }
+                </div>
+              }
+              @case ('first_name') {
+                {{ row.profile?.first_name }}
+              }
+              @case ('last_name') {
+                {{ row.profile?.last_name }}
+              }
+              @case ('department') {
+                {{ row.department?.name }}
+              }
+              @case ('position') {
+                {{ row.position?.name }}
+              }
+              @case ('action') {
+                <a [routerLink]="row.id"
+                   class="hover:bg-white/10 rounded-full w-8 h-8 flex items-center justify-center transition-colors">
+                  <mat-icon class="text-gray-400">keyboard_arrow_right</mat-icon>
+                </a>
+              }
+              @default {
+                {{ row[col.sourceName] }}
+              }
+            }
+          </td>
+        </ng-container>
+      }
+
+      <tr mat-header-row *matHeaderRowDef="columnKeys"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnKeys;"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell no-results text-center py-10" [attr.colspan]="columns().length">
+          @if (loading()) {
+            <div class="loader-cell">
+              <mat-spinner diameter="40"></mat-spinner>
+            </div>
+          } @else {
+            No data matching the filter "{{ input.value }}"
+          }
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!--  <mat-paginator [pageSizeOptions]="[10, 25, 50]" class="custom-paginator"></mat-paginator>-->
+</div>

@@ -27,9 +27,18 @@
 
   <div class="aside-footer">
     <div class="user-profile">
-      <div class="avatar">R</div>
+      <div
+        class="avatar">
+        @if (user()?.profile?.avatar) {
+          <img [src]="user()?.profile?.avatar" [alt]="user()?.profile?.full_name">
+        } @else {
+          <span>
+              {{ (user()?.profile?.full_name?.[0] ?? user()?.email?.[0]) }}
+            </span>
+        }
+      </div>
       <span class="user-name" [ngClass]="{'hidden-text': !isOpen()}">
-         Rostislav
+         {{user()?.profile?.full_name ?? user()?.email}}
        </span>
     </div>
 

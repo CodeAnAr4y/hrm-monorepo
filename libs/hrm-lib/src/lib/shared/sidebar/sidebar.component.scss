@@ -32,7 +32,7 @@
 .user-profile {
   @apply flex items-center gap-3 px-3 h-12 max-md:px-0;
 
-  .avatar { @apply w-8 h-8 rounded-full bg-orange-500 shrink-0 flex items-center justify-center text-xs; }
+  .avatar { @apply w-8 h-8 rounded-full bg-primary flex items-center justify-center overflow-hidden text-[10px] uppercase font-bold text-white shrink-0; }
   .user-name {
     @apply truncate transition-opacity duration-200 max-md:hidden;
     &.hidden-text { @apply opacity-0 w-0; }
