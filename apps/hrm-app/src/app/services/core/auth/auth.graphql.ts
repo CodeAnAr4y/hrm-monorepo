@@ -20,7 +20,6 @@ export const LOGIN = gql`
   }
 `;
 
-
 export const SIGNUP = gql`
   mutation Signup($auth: AuthInput!) {
     signup(auth: $auth) {
@@ -41,6 +40,18 @@ export const SIGNUP = gql`
   }
 `;
 
+export const PROFILE = gql`
+  query Profile($userId: ID!) {
+    profile(userId: $userId) {
+      id
+      first_name
+      last_name
+      full_name
+      avatar
+    }
+  }
+`;
+
 export const FORGOT_PASSWORD = gql`
   mutation ForgotPassword($auth: ForgotPasswordInput!) {
     forgotPassword(auth: $auth)
@@ -56,17 +67,6 @@ export const RESET_PASSWORD = gql`
 export const UPDATE_TOKEN = gql`
   mutation UpdateToken {
     updateToken {
-      user {
-        id
-        email
-        profile {
-          id
-          full_name
-          avatar
-        }
-        role
-        is_verified
-      }
       access_token
       refresh_token
     }

@@ -5,7 +5,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { TableHeader, TableItem } from './table.types';
+import { TableHeader, TableItem } from './table.model';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
@@ -20,7 +20,6 @@ import { RouterLink } from '@angular/router';
     MatSortModule,
     MatInputModule,
     MatFormFieldModule,
-    MatProgressSpinner,
     MatIcon,
     RouterLink
   ],
@@ -34,7 +33,6 @@ export class TableComponent<T extends TableItem> implements AfterViewInit {
   loading = input<boolean>(false);
 
   dataSource = new MatTableDataSource<T>([]);
-  // paginator = viewChild(MatPaginator);
   sort = viewChild(MatSort);
 
   get columnKeys(): string[] {
@@ -44,32 +42,14 @@ export class TableComponent<T extends TableItem> implements AfterViewInit {
   constructor() {
     effect(() => {
       this.dataSource.data = this.items();
-      const sortInstance = this.sort();
-      if (sortInstance) {
-        this.dataSource.sort = sortInstance;
-      }
-
-      this.setupCustomAccessor();
     });
   }
 
   ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator() ?? null;
     this.dataSource.sort = this.sort() ?? null;
-
-  }
-
-  private setupCustomAccessor() {
     this.dataSource.sortingDataAccessor = (item: any, property: string) => {
-      if (property.includes('.')) {
-        return property.split('.').reduce((obj, key) => obj?.[key], item);
-      }
-      return item[property];
-    };
-
-    this.dataSource.filterPredicate = (data: any, filter: string) => {
-      const dataStr = JSON.stringify(data).toLowerCase();
-      return dataStr.indexOf(filter) !== -1;
+      const value = property.split('.').reduce((obj, key) => obj?.[key], item);
+      return value.toLowerCase();
     };
   }
 

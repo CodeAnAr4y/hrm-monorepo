@@ -1,6 +1,6 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { LOGIN, SIGNUP, FORGOT_PASSWORD, RESET_PASSWORD, UPDATE_TOKEN } from './auth.graphql';
+import { LOGIN, SIGNUP, FORGOT_PASSWORD, RESET_PASSWORD, UPDATE_TOKEN, PROFILE } from './auth.graphql';
 import {
   AuthInput,
   LoginResult,
@@ -9,9 +9,13 @@ import {
   ResetPasswordInput,
   UpdateTokenResult
 } from './auth.models';
-import { map, tap, take } from 'rxjs/operators';
+import { map, tap, take, switchMap } from 'rxjs/operators';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { UserService } from '../../shared/user/user.service';
+import { Profile, User } from '../../../core/models/core.model';
+import { jwtDecode } from 'jwt-decode';
+import { USER } from '../../shared/user/user.graphql';
+import { UserResult } from '../../shared/user/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -35,15 +39,15 @@ export class AuthService {
     const refresh = localStorage.getItem('refresh_token');
 
     if (access && refresh) {
-      this.sessionSignal.set({ access_token: access, refresh_token: refresh } as any);
-
-      this.updateToken().pipe(take(1)).subscribe({
+      this.updateToken().pipe(
+        switchMap(() => this.fetchCurrentUser()),
+        take(1)
+      ).subscribe({
         next: () => {
-          console.log('Session restored successfully');
           this.isInitialized$.next(true);
         },
         error: (err) => {
-          console.error('Session validation failed:', err);
+          console.error('Session restoration failed:', err);
           this.logout();
           this.isInitialized$.next(true);
         }
@@ -81,7 +85,7 @@ export class AuthService {
     }).pipe(
       map(res => {
         if (!res.data) throw new Error('No signup data');
-        this.userService.user.set(res.data.signup.user)
+        this.userService.user.set(res.data.signup.user);
         return res.data.signup;
       }),
       tap(signupData => this.setSession(signupData as any))
@@ -122,6 +126,25 @@ export class AuthService {
         return res.data.updateToken;
       }),
       tap(data => this.setSession(data))
+    );
+  }
+
+  private fetchCurrentUser(): Observable<UserResult['user']> {
+    const token = localStorage.getItem('access_token') || "";
+    const decoded: any = jwtDecode(token);
+    const userId = decoded.sub;
+
+    return this.apollo.query<UserResult>({
+      query: USER,
+      variables: { userId },
+      fetchPolicy: 'network-only'
+    }).pipe(
+      map(res => {
+        if (!res.data) throw new Error('No signup data');
+        this.userService.user.set(res.data.user);
+        return res.data.user;
+      }),
+      tap(user => this.userService.user.set(user))
     );
   }
 

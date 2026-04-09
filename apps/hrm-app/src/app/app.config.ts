@@ -30,7 +30,6 @@ export const createErrorLink = (injector: Injector) => {
       const handleRequest = () => {
         subscription = forward(operation).subscribe({
           next: result => {
-            // Явно указываем тип (e: any) или (e: GraphQLError)
             const hasAuthError = result.errors?.some((e: any) =>
               e.extensions?.['code'] === 'UNAUTHENTICATED'
             );

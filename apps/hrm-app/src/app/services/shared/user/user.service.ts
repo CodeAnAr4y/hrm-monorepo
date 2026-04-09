@@ -4,7 +4,7 @@ import { UsersResult } from './user.model';
 import { USERS } from './user.graphql';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { User } from '../../../core/models/core.model';
+import { Profile, User } from '../../../core/models/core.model';
 
 
 @Injectable({

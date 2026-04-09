@@ -9,7 +9,10 @@ export interface SignupResult {
 }
 
 export interface UpdateTokenResult {
-  updateToken: AuthResult;
+  updateToken: {
+    access_token: string;
+    refresh_token: string;
+  };
 }
 
 export interface AuthInput {
