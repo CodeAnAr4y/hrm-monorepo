@@ -67,7 +67,9 @@ export const createErrorLink = (injector: Injector) => {
       };
 
       handleRequest();
-      return () => { if (subscription) subscription.unsubscribe(); };
+      return () => {
+        if (subscription) subscription.unsubscribe();
+      };
     });
   });
 };

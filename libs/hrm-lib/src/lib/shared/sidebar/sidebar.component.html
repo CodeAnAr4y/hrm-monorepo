@@ -26,21 +26,30 @@
   </nav>
 
   <div class="aside-footer">
-    <div class="user-profile">
-      <div
-        class="avatar">
-        @if (user()?.profile?.avatar) {
-          <img [src]="user()?.profile?.avatar" [alt]="user()?.profile?.full_name">
-        } @else {
-          <span>
+    <button class="nav-link" mat-button [matMenuTriggerFor]="menu">
+      <div class="user-profile">
+        <div
+          class="avatar">
+          @if (user()?.profile?.avatar) {
+            <img [src]="user()?.profile?.avatar" [alt]="user()?.profile?.full_name">
+          } @else {
+            <span>
               {{ (user()?.profile?.full_name?.[0] ?? user()?.email?.[0]) }}
             </span>
-        }
-      </div>
-      <span class="user-name" [ngClass]="{'hidden-text': !isOpen()}">
-         {{user()?.profile?.full_name ?? user()?.email}}
+          }
+        </div>
+        <span class="user-name" [ngClass]="{'hidden-text': !isOpen()}">
+         {{ user()?.profile?.full_name ?? user()?.email }}
        </span>
-    </div>
+      </div>
+    </button>
+    <mat-menu #menu="matMenu">
+      <a [routerLink]="['/users', user()?.id]" mat-menu-item>
+        <mat-icon>account_circle<</mat-icon>
+        Profile</a>
+      <a routerLink="/settings" mat-menu-item><mat-icon>settings</mat-icon> Settings</a>
+    </mat-menu>
+
 
     <button mat-icon-button (click)="toggleNavigation()" class="toggle-btn">
       <mat-icon

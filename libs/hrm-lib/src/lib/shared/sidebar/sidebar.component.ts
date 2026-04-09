@@ -6,6 +6,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { ADMIN_LINKS, USER_LINKS } from './sidebar.constants';
 import { User, UserRole, Profile } from 'apps/hrm-app/src/app/core/models/core.model';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'lib-sidebar',
@@ -16,7 +17,10 @@ import { User, UserRole, Profile } from 'apps/hrm-app/src/app/core/models/core.m
     MatDividerModule,
     MatButtonModule,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',

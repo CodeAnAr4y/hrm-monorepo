@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 @include mat.core();
 
@@ -20,31 +21,9 @@
 }
 
 
-.mat-mdc-form-field {
-  --mdc-outlined-text-field-container-color: transparent;
-  --mdc-outlined-text-field-outline-color: transparent;
-  --mdc-outlined-text-field-focus-outline-color: transparent;
-  --mdc-outlined-text-field-hover-outline-color: transparent;
-}
-
-.mat-mdc-text-field-wrapper {
-  background: transparent !important;
-  padding: 0 !important;
-}
-
-.mdc-text-field {
-  padding: 0 !important;
-  background: transparent !important;
-}
-
-.mdc-text-field--outlined .mdc-notched-outline {
-  display: none;
-}
-
-
 // reset
 
-input{
+input {
   outline: none;
   border: none;
 }

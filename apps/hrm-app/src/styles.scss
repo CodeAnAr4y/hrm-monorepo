@@ -1,6 +1,22 @@
 @use '@angular/material' as mat;
 
+$my-typography: mat.m2-define-typography-config(
+  $font-family: 'inherit',
+  $button: mat.m2-define-typography-level(16px, 24px, 400),
+  $body-1: mat.m2-define-typography-level(16px, 24px, 400)
+);
+
+$my-theme: mat.m2-define-dark-theme((
+  color: (
+    primary: mat.m2-define-palette(mat.$m2-pink-palette),
+    accent: mat.m2-define-palette(mat.$m2-blue-grey-palette),
+  ),
+  typography: $my-typography,
+));
+
 @include mat.core();
+@include mat.all-component-themes($my-theme);
+@include mat.typography-hierarchy($my-theme);
 
 @tailwind base;
 @tailwind components;
@@ -20,32 +36,7 @@
   color: var(--color-text-primary);
 }
 
-
-.mat-mdc-form-field {
-  --mdc-outlined-text-field-container-color: transparent;
-  --mdc-outlined-text-field-outline-color: transparent;
-  --mdc-outlined-text-field-focus-outline-color: transparent;
-  --mdc-outlined-text-field-hover-outline-color: transparent;
-}
-
-.mat-mdc-text-field-wrapper {
-  background: transparent !important;
-  padding: 0 !important;
-}
-
-.mdc-text-field {
-  padding: 0 !important;
-  background: transparent !important;
-}
-
-.mdc-text-field--outlined .mdc-notched-outline {
-  display: none;
-}
-
-
-// reset
-
-input{
+input {
   outline: none;
   border: none;
 }
