@@ -3,6 +3,7 @@ import { SidebarComponent, TableComponent, UsersTableData } from '@hrm-monorepo/
 import { UserService } from '../../services/shared/user/user.service';
 import { User } from '../../core/models/core.model';
 import { TableHeader } from '@hrm-monorepo/hrm-lib';
+import { AuthService } from '../../services/core/auth/auth.service';
 
 @Component({
   selector: 'app-users-page',
@@ -15,6 +16,7 @@ import { TableHeader } from '@hrm-monorepo/hrm-lib';
 })
 export class UsersPage implements OnInit {
   public userService = inject(UserService);
+  public authService = inject(AuthService);
   public columns = signal<TableHeader[]>([
     { title: '', sourceName: 'avatar', sortable: false, type: 'image' },
     { title: 'First Name', sourceName: 'firstName', sortable: true },
@@ -59,5 +61,9 @@ export class UsersPage implements OnInit {
         }
       }
     );
+  }
+
+  logoutUser() {
+    this.authService.logout()
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input, signal, effect } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, signal, effect, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,6 +28,7 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 })
 export class SidebarComponent {
   user = input<User | null>(null);
+  logout = output<void>();
 
   isAdmin = computed(()=> this.user()?.role === UserRole.Admin);
 

@@ -3,6 +3,7 @@
       <a
         [routerLink]="tab.link"
         routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
         #rla="routerLinkActive"
         [class.active]="rla.isActive"
         class="tab-item"

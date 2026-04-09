@@ -48,6 +48,11 @@
         <mat-icon>account_circle<</mat-icon>
         Profile</a>
       <a routerLink="/settings" mat-menu-item><mat-icon>settings</mat-icon> Settings</a>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="logout.emit()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
     </mat-menu>
 
 

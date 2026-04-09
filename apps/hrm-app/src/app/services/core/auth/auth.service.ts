@@ -12,15 +12,16 @@ import {
 import { map, tap, take, switchMap } from 'rxjs/operators';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { UserService } from '../../shared/user/user.service';
-import { Profile, User } from '../../../core/models/core.model';
 import { jwtDecode } from 'jwt-decode';
 import { USER } from '../../shared/user/user.graphql';
 import { UserResult } from '../../shared/user/user.model';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private apollo = inject(Apollo);
   private userService = inject(UserService);
+  private router = inject(Router);
 
   private sessionSignal = signal<LoginResult['login'] | null>(null);
 
@@ -96,6 +97,8 @@ export class AuthService {
     this.sessionSignal.set(null);
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
+
+    this.router.navigate(['/auth/login']);
   }
 
   private setSession(data: any) {
@@ -130,7 +133,7 @@ export class AuthService {
   }
 
   private fetchCurrentUser(): Observable<UserResult['user']> {
-    const token = localStorage.getItem('access_token') || "";
+    const token = localStorage.getItem('access_token') || '';
     const decoded: any = jwtDecode(token);
     const userId = decoded.sub;
 

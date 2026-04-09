@@ -1,4 +1,6 @@
 <div class="page-content">
   <lib-sidebar [user]="userService.user()" (logout)="logoutUser()"></lib-sidebar>
-  <lib-table [columns]="columns()" [items]="employeesTable()" [loading]="isLoading()"></lib-table>
+  <lib-tabs [tabs]="tabs">
+    <router-outlet></router-outlet>
+  </lib-tabs>
 </div>
