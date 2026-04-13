@@ -29,9 +29,10 @@ export class CustomBreadcrumbsService {
 
   private updateLabel(users: any[]): void {
     const id = this.getRecursiveParam(this.router.routerState.root.snapshot, 'id');
-
+    console.log(id)
     if (id && users.length > 0) {
       const activeUser = users.find(u => u.id === id);
+      console.log('activeUser', activeUser);
       if (activeUser) {
         const label = activeUser.profile?.full_name || activeUser.email;
         this.breadcrumbService.set('@userEmail', label);

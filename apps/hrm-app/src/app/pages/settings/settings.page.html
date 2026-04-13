@@ -1,11 +1,5 @@
-<div class="page-content">
-  <lib-sidebar [user]="userService.user()" (logout)="authService.logout()"></lib-sidebar>
-  <div class="w-full px-6">
-    <lib-breadcrumbs></lib-breadcrumbs>
-    {{ 'test' | translate }}
-    <div class="max-w-5xl mx-auto">
-      <lib-select [formControl]="languageControl" [label]="'language'" [options]="languageOptions"></lib-select>
-      <lib-select [formControl]="appearanceControl" [label]="'appearance'" [options]="appearanceOptions"></lib-select>
-    </div>
-  </div>
+{{ 'test' | translate }}
+<div class="max-w-5xl mx-auto">
+  <lib-select [formControl]="languageControl" [label]="'language'" [options]="languageOptions"></lib-select>
+  <lib-select [formControl]="appearanceControl" [label]="'appearance'" [options]="appearanceOptions"></lib-select>
 </div>

@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { BreadcrumbComponent, BreadcrumbItemDirective } from 'xng-breadcrumb';
 import { MatIcon } from '@angular/material/icon';
-import { CustomBreadcrumbsService } from 'apps/hrm-app/src/app/services/shared/custom-breadcrumbs/custom-breadcrumbs.service'
+import {
+  CustomBreadcrumbsService
+} from 'apps/hrm-app/src/app/services/shared/custom-breadcrumbs/custom-breadcrumbs.service';
 
 @Component({
   selector: 'lib-breadcrumbs',

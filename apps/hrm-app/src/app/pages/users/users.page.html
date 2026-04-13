@@ -1,7 +1,2 @@
-<div class="page-content">
-  <lib-sidebar [user]="userService.user()" (logout)="authService.logout()"></lib-sidebar>
-  <div class="w-full px-6">
-    <lib-breadcrumbs></lib-breadcrumbs>
-    <lib-table [columns]="columns()" [items]="employeesTable()" [loading]="isLoading()" [firstItem]="selfUserTableData()"></lib-table>
-  </div>
-</div>
+<lib-table [columns]="columns()" [items]="employeesTable()" [loading]="isLoading()"
+           [firstItem]="selfUserTableData()"></lib-table>
