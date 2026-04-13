@@ -50,10 +50,10 @@ input {
 .xng-breadcrumb-root{
   @apply py-3
 }
-.xng-breadcrumb-item .xng-breadcrumb-link{
+.xng-breadcrumb-item .xng-breadcrumb-link, .xng-breadcrumb-trail{
   @apply text-textSecondary
 }
-.xng-breadcrumb-item .xng-breadcrumb-trail{
+.xng-breadcrumb-item .user-breadcrumb{
   @apply text-primary
 }
 

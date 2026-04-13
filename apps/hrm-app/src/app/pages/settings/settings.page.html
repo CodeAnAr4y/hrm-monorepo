@@ -2,11 +2,10 @@
   <lib-sidebar [user]="userService.user()" (logout)="authService.logout()"></lib-sidebar>
   <div class="w-full px-6">
     <lib-breadcrumbs></lib-breadcrumbs>
-    <lib-tabs [tabs]="tabs()" [align]="'left'">
-      <router-outlet></router-outlet>
-    </lib-tabs>
+    {{'test' | translate}}
+    <br>
+    <button (click)="changeLanguage('ru')">ru</button>
+    <br>
+    <button (click)="changeLanguage('en')">en</button>
   </div>
 </div>
-
-
-

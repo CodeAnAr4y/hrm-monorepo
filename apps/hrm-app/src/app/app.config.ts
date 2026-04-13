@@ -1,11 +1,14 @@
-import { ApplicationConfig, inject, Injector } from '@angular/core';
+import { ApplicationConfig, inject, Injector, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideApollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
-import { InMemoryCache, ApolloLink, Observable } from '@apollo/client/core';
+import { ApolloLink, InMemoryCache, Observable } from '@apollo/client/core';
 import { appRoutes } from './app.routes';
 import { AuthService } from './services/core/auth/auth.service';
+import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+
 
 export const authLink = new ApolloLink((operation, forward) => {
   const context = operation.getContext();
@@ -76,7 +79,16 @@ export const createErrorLink = (injector: Injector) => {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    // provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(),
+    provideTranslateService({
+      loader: provideTranslateHttpLoader({
+        prefix: '/assets/i18n/',
+        suffix: '.json'
+      }),
+      fallbackLang: 'en',
+      lang: 'en'
+    }),
     provideApollo(() => {
       const httpLink = inject(HttpLink).create({ uri: 'http://localhost:3001/api/graphql' });
       const injector = inject(Injector);

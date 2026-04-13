@@ -35,7 +35,7 @@ export const appRoutes: Route[] = [
       {
         path: ':id',
         loadComponent: () => import('./pages/user/user.page').then(m => m.UserPage),
-        data: { breadcrumb: { alias: 'userEmail' } }, // Динамическое имя подставится сюда
+        data: { breadcrumb: { alias: 'userEmail' } },
         children: [
           {
             path: '',
@@ -57,9 +57,9 @@ export const appRoutes: Route[] = [
     ]
   },
 
-  // {
-  //   path: 'cvs',
-  //   loadComponent: () => import('./pages/cvs/cvs.page').then(m => m.CvsPage),
-  //   data: { breadcrumb: 'CVs' }
-  // }
+  {
+    path: 'settings',
+    loadComponent: () => import('./pages/settings/settings.page').then(m => m.SettingsPage),
+    data: { breadcrumb: 'Settings' }
+  }
 ];
