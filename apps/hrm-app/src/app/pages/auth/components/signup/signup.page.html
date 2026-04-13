@@ -1,26 +1,22 @@
 <div class="flex-1 px-4 md:p-0">
-
-  <div class="text-center mb-10 text-white">
-    <h1 class="text-4xl mb-3">Register now</h1>
-    <p>Welcome! Sign up to continue</p>
+  <div class="text-center mb-10 text-[var(--color-text-primary)]">
+    <h1 class="text-4xl mb-3 font-bold">Register now</h1>
+    <p class="text-textSecondary">Welcome! Sign up to continue</p>
   </div>
 
   <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-10">
-
     <div class="flex flex-col gap-4">
       <lib-input
         formControlName="email"
         placeholder="Email"
         type="email"
       />
-
       <lib-input
         formControlName="password"
         placeholder="Password"
         [type]="'password'"
       />
     </div>
-
     <div class="flex flex-col gap-4">
       <div class="flex justify-center text-sm">
         <lib-button
@@ -29,9 +25,8 @@
           CREATE ACCOUNT
         </lib-button>
       </div>
-
       <div class="text-center">
-        <a [routerLink]="['/auth', 'login']" class="text-textSecondary hover:text-white text-sm cursor-pointer">
+        <a [routerLink]="['/auth', 'login']" class="text-textSecondary hover:text-primary transition-colors text-sm cursor-pointer">
           I HAVE AN ACCOUNT
         </a>
       </div>

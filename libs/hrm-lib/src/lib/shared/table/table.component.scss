@@ -6,24 +6,27 @@
   }
 
   .mat-mdc-header-row {
-    @apply border-b border-border;
+    @apply border-b border-[var(--color-border)];
   }
 
   .mat-mdc-header-cell {
     @apply py-4 px-6 text-xs font-semibold uppercase border-none;
-    color: white !important;
 
     ::ng-deep .mat-sort-header-button {
-      color: white !important;
+      color: var(--color-text-primary) !important;
     }
 
     ::ng-deep .mat-sort-header-arrow {
-      color: rgb(195, 195, 195);
+      color: var(--color-text-secondary);
     }
   }
 
   .mat-mdc-row {
-    @apply border-b border-border transition-colors hover:bg-white/5;
+    @apply border-b border-[var(--color-border)] transition-colors;
+
+    &:hover {
+      @apply bg-black/5 dark:bg-white/5;
+    }
 
     &:last-child {
       @apply border-none;
@@ -31,7 +34,8 @@
   }
 
   .mat-mdc-cell {
-    @apply py-4 px-6 text-sm align-middle text-gray-300 border-none;
+    @apply py-4 px-6 text-sm align-middle border-none;
+    color: var(--color-text-secondary);
   }
 
   .mat-mdc-header-cell {
@@ -40,12 +44,13 @@
 }
 
 .search {
-  @apply border border-border rounded-full w-fit px-4 py-2 flex items-center;
+  @apply border border-[var(--color-border)] rounded-full w-fit px-4 py-2 flex items-center;
 
   input {
-    @apply bg-transparent border-none outline-none text-white text-sm ml-2 w-64;
+    @apply bg-transparent border-none outline-none text-sm ml-2 w-64;
+    color: var(--color-text-primary);
     &::placeholder {
-      @apply text-gray-500;
+      @apply text-textSecondary;
     }
   }
 }
@@ -55,7 +60,7 @@
 }
 
 .table-tools {
-  @apply p-4 border-b border-border sticky top-0 z-20 bg-transparent;
+  @apply p-4 border-b border-[var(--color-border)] sticky top-0 z-20 bg-transparent;
 }
 
 .table-wrapper {
@@ -66,8 +71,6 @@
   @apply py-10 flex justify-center items-center w-full;
 }
 
-
-// Input override for Material search
 ::ng-deep .mat-mdc-form-field {
   @apply w-full;
   .mat-mdc-text-field-wrapper {

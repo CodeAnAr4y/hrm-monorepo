@@ -1,7 +1,7 @@
 <div class="lib-input">
   <input
     matInput
-    class="flex-1 bg-transparent outline-none text-white placeholder-gray-400"
+    class="flex-1 bg-transparent outline-none text-[var(--color-text-primary)] placeholder-textSecondary"
     [type]="inputType()"
     [placeholder]="placeholder()"
     [value]="value()"
@@ -14,11 +14,9 @@
     <button
       type="button"
       (click)="toggleVisibility()"
-      class="text-gray-400 hover:text-white flex items-center"
+      class="text-textSecondary hover:text-[var(--color-primary)] flex items-center transition-colors"
     >
-      <mat-icon>
-        {{ hide() ? 'visibility' : 'visibility_off' }}
-      </mat-icon>
+      <mat-icon>{{ hide() ? 'visibility' : 'visibility_off' }}</mat-icon>
     </button>
   }
 </div>

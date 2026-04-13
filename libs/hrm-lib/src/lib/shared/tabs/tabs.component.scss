@@ -1,9 +1,16 @@
 .tab-item {
-  @apply relative py-2 text-sm font-medium cursor-pointer transition w-[100%] text-center;
-  color: var(--color-text-primary);
-}
+  @apply relative py-4 text-sm font-medium cursor-pointer transition-all w-full text-center no-underline;
+  color: var(--color-text-secondary);
+  border-bottom: 2px solid transparent;
 
-.tab-item.active {
-  border-bottom: 2px solid var(--color-primary);
-  color: var(--color-primary);
+  &:hover {
+    color: var(--color-text-primary);
+    @apply bg-black/5 dark:bg-white/5;
+  }
+
+  &.active {
+    border-bottom-color: var(--color-primary);
+    color: var(--color-primary);
+    font-weight: 600;
+  }
 }

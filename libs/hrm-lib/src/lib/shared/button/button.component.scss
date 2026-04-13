@@ -1,9 +1,9 @@
 .lib-button {
-  @apply px-8 py-3 rounded-full font-medium transition;
+  @apply px-8 py-3 rounded-full font-medium transition active:opacity-80;
 
   &.contained {
     background-color: var(--color-primary);
-    color: white;
+    color: white; // Buttons usually keep white text for contrast
   }
 
   &.outlined {
@@ -15,10 +15,10 @@
   &.text {
     color: var(--color-primary);
     background: transparent;
+    @apply hover:bg-black/5 dark:hover:bg-white/5;
   }
 
   &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+    @apply opacity-40 cursor-not-allowed;
   }
 }
