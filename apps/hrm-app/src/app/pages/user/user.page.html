@@ -1,6 +1,12 @@
 <div class="page-content">
-  <lib-sidebar [user]="userService.user()" (logout)="logoutUser()"></lib-sidebar>
-  <lib-tabs [tabs]="tabs">
-    <router-outlet></router-outlet>
-  </lib-tabs>
+  <lib-sidebar [user]="userService.user()" (logout)="authService.logout()"></lib-sidebar>
+  <div>
+    <lib-breadcrumbs></lib-breadcrumbs>
+    <lib-tabs [tabs]="tabs()" [align]="'left'">
+      <router-outlet></router-outlet>
+    </lib-tabs>
+  </div>
 </div>
+
+
+

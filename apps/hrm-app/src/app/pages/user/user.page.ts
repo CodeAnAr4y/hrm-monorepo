@@ -1,15 +1,19 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { SidebarComponent, TabsComponent } from '@hrm-monorepo/hrm-lib';
-import { AuthService } from '../../services/core/auth/auth.service';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { BreadcrumbsComponent, SidebarComponent, TabsComponent } from '@hrm-monorepo/hrm-lib';
 import { UserService } from '../../services/shared/user/user.service';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, ActivatedRoute } from '@angular/router'; // Добавили ActivatedRoute
+import { AuthService } from '../../services/core/auth/auth.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs/operators'; // Для превращения параметров в сигнал
 
 @Component({
   selector: 'app-user',
+  standalone: true,
   imports: [
-    SidebarComponent,
     TabsComponent,
-    RouterOutlet
+    RouterOutlet,
+    SidebarComponent,
+    BreadcrumbsComponent
   ],
   templateUrl: './user.page.html',
   styleUrl: './user.page.scss',
@@ -18,16 +22,20 @@ import { RouterOutlet } from '@angular/router';
 export class UserPage {
   public userService = inject(UserService);
   public authService = inject(AuthService);
-  public userId = computed(()=>this.userService.user().id)
+  private route = inject(ActivatedRoute);
 
+  public activeUserId = toSignal(
+    this.route.paramMap.pipe(map(params => params.get('id')))
+  );
 
-  public tabs : { title: string; link: string }[] = [
-    { title: 'Profile', link: `/users/${this.userId()}` },
-    { title: 'Skills', link: `/users/${this.userId()}/skills` },
-    { title: 'Languages', link: `/users/${this.userId()}/languages` }
-  ]
+  public tabs = computed(() => {
+    const id = this.activeUserId();
+    if (!id) return [];
 
-  logoutUser() {
-    this.authService.logout()
-  }
+    return [
+      { title: 'Profile', link: `/users/${id}` },
+      { title: 'Skills', link: `/users/${id}/skills` },
+      { title: 'Languages', link: `/users/${id}/languages` }
+    ];
+  });
 }

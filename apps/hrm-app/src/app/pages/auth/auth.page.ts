@@ -7,7 +7,6 @@ import { RouterOutlet } from '@angular/router';
   imports: [TabsComponent, RouterOutlet],
   templateUrl: './auth.page.html',
   standalone: true,
-  host: {}
 })
 export class AuthPage {
   libTabsData: { title: string, link: string }[] = [{ title: 'log in', link: 'login' }, {

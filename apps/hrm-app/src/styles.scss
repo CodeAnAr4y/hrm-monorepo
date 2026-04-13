@@ -36,7 +36,27 @@ $my-theme: mat.m2-define-dark-theme((
   color: var(--color-text-primary);
 }
 
+.page-content {
+  @apply flex gap-3;
+}
+
+
 input {
   outline: none;
   border: none;
+}
+
+// Breadcrumbs
+.xng-breadcrumb-root{
+  @apply py-3
+}
+.xng-breadcrumb-item .xng-breadcrumb-link{
+  @apply text-textSecondary
+}
+.xng-breadcrumb-item .xng-breadcrumb-trail{
+  @apply text-primary
+}
+
+.xng-breadcrumb-list .xng-breadcrumb-separator{
+  content: "";
 }

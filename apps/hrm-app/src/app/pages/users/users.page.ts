@@ -1,5 +1,5 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { SidebarComponent, TableComponent, UsersTableData } from '@hrm-monorepo/hrm-lib';
+import { BreadcrumbsComponent, SidebarComponent, TableComponent, UsersTableData } from '@hrm-monorepo/hrm-lib';
 import { UserService } from '../../services/shared/user/user.service';
 import { User } from '../../core/models/core.model';
 import { TableHeader } from '@hrm-monorepo/hrm-lib';
@@ -8,11 +8,12 @@ import { AuthService } from '../../services/core/auth/auth.service';
 @Component({
   selector: 'app-users-page',
   imports: [
+    TableComponent,
     SidebarComponent,
-    TableComponent
+    BreadcrumbsComponent
   ],
   templateUrl: './users.page.html',
-  styleUrl: './users.page.css'
+  styleUrl: './users.page.scss'
 })
 export class UsersPage implements OnInit {
   public userService = inject(UserService);
@@ -26,6 +27,20 @@ export class UsersPage implements OnInit {
     { title: 'Position', sourceName: 'position', sortable: true },
     { title: '', sourceName: 'actions', sortable: false, type: 'action' }
   ]);
+  public selfUserTableData = computed((): UsersTableData | undefined => {
+    const user = this.userService.user();
+    if (!user || !user.id) return undefined;
+
+    return {
+      id: user.id,
+      avatar: user.profile?.avatar ?? '',
+      firstName: user.profile?.first_name ?? '—',
+      lastName: user.profile?.last_name ?? '—',
+      email: user.email,
+      department: user.department?.name || '—',
+      position: user.position?.name || '—'
+    };
+  });
 
   public employees = signal<User[]>([]);
   public employeesTable = computed((): UsersTableData[] => {
@@ -37,7 +52,7 @@ export class UsersPage implements OnInit {
         lastName: user.profile.last_name ?? '—',
         email: user.email,
         department: user.department?.name || '—',
-        position: user.position?.name || '—',
+        position: user.position?.name || '—'
       };
     });
   });
@@ -49,21 +64,13 @@ export class UsersPage implements OnInit {
 
   private getUsers(): void {
     this.userService.getUsers().subscribe({
-        next: users => {
-          this.employees.set(users);
-          console.log('success', this.employees());
-        },
-        error: error => {
-          console.error(error);
-        },
-        complete: () => {
-          this.isLoading.set(false);
-        }
-      }
-    );
-  }
-
-  logoutUser() {
-    this.authService.logout()
+      next: users => {
+        const currentUserId = this.userService.user().id;
+        const otherEmployees = users.filter(u => u.id !== currentUserId);
+        this.employees.set(otherEmployees);
+      },
+      error: (err) => console.error(err),
+      complete: () => this.isLoading.set(false)
+    });
   }
 }

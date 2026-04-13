@@ -7,6 +7,9 @@
   </div>
   <div class="table-wrapper">
     <table mat-table [dataSource]="dataSource" matSort class="custom-table">
+      @if (firstItem()) {
+
+      }
       @for (col of columns(); track col.sourceName) {
         <ng-container [matColumnDef]="col.sourceName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="!col.sortable">
@@ -27,9 +30,25 @@
                 </div>
               }
               @case ('action') {
-                <a [routerLink]="row.link || row.id" class="action-link">
-                  <mat-icon>keyboard_arrow_right</mat-icon>
-                </a>
+                @if (row.id === firstItem()?.id) {
+                  <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+
+                  <mat-menu #menu="matMenu">
+                    <a [routerLink]="[row.id]" mat-menu-item>
+                      Profile
+                    </a>
+                    <button mat-menu-item>
+                      <!-- TODO: dialog -->
+                      Update user
+                    </button>
+                  </mat-menu>
+                } @else {
+                  <a [routerLink]="[row.id]" class="action-link">
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                  </a>
+                }
               }
               @default {
                 {{ row[col.sourceName] }}
@@ -45,5 +64,4 @@
 
   </div>
 
-  <!--  <mat-paginator [pageSizeOptions]="[10, 25, 50]" class="custom-paginator"></mat-paginator>-->
 </div>

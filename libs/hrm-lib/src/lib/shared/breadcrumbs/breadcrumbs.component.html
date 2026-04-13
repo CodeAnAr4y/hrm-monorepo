@@ -1,0 +1,16 @@
+<xng-breadcrumb [separator]="iconSep">
+  <ng-template #iconSep>
+    <mat-icon class=text-textSecondary>chevron_right</mat-icon>
+  </ng-template>
+
+  <ng-container *xngBreadcrumbItem="let label; let alias = alias">
+    @if (alias === 'userEmail') {
+      <div class="user-breadcrumb">
+        <mat-icon>person</mat-icon>
+        <span>{{ label }}</span>
+      </div>
+    } @else {
+      {{ label }}
+    }
+  </ng-container>
+</xng-breadcrumb>

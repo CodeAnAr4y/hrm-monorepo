@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { UpperCasePipe } from '@angular/common';
+import { NgClass, UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'lib-tabs',
   standalone: true,
-  imports: [RouterModule, UpperCasePipe],
+  imports: [RouterModule, UpperCasePipe, NgClass],
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -13,5 +13,6 @@ import { UpperCasePipe } from '@angular/common';
 })
 export class TabsComponent {
   tabs = input<{ title: string; link: string }[]>([]);
+  align = input<"left" | "center">("center");
 }
 

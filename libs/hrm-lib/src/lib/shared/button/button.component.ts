@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { NgClass } from '@angular/common';
-import { ButtonVariant } from './models/button-variant.model';
+import { ButtonVariant } from './models/button-variant.constants';
 
 
 @Component({

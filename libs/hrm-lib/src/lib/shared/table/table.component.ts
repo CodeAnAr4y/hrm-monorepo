@@ -1,14 +1,15 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, effect, input, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TableHeader, TableItem } from './table.model';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatIconButton } from '@angular/material/button';
 
 @Component({
   selector: 'lib-table',
@@ -21,7 +22,11 @@ import { RouterLink } from '@angular/router';
     MatInputModule,
     MatFormFieldModule,
     MatIcon,
-    RouterLink
+    RouterLink,
+    MatMenu,
+    MatMenuTrigger,
+    MatIconButton,
+    MatMenuItem
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
@@ -31,6 +36,7 @@ export class TableComponent<T extends TableItem> implements AfterViewInit {
   items = input.required<T[]>();
   columns = input.required<TableHeader[]>();
   loading = input<boolean>(false);
+  firstItem = input<T>();
 
   dataSource = new MatTableDataSource<T>([]);
   sort = viewChild(MatSort);
@@ -41,7 +47,9 @@ export class TableComponent<T extends TableItem> implements AfterViewInit {
 
   constructor() {
     effect(() => {
-      this.dataSource.data = this.items();
+      const mainItems = this.items() || [];
+      const first = this.firstItem();
+      this.dataSource.data = first ? [first, ...mainItems] : mainItems;
     });
   }
 

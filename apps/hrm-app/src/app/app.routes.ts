@@ -1,42 +1,65 @@
 import { Route } from '@angular/router';
-import { AuthPage } from './pages/auth/auth.page';
-import { UsersPage } from './pages/users/users.page';
-import { LoginPage } from './pages/auth/components/login/login.page';
-import { SignupPage } from './pages/auth/components/signup/signup.page';
-import { RestorePasswordPage } from './pages/auth/components/restore-password/restore-password.page';
 import { authGuard } from './core/guards/auth/auth-guard';
-import { UserPage } from './pages/user/user.page';
-import { ProfileComponent } from './pages/user/components/profile/profile.component';
-import { SkillsComponent } from './pages/user/components/skills/skills.component';
-import { LanguagesComponent } from './pages/user/components/languages/languages.component';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/users', pathMatch: 'full' },
 
   {
     path: 'auth',
-    component: AuthPage,
+    loadComponent: () => import('./pages/auth/auth.page').then(m => m.AuthPage),
+    data: { breadcrumb: { skip: true } },
     children: [
-      { path: 'login', component: LoginPage /* canActivate: [guestGuard] */ },
-      { path: 'signup', component: SignupPage /* canActivate: [guestGuard] */ },
+      {
+        path: 'login',
+        loadComponent: () => import('./pages/auth/components/login/login.page').then(m => m.LoginPage),
+        data: { breadcrumb: { skip: true } }
+      },
+      {
+        path: 'signup',
+        loadComponent: () => import('./pages/auth/components/signup/signup.page').then(m => m.SignupPage),
+        data: { breadcrumb: { skip: true } }
+      },
       { path: '', redirectTo: 'login', pathMatch: 'full' }
     ]
   },
 
-  { path: 'restore-password', component: RestorePasswordPage },
-  {
-    path: 'users/:id',
-    canActivate: [authGuard],
-    component: UserPage,
-    children: [
-      { path: '', component: ProfileComponent, canActivate: [authGuard] },
-      { path: 'skills', component: SkillsComponent, canActivate: [authGuard] },
-      { path: 'languages', component: LanguagesComponent, canActivate: [authGuard] }
-    ]
-  },
   {
     path: 'users',
-    canActivate: [authGuard],
-    component: UsersPage
-  }
+    canMatch: [authGuard],
+    data: { breadcrumb: 'Employees' },
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./pages/users/users.page').then(m => m.UsersPage)
+      },
+      {
+        path: ':id',
+        loadComponent: () => import('./pages/user/user.page').then(m => m.UserPage),
+        data: { breadcrumb: { alias: 'userEmail' } }, // Динамическое имя подставится сюда
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./pages/user/components/profile/profile.component').then(m => m.ProfileComponent),
+            data: { breadcrumb: 'Profile' }
+          },
+          {
+            path: 'skills',
+            loadComponent: () => import('./pages/user/components/skills/skills.component').then(m => m.SkillsComponent),
+            data: { breadcrumb: 'Skills' }
+          },
+          {
+            path: 'languages',
+            loadComponent: () => import('./pages/user/components/languages/languages.component').then(m => m.LanguagesComponent),
+            data: { breadcrumb: 'Languages' }
+          }
+        ]
+      }
+    ]
+  },
+
+  // {
+  //   path: 'cvs',
+  //   loadComponent: () => import('./pages/cvs/cvs.page').then(m => m.CvsPage),
+  //   data: { breadcrumb: 'CVs' }
+  // }
 ];
