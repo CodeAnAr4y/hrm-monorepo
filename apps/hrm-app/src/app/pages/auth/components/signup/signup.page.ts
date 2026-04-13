@@ -34,7 +34,6 @@ export class SignupPage {
 
     this.auth.signup({ email, password }).subscribe({
       next: (data) => {
-        console.log('Signup successful', data);
         this.router.navigate(['/users']);
       },
       error: (err) => {

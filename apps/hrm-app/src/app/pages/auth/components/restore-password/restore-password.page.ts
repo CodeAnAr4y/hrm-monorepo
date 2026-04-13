@@ -33,7 +33,6 @@ export class RestorePasswordPage {
 
     this.auth.forgotPassword({ email }).subscribe({
       next: () => {
-        console.log('Reset password email sent');
         this.router.navigate(['/auth/login']);
       },
       error: (err) => {

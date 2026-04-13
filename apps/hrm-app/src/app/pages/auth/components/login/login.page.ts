@@ -38,7 +38,6 @@ export class LoginPage {
 
     this.auth.login({ email, password }).subscribe({
       next: (data) => {
-        console.log('Login successful', data);
         this.router.navigate(['/users']);
       },
       error: (err) => {

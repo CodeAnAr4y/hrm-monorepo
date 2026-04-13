@@ -47,7 +47,7 @@ export class MainPage implements OnInit {
     const userId = this.findId(this.router.routerState.snapshot.root);
 
     if (userId && users.length > 0) {
-      const user = users.find(u => String(u.id) === String(userId));
+      const user = users.find(u => u.id === userId);
       if (user) {
         const name = user.profile?.full_name || user.email;
 
