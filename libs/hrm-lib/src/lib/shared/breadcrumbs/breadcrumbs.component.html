@@ -3,10 +3,11 @@
     <mat-icon class="text-textSecondary">chevron_right</mat-icon>
   </ng-template>
 
-  <ng-container *xngBreadcrumbItem="let label; let alias = alias">
-    @if (alias === 'userEmail') {
-      <div class="user-breadcrumb">
-        <mat-icon>person</mat-icon>
+  <ng-container *xngBreadcrumbItem="let label; let bc = breadcrumb">
+    <pre style="font-size: 10px">Alias: {{ bc | json }}</pre>
+    @if (bc?.alias === userAlias()) {
+      <div class="user-breadcrumb flex items-center gap-1 text-blue-600 font-medium">
+        <mat-icon class="text-[18px]">person</mat-icon>
         <span>{{ label }}</span>
       </div>
     } @else {

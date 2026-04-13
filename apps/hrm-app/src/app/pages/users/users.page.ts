@@ -1,23 +1,18 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { BreadcrumbsComponent, SidebarComponent, TableComponent, UsersTableData } from '@hrm-monorepo/hrm-lib';
+import { Component, computed, inject, signal } from '@angular/core';
+import { TableComponent, TableHeader, UsersTableData } from '@hrm-monorepo/hrm-lib';
 import { UserService } from '../../services/shared/user/user.service';
 import { User } from '../../core/models/core.model';
-import { TableHeader } from '@hrm-monorepo/hrm-lib';
-import { AuthService } from '../../services/core/auth/auth.service';
 
 @Component({
   selector: 'app-users-page',
   imports: [
-    TableComponent,
-    SidebarComponent,
-    BreadcrumbsComponent
+    TableComponent
   ],
   templateUrl: './users.page.html',
   styleUrl: './users.page.scss'
 })
-export class UsersPage implements OnInit {
+export class UsersPage {
   public userService = inject(UserService);
-  public authService = inject(AuthService);
   public columns = signal<TableHeader[]>([
     { title: '', sourceName: 'avatar', sortable: false, type: 'image' },
     { title: 'First Name', sourceName: 'firstName', sortable: true },
@@ -42,7 +37,11 @@ export class UsersPage implements OnInit {
     };
   });
 
-  public employees = signal<User[]>([]);
+  public employees = computed((): User[] => {
+    const currentUserId = this.userService.user().id;
+    return this.userService.users().filter(u => u.id !== currentUserId);
+  });
+
   public employeesTable = computed((): UsersTableData[] => {
     return this.employees().map((user) => {
       return {
@@ -58,19 +57,4 @@ export class UsersPage implements OnInit {
   });
   public isLoading = signal<boolean>(true);
 
-  ngOnInit() {
-    this.getUsers();
-  }
-
-  private getUsers(): void {
-    this.userService.getUsers().subscribe({
-      next: users => {
-        const currentUserId = this.userService.user().id;
-        const otherEmployees = users.filter(u => u.id !== currentUserId);
-        this.employees.set(otherEmployees);
-      },
-      error: (err) => console.error(err),
-      complete: () => this.isLoading.set(false)
-    });
-  }
 }

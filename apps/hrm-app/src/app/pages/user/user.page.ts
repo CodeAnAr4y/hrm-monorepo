@@ -11,17 +11,13 @@ import { map } from 'rxjs/operators'; // Для превращения пара�
   standalone: true,
   imports: [
     TabsComponent,
-    RouterOutlet,
-    SidebarComponent,
-    BreadcrumbsComponent
+    RouterOutlet
   ],
   templateUrl: './user.page.html',
   styleUrl: './user.page.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserPage {
-  public userService = inject(UserService);
-  public authService = inject(AuthService);
   private route = inject(ActivatedRoute);
 
   public activeUserId = toSignal(

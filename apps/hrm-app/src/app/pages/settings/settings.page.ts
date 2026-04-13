@@ -10,8 +10,6 @@ import { ThemeService } from '../../services/core/theme/theme.service';
 @Component({
   selector: 'app-settings',
   imports: [
-    BreadcrumbsComponent,
-    SidebarComponent,
     TranslatePipe,
     SelectComponent,
     ReactiveFormsModule
@@ -22,8 +20,6 @@ import { ThemeService } from '../../services/core/theme/theme.service';
 })
 export class SettingsPage implements OnInit {
   private translate = inject(TranslateService);
-  public userService = inject(UserService);
-  public authService = inject(AuthService);
   private themeService = inject(ThemeService);
 
   appearanceControl = new FormControl<string>(this.themeService.theme(), { nonNullable: true });

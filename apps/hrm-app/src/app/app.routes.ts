@@ -20,6 +20,7 @@ export const appRoutes: Route[] = [
     path: '',
     canActivate: [authGuard],
     loadComponent: () => import('./pages/main/main.page').then(m => m.MainPage),
+    data: { breadcrumb: { skip: true } },
     children: [
       { path: '', redirectTo: 'users', pathMatch: 'full' },
       {
@@ -33,7 +34,7 @@ export const appRoutes: Route[] = [
           {
             path: ':id',
             loadComponent: () => import('./pages/user/user.page').then(m => m.UserPage),
-            data: { breadcrumb: { alias: 'userEmail' } },
+            data: { breadcrumb: { label: '', alias: 'userEmail' } },
             children: [
               {
                 path: '',
@@ -44,6 +45,11 @@ export const appRoutes: Route[] = [
                 path: 'skills',
                 loadComponent: () => import('./pages/user/components/skills/skills.component').then(m => m.SkillsComponent),
                 data: { breadcrumb: 'Skills' }
+              },
+              {
+                path: 'languages',
+                loadComponent: () => import('./pages/user/components/languages/languages.component').then(m => m.LanguagesComponent),
+                data: { breadcrumb: 'Languages' }
               }
             ]
           }
