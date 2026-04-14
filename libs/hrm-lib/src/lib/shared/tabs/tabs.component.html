@@ -16,6 +16,8 @@
 </nav>
 
 
-<div class="flex-1 flex items-center">
+<div class="flex-1 flex items-center"
+[ngClass]="contentAlign() === 'center' ? 'justify-center': ''"
+>
     <ng-content />
   </div>

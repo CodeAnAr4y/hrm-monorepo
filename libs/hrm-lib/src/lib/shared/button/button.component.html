@@ -4,7 +4,8 @@
   [ngClass]="{
     'contained': variant() === ButtonVariant.CONTAINED,
     'outlined': variant() === ButtonVariant.OUTLINED,
-    'text': variant() === ButtonVariant.TEXT
+    'text': variant() === ButtonVariant.TEXT,
+    'size-full-container': width() === ButtonSize.FULL
   }"
 >
   <ng-content />

@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { NgClass } from '@angular/common';
-import { ButtonVariant } from './models/button-variant.constants';
+import { ButtonSize, ButtonVariant } from './models/button-variant.constants';
 
 
 @Component({
@@ -19,5 +19,7 @@ import { ButtonVariant } from './models/button-variant.constants';
 export class ButtonComponent {
   public variant = input<ButtonVariant>(ButtonVariant.CONTAINED);
   public disabled = input<boolean>(false);
+  public width = input<ButtonSize>(ButtonSize.CONTENT);
   protected readonly ButtonVariant = ButtonVariant;
+  protected readonly ButtonSize = ButtonSize;
 }

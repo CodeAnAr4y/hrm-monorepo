@@ -1,0 +1,62 @@
+:host {
+  width: 100%;
+}
+.profile-container {
+  @apply flex flex-col items-center gap-6 justify-center max-w-7xl;
+}
+
+.profile-header {
+  @apply flex flex-col md:flex-row items-center gap-6 w-full justify-center;
+}
+
+.avatar-circle {
+  @apply relative flex-shrink-0 overflow-hidden rounded-full bg-neutral-500
+  flex items-center justify-center text-white font-bold select-none border-2 border-transparent;
+}
+
+.avatar-img {
+  @apply w-full h-full object-cover;
+}
+
+.upload-controls {
+  @apply flex flex-col items-center md:items-start gap-1;
+}
+
+.upload-label {
+  @apply flex items-center gap-2 cursor-pointer transition-colors;
+  color: var(--color-text-primary);
+
+  &:hover {
+    @apply text-primary;
+  }
+}
+
+.upload-icon {
+  @apply text-[24px];
+}
+
+.upload-text {
+  @apply text-lg font-medium;
+}
+
+.upload-hint {
+  @apply text-sm text-neutral-400;
+}
+
+.user-info {
+  @apply flex flex-col items-center text-center gap-1;
+}
+
+.user-name {
+  @apply text-2xl font-normal m-0;
+  color: var(--color-text-primary);
+}
+
+.user-email {
+  @apply text-neutral-400 font-light m-0;
+}
+
+.user-metadata {
+  @apply text-sm opacity-80 m-0;
+  color: var(--color-text-primary);
+}

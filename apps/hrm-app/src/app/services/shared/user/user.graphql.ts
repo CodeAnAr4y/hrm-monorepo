@@ -113,3 +113,25 @@ export const DELETE_USER = gql`
   }
 `;
 
+export const UPLOAD_AVATAR = gql`
+  mutation UploadAvatar($avatar: UploadAvatarInput!) {
+    uploadAvatar(avatar: $avatar)
+  }
+`
+export const DELETE_AVATAR = gql`
+  mutation DeleteAvatar($avatar: DeleteAvatarInput!) {
+    deleteAvatar(avatar: $avatar)
+  }
+`
+
+export const UPDATE_PROFILE = gql`
+  mutation UpdateProfile($profile: UpdateProfileInput!) {
+    updateProfile(profile: $profile) {
+      id
+      first_name
+      last_name
+    }
+  }
+`
+
+

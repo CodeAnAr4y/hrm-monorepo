@@ -1,5 +1,5 @@
 <div class="page-content">
-  <lib-sidebar [user]="userService.user()" (logout)="authService.logout()"></lib-sidebar>
+  <lib-sidebar [user]="userService.authenticatedUser()" (logout)="authService.logout()"></lib-sidebar>
   <div class="w-full px-6">
     <lib-breadcrumbs></lib-breadcrumbs>
     <router-outlet></router-outlet>

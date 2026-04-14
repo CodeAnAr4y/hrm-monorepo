@@ -14,3 +14,6 @@ export * from './lib/shared/breadcrumbs/breadcrumbs.component';
 
 export * from './lib/shared/select/select.component';
 export * from './lib/shared/select/select.constants';
+
+export * from './lib/shared/avatar/avatar.component';
+

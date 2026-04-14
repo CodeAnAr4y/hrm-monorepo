@@ -1,5 +1,7 @@
-<lib-tabs [tabs]="tabs()" [align]="'left'">
-  <router-outlet></router-outlet>
+<lib-tabs [tabs]="tabs()" [align]="'left'" [contentAlign]="'center'">
+  <div class="mt-8 flex w-full">
+    <router-outlet></router-outlet>
+  </div>
 </lib-tabs>
 
 

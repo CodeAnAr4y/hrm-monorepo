@@ -23,7 +23,7 @@ export class UsersPage {
     { title: '', sourceName: 'actions', sortable: false, type: 'action' }
   ]);
   public selfUserTableData = computed((): UsersTableData | undefined => {
-    const user = this.userService.user();
+    const user = this.userService.authenticatedUser();
     if (!user || !user.id) return undefined;
 
     return {
@@ -38,7 +38,7 @@ export class UsersPage {
   });
 
   public employees = computed((): User[] => {
-    const currentUserId = this.userService.user().id;
+    const currentUserId = this.userService.authenticatedUser().id;
     return this.userService.users().filter(u => u.id !== currentUserId);
   });
 

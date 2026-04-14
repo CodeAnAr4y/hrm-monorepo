@@ -1,3 +1,9 @@
+:host {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
 .lib-button {
   @apply px-8 py-3 rounded-full font-medium transition active:opacity-80;
 
@@ -19,6 +25,11 @@
   }
 
   &:disabled {
-    @apply opacity-40 cursor-not-allowed;
+    @apply opacity-40 cursor-not-allowed bg-white/10;
+  }
+
+  &.size-full-container {
+    width: 100%;
+    display: block;
   }
 }
