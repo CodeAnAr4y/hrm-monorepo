@@ -1,15 +1,26 @@
 import { inject, Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { ADD_PROFILE_SKILL, DELETE_PROFILE_SKILL, PROFILE_SKILLS, SKILL_CATEGORIES, SKILLS } from './skill.graphql';
+import {
+  ADD_PROFILE_SKILL,
+  DELETE_PROFILE_SKILL,
+  PROFILE_SKILLS,
+  SKILL_CATEGORIES,
+  SKILLS,
+  UPDATE_PROFILE_SKILL
+} from './skill.graphql';
 import { map } from 'rxjs/operators';
 import { ProfileResult } from '../user/user.model';
 import {
   AddProfileSkillResult,
   DeleteProfileSkillResult,
   SkillCategoriesResult,
-  SkillsResult
+  SkillsResult, UpdateProfileSkillResult
 } from './skill.model';
-import { AddProfileSkillInput, DeleteProfileSkillInput } from '../../../core/models/core.model';
+import {
+  AddProfileSkillInput,
+  DeleteProfileSkillInput,
+  UpdateProfileSkillInput
+} from '../../../core/models/core.model';
 
 @Injectable({
   providedIn: 'root'
@@ -58,5 +69,13 @@ export class SkillService {
       variables: { skill },
       refetchQueries: [{ query: PROFILE_SKILLS, variables: { userId: skill.userId } }]
     }).pipe(map(res => res.data?.deleteProfileSkill));
+  }
+
+  public updateProfileSkill(skill: UpdateProfileSkillInput) {
+    return this.apollo.mutate<UpdateProfileSkillResult>({
+      mutation: UPDATE_PROFILE_SKILL,
+      variables: {skill},
+      refetchQueries: [{ query: PROFILE_SKILLS, variables: { userId: skill.userId } }]
+    }).pipe(map(res => res.data?.updateProfileSkill));
   }
 }

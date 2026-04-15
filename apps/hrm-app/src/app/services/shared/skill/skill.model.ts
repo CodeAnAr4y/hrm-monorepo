@@ -15,3 +15,7 @@ export type SkillsResult = {
 export type DeleteProfileSkillResult = {
   deleteProfileSkill: Profile
 }
+
+export type UpdateProfileSkillResult = {
+  updateProfileSkill: Profile
+}

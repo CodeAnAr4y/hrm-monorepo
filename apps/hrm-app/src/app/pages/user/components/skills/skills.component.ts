@@ -15,7 +15,10 @@ import {
 import { UserService } from '../../../../services/shared/user/user.service';
 import { SkillService } from '../../../../services/shared/skill/skill.service';
 import { AddSkillDialogComponent } from '../../../../shared/components/add-skill-dialog/add-skill-dialog.component';
-import { AddProfileSkillInput, DeleteProfileSkillInput } from '../../../../core/models/core.model';
+import { AddProfileSkillInput, DeleteProfileSkillInput, SkillMastery } from '../../../../core/models/core.model';
+import {
+  UpdateSkillDialogComponent
+} from '../../../../shared/components/update-skill-dialog/update-skill-dialog.component';
 
 @Component({
   selector: 'app-skills',
@@ -35,6 +38,7 @@ export class SkillsComponent {
 
   public selectedUser = this.userService.selectedUser;
   public authenticatedUser = this.userService.authenticatedUser;
+  public accountOwner = computed(() => this.selectedUser().id === this.authenticatedUser().id)
 
   protected readonly ButtonVariant = ButtonVariant;
   protected readonly ButtonSize = ButtonSize;
@@ -78,7 +82,7 @@ export class SkillsComponent {
     console.log(skillName, this.selectedSkillsToDelete);
   }
 
-  public openDialog() {
+  public openAddSkillDialog() {
     const dialogRef = this.dialog.open(AddSkillDialogComponent, {
       width: '40vw',
       panelClass: 'custom-dialog-container',
@@ -92,6 +96,26 @@ export class SkillsComponent {
           userId: this.selectedUser().id
         };
         this.saveSkill(skill);
+      }
+    });
+  }
+
+  public openUpdateSkillDialog(skill: SkillMastery) {
+    const dialogRef = this.dialog.open(UpdateSkillDialogComponent, {
+      width: '40vw',
+      panelClass: 'custom-dialog-container',
+      data: this.allAvailableSkills().filter(s => s.name === skill.name)[0]
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const skill: AddProfileSkillInput = {
+          ...result,
+          userId: this.selectedUser().id
+        };
+        this.skillService.updateProfileSkill(skill).subscribe(() => {
+          this.userService.selectedUser.update(user => ({ ...user }));
+        });
       }
     });
   }

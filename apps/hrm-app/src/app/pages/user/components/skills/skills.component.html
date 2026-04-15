@@ -1,7 +1,7 @@
 <div class="skills-wrapper">
   @if (!groupedSkills() || !groupedSkills().length) {
     <lib-button
-      (click)="openDialog()"
+      (click)="openAddSkillDialog()"
       [variant]="ButtonVariant.TEXT"
       [width]="ButtonSize.FULL"
       [textColor]="ButtonTextColor.SECONDARY">
@@ -17,11 +17,11 @@
         <div class="skills-grid">
           @for (skill of category.skills; track skill.name) {
             <lib-button
-              (click)="toggleSelectedSkill(skill.name)"
+              (click)="deleteMode ? toggleSelectedSkill(skill.name) : openUpdateSkillDialog(skill)"
               [variant]="selectedSkillsToDelete.includes(skill.name) ? ButtonVariant.OUTLINED : ButtonVariant.TEXT"
               [width]="ButtonSize.CONTENT"
               [textColor]="ButtonTextColor.SECONDARY"
-              [disabled]="!deleteMode"
+              [disabled]="!accountOwner()"
             >
               <div class="flex items-center">
                 <lib-skill-indicator [label]="skill.name" [mastery]="skill.mastery"></lib-skill-indicator>
@@ -31,12 +31,12 @@
         </div>
       </section>
     }
-    @if (authenticatedUser().id === selectedUser().id) {
+    @if (accountOwner()) {
       <div class="flex items-center justify-end gap-6">
         @if (!deleteMode) {
           <div class="flex gap-4">
             <lib-button
-              (click)="openDialog()"
+              (click)="openAddSkillDialog()"
               [variant]="ButtonVariant.TEXT"
               [width]="ButtonSize.CONTENT"
               [textColor]="ButtonTextColor.SECONDARY">
