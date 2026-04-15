@@ -1,8 +1,7 @@
 <div class="flex-1 px-4 md:p-0">
-
-  <div class="text-center mb-10 text-white">
-    <h1 class="text-4xl mb-3">Welcome back</h1>
-    <p>Hello again! Log in to continue</p>
+  <div class="text-center mb-10 text-[var(--color-text-primary)]">
+    <h1 class="text-4xl mb-3 font-bold">Welcome back</h1>
+    <p class="text-textSecondary">Hello again! Log in to continue</p>
   </div>
 
   <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-10">
@@ -31,7 +30,7 @@
       </div>
 
       <div class="text-center pt-2">
-        <a [routerLink]="['/restore-password']" class="text-textSecondary hover:text-white text-sm cursor-pointer">
+        <a [routerLink]="['/restore-password']" class="text-textSecondary hover:text-primary transition-colors text-sm cursor-pointer">
           FORGOT PASSWORD
         </a>
       </div>

@@ -1,5 +1,11 @@
+:host {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
 .lib-button {
-  @apply px-8 py-3 rounded-full font-medium transition;
+  @apply px-8 py-3 rounded-full font-medium transition active:opacity-80;
 
   &.contained {
     background-color: var(--color-primary);
@@ -15,10 +21,15 @@
   &.text {
     color: var(--color-primary);
     background: transparent;
+    @apply hover:bg-black/5 dark:hover:bg-white/5;
   }
 
   &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+    @apply opacity-40 cursor-not-allowed bg-white/10;
+  }
+
+  &.size-full-container {
+    width: 100%;
+    display: block;
   }
 }

@@ -3,3 +3,8 @@ export enum ButtonVariant {
   OUTLINED,
   TEXT
 }
+
+export enum ButtonSize {
+  FULL,
+  CONTENT
+}

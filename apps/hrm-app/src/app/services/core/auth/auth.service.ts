@@ -72,7 +72,7 @@ export class AuthService {
     }).pipe(
       map(res => {
         if (!res.data) throw new Error('No login data');
-        this.userService.user.set(res.data.login.user);
+        this.userService.authenticatedUser.set(res.data.login.user);
         return res.data.login;
       }),
       tap(loginData => this.setSession(loginData))
@@ -86,7 +86,7 @@ export class AuthService {
     }).pipe(
       map(res => {
         if (!res.data) throw new Error('No signup data');
-        this.userService.user.set(res.data.signup.user);
+        this.userService.authenticatedUser.set(res.data.signup.user);
         return res.data.signup;
       }),
       tap(signupData => this.setSession(signupData as any))
@@ -144,10 +144,9 @@ export class AuthService {
     }).pipe(
       map(res => {
         if (!res.data) throw new Error('No signup data');
-        this.userService.user.set(res.data.user);
+        this.userService.authenticatedUser.set(res.data.user);
         return res.data.user;
       }),
-      tap(user => this.userService.user.set(user))
     );
   }
 

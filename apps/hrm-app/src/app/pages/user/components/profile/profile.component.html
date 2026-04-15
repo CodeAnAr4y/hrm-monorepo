@@ -1,1 +1,45 @@
-<p>profile works!</p>
+<div class="max-w-4xl mx-auto">
+  <lib-avatar
+    [src]="selectedUser().profile.avatar"
+    [name]="selectedUser().profile.full_name || ''"
+    [email]="selectedUser().email"
+    [metadata]="'A member since ' + (selectedUser().created_at | date)"
+    [isEditable]="isOwnProfile()"
+    (imageChanged)="uploadAvatar($event)"
+  ></lib-avatar>
+
+  <form [formGroup]="profileForm" (ngSubmit)="updateUserDataAndProfile()" class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+    <lib-input
+      label="First Name"
+      formControlName="firstName"
+      placeholder="Enter first name"
+    ></lib-input>
+
+    <lib-input
+      label="Last Name"
+      formControlName="lastName"
+      placeholder="Enter last name"
+    ></lib-input>
+
+    <lib-select
+      label="Department"
+      [options]="departmentOptions()"
+      formControlName="department"
+    ></lib-select>
+
+    <lib-select
+      label="Position"
+      [options]="positionOptions()"
+      formControlName="position"
+    ></lib-select>
+
+    @if (isOwnProfile()) {
+      <div></div>
+      <div>
+        <lib-button [disabled]="profileForm.invalid || profileForm.pristine" [variant]=ButtonVariant.CONTAINED [width]="ButtonSize.FULL">
+          UPDATE
+        </lib-button>
+      </div>
+    }
+  </form>
+</div>

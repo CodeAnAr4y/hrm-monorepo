@@ -50,7 +50,6 @@ export class ResetPasswordPage implements OnInit {
 
     this.auth.resetPassword({ password, token: this.token }).subscribe({
       next: () => {
-        console.log('Password reset successful');
         this.router.navigate(['/auth/login']);
       },
       error: (err) => {

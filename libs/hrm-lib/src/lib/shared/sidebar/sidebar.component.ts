@@ -30,17 +30,11 @@ export class SidebarComponent {
   user = input<User | null>(null);
   logout = output<void>();
 
-  isAdmin = computed(()=> this.user()?.role === UserRole.Admin);
+  isAdmin = computed(() => this.user()?.role === UserRole.Admin);
 
   isOpen = signal(localStorage.getItem('navigation') === 'true');
 
   navLinks = computed(() => this.isAdmin() ? ADMIN_LINKS : USER_LINKS);
-
-  constructor() {
-    effect(() => {
-      console.log(this.user())
-    });
-  }
 
   toggleNavigation() {
     this.isOpen.update(value => {

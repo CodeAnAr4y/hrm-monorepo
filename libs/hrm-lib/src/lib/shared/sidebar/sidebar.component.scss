@@ -1,6 +1,8 @@
 .aside-sidebar {
-  @apply fixed left-0 top-0 h-screen text-white transition-all duration-300 flex flex-col py-4 z-50 overflow-hidden;
+  @apply fixed left-0 top-0 h-screen transition-all duration-300 flex flex-col py-4 z-50 overflow-hidden;
   @apply max-md:w-full max-md:h-[56px] max-md:flex-row max-md:items-center max-md:px-4 max-md:py-0;
+
+  color: var(--color-text-primary);
 
   &.is-open { @apply w-[240px]; }
   &.is-closed { @apply w-[70px]; }
@@ -12,10 +14,14 @@
 }
 
 .nav-link {
-  @apply flex items-center h-12 px-3 rounded-r-full hover:bg-white/5 transition-colors gap-4 no-underline text-white overflow-hidden whitespace-nowrap;
+  @apply flex items-center h-12 px-3 rounded-r-full transition-colors gap-4 no-underline overflow-hidden whitespace-nowrap;
   @apply max-md:h-10 max-md:px-2;
+  color: var(--color-text-primary);
 
-  &.active { @apply bg-white/10; }
+  &:hover { @apply bg-black/5 dark:hover:bg-white/10; }
+  &.active {
+    @apply bg-black/10 dark:bg-white/10;
+  }
 
   .link-text {
     @apply transition-opacity duration-200 max-md:hidden;
@@ -31,8 +37,11 @@
 
 .user-profile {
   @apply flex items-center gap-3 px-3 h-12 max-md:px-0;
+  color: var(--color-text-primary);
 
-  .avatar { @apply w-8 h-8 rounded-full bg-primary flex items-center justify-center overflow-hidden text-[10px] uppercase font-bold text-white shrink-0; }
+  .avatar {
+    @apply w-8 h-8 rounded-full bg-primary flex items-center justify-center overflow-hidden text-[10px] uppercase font-bold text-white shrink-0;
+  }
   .user-name {
     @apply truncate transition-opacity duration-200 max-md:hidden;
     &.hidden-text { @apply opacity-0 w-0; }
@@ -41,9 +50,9 @@
 
 .toggle-btn {
   @apply ml-1 max-md:hidden;
-  .toggle-icon { @apply transition-transform duration-300; }
+  color: var(--color-text-secondary);
 }
-
 .content-spacer {
   @apply transition-all duration-300 max-md:hidden;
 }
+

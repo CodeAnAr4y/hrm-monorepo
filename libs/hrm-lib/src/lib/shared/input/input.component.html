@@ -1,7 +1,7 @@
-<div class="lib-input">
+<mat-form-field appearance="outline" class="w-full">
+  <mat-label>{{ label() }}</mat-label>
   <input
     matInput
-    class="flex-1 bg-transparent outline-none text-white placeholder-gray-400"
     [type]="inputType()"
     [placeholder]="placeholder()"
     [value]="value()"
@@ -12,13 +12,13 @@
 
   @if (type() === 'password') {
     <button
+      mat-icon-button
+      matSuffix
       type="button"
       (click)="toggleVisibility()"
-      class="text-gray-400 hover:text-white flex items-center"
+      class="text-textSecondary"
     >
-      <mat-icon>
-        {{ hide() ? 'visibility' : 'visibility_off' }}
-      </mat-icon>
+      <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
     </button>
   }
-</div>
+</mat-form-field>

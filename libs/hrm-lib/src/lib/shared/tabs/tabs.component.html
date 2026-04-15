@@ -1,20 +1,23 @@
-  <nav
-    class="flex w-80"
-    [ngClass]="align() === 'center' ? 'mx-auto' : ''">
+<nav class="flex w-full" [ngClass]="align() === 'center' ? 'justify-center' : ''">
+  <div class="flex w-80">
     @for (tab of tabs(); track tab.link) {
       <a
         [routerLink]="tab.link"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
         #rla="routerLinkActive"
-        [class.active]="rla.isActive"
         class="tab-item"
+        [class.active]="rla.isActive"
       >
         {{ tab.title | uppercase }}
       </a>
     }
-  </nav>
+  </div>
+</nav>
 
-  <div class="flex-1 flex items-center">
+
+<div class="flex-1 flex items-center"
+[ngClass]="contentAlign() === 'center' ? 'justify-center': ''"
+>
     <ng-content />
   </div>
