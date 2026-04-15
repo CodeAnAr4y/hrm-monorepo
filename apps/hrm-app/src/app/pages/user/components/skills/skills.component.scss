@@ -3,20 +3,13 @@
 }
 
 .skills-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
+  @apply flex flex-col gap-6 max-w-4xl mx-auto;
 }
 
 .category-title {
-  color: #ffffff;
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
-  font-weight: 500;
+  @apply text-[var(--color-textSecondary)] mb-4;
 }
 
 .skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem 2rem;
+  @apply grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6;
 }

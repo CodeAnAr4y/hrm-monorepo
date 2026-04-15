@@ -1,7 +1,6 @@
 :host {
   display: flex;
   width: 100%;
-  justify-content: center;
 }
 
 .lib-button {
@@ -28,8 +27,21 @@
     @apply opacity-40 cursor-not-allowed bg-white/10;
   }
 
+  &.text:disabled {
+    @apply opacity-100 bg-transparent;
+  }
+
   &.size-full-container {
     width: 100%;
-    display: block;
+    display: flex;
+    justify-content: center;
+  }
+  &.text-color-secondary {
+    color: var(--color-border);
+    border-color: var(--color-border);
+  }
+  &.text-color-accent {
+    color: var(--color-text-secondary);
+    border-color: var(--color-accent);
   }
 }
