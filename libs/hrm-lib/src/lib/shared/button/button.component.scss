@@ -10,6 +10,9 @@
     background-color: var(--color-primary);
     color: white;
   }
+  &.contained:disabled {
+    color: var(--color-text-primary);
+  }
 
   &.outlined {
     border: 1px solid var(--color-primary);
