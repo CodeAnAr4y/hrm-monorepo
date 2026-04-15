@@ -1,40 +1,65 @@
 @use '@angular/material' as mat;
 
+@include mat.core();
+
 $my-typography: mat.m2-define-typography-config(
   $font-family: 'inherit',
   $button: mat.m2-define-typography-level(16px, 24px, 400),
   $body-1: mat.m2-define-typography-level(16px, 24px, 400)
 );
 
-$my-theme: mat.m2-define-dark-theme((
+$light-theme: mat.m2-define-light-theme((
   color: (
-    primary: mat.m2-define-palette(mat.$m2-pink-palette),
+    primary: mat.m2-define-palette(mat.$m2-red-palette),
     accent: mat.m2-define-palette(mat.$m2-blue-grey-palette),
   ),
   typography: $my-typography,
 ));
 
-@include mat.core();
-@include mat.all-component-themes($my-theme);
-@include mat.typography-hierarchy($my-theme);
+$dark-theme: mat.m2-define-dark-theme((
+  color: (
+    primary: mat.m2-define-palette(mat.$m2-red-palette),
+    accent: mat.m2-define-palette(mat.$m2-blue-grey-palette),
+  ),
+  typography: $my-typography,
+));
+
+@include mat.all-component-themes($light-theme);
+
+:root {
+  --color-primary: #c63031;
+  --color-bg: #ffffff;
+  --color-text-primary: #646464;
+  --color-border: #646464;
+
+  --mastery-novice: var(--color-primary);
+  --mastery-advanced: #767676;
+  --mastery-competent: #29b6f6;
+  --mastery-proficient: #66bb6a;
+  --mastery-expert: #ffb800;
+}
+
+.dark {
+  @include mat.all-component-colors($dark-theme);
+
+  --color-bg: #353535;
+  --color-surface: #2a2a2a;
+  --color-text-primary: #ffffff;
+
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --color-primary: #C62F31;
-  --color-bg: #353535;
-  --color-surface: #2a2a2a;
-  --color-border: #646464;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #767676;
+
+// transitions
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
-.dark {
-  background-color: var(--color-bg);
-  color: var(--color-text-primary);
-}
 
 .page-content {
   @apply flex gap-3;
@@ -47,16 +72,18 @@ input {
 }
 
 // Breadcrumbs
-.xng-breadcrumb-root{
+.xng-breadcrumb-root {
   @apply py-3
 }
-.xng-breadcrumb-item .xng-breadcrumb-link, .xng-breadcrumb-trail{
+
+.xng-breadcrumb-item .xng-breadcrumb-link, .xng-breadcrumb-trail {
   @apply text-textSecondary
 }
-.xng-breadcrumb-item .user-breadcrumb{
+
+.xng-breadcrumb-item .user-breadcrumb {
   @apply text-primary
 }
 
-.xng-breadcrumb-list .xng-breadcrumb-separator{
+.xng-breadcrumb-list .xng-breadcrumb-separator {
   content: "";
 }

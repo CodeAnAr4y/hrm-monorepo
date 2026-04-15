@@ -452,7 +452,7 @@ export interface Project {
 export interface SkillCategory {
   id: string;
   name: string;
-  order: number;
+  order?: number;
   parent?: Nullable<SkillCategory>;
   children: SkillCategory[];
 }

@@ -1,1 +1,16 @@
-<p>skills works!</p>
+<div class="skills-wrapper">
+  @for (category of groupedSkills(); track category.id) {
+    <section class="skill-category">
+      <h3 class="category-title">{{ category.name }}</h3>
+
+      <div class="skills-grid">
+        @for (skill of category.skills; track skill.name) {
+          <lib-skill-indicator
+            [label]="skill.name"
+            [mastery]="skill.mastery"
+          ></lib-skill-indicator>
+        }
+      </div>
+    </section>
+  }
+</div>
