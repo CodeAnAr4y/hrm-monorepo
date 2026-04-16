@@ -10,6 +10,16 @@ export const LOGIN = gql`
           id
           full_name
           avatar
+          first_name
+          last_name
+        }
+        department {
+          id
+          name
+        }
+        position {
+          id
+          name
         }
         role
         is_verified
@@ -30,6 +40,16 @@ export const SIGNUP = gql`
           id
           full_name
           avatar
+          first_name
+          last_name
+        }
+        department {
+          id
+          name
+        }
+        position {
+          id
+          name
         }
         role
         is_verified
