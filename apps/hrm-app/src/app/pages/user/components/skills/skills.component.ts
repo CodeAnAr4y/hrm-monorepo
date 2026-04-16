@@ -15,7 +15,12 @@ import {
 import { UserService } from '../../../../services/shared/user/user.service';
 import { SkillService } from '../../../../services/shared/skill/skill.service';
 import { AddSkillDialogComponent } from '../../../../shared/components/add-skill-dialog/add-skill-dialog.component';
-import { AddProfileSkillInput, DeleteProfileSkillInput, SkillMastery } from '../../../../core/models/core.model';
+import {
+  AddProfileSkillInput,
+  DeleteProfileSkillInput,
+  SkillMastery,
+  UpdateProfileSkillInput
+} from '../../../../core/models/core.model';
 import {
   UpdateSkillDialogComponent
 } from '../../../../shared/components/update-skill-dialog/update-skill-dialog.component';
@@ -38,7 +43,7 @@ export class SkillsComponent {
 
   public selectedUser = this.userService.selectedUser;
   public authenticatedUser = this.userService.authenticatedUser;
-  public accountOwner = computed(() => this.selectedUser().id === this.authenticatedUser().id)
+  public accountOwner = computed(() => this.selectedUser().id === this.authenticatedUser().id);
 
   protected readonly ButtonVariant = ButtonVariant;
   protected readonly ButtonSize = ButtonSize;
@@ -79,7 +84,6 @@ export class SkillsComponent {
     } else {
       this.selectedSkillsToDelete.push(skillName);
     }
-    console.log(skillName, this.selectedSkillsToDelete);
   }
 
   public openAddSkillDialog() {
@@ -87,6 +91,8 @@ export class SkillsComponent {
       width: '40vw',
       panelClass: 'custom-dialog-container',
       data: this.allAvailableSkills()
+        .filter(skill => !this.userSkills()
+          .some((uSkill) => uSkill.name === skill.name))
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -109,7 +115,7 @@ export class SkillsComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const skill: AddProfileSkillInput = {
+        const skill: UpdateProfileSkillInput = {
           ...result,
           userId: this.selectedUser().id
         };

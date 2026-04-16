@@ -1,0 +1,40 @@
+<div class="dialog-container" [formGroup]="languageForm">
+  <div class="dialog-header">
+    <h2 class="text-xl font-bold">Add language</h2>
+    <button (click)="close()" class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="dialog-body">
+    <lib-select
+      label="Select Language"
+      placeholder="Choose language"
+      [options]="langOptions"
+      formControlName="name">
+    </lib-select>
+
+    <lib-select
+      label="Proficiency Level"
+      [options]="proficiencyOptions"
+      formControlName="proficiency">
+    </lib-select>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="dialog-actions">
+    <div class="flex gap-4">
+      <lib-button
+        [width]="ButtonSize.CONTENT"
+        [variant]="ButtonVariant.OUTLINED"
+        (click)="close()">
+        CANCEL
+      </lib-button>
+      <lib-button
+        [width]="ButtonSize.CONTENT"
+        (click)="confirm()"
+        [disabled]="languageForm.invalid">
+        CONFIRM
+      </lib-button>
+    </div>
+  </mat-dialog-actions>
+</div>

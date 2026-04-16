@@ -1,4 +1,4 @@
-import { Cv, Profile, Skill, SkillCategory } from '../../../core/models/core.model';
+import { Profile, Skill, SkillCategory } from '../../../core/models/core.model';
 
 export type SkillCategoriesResult = {
   skillCategories: SkillCategory[]

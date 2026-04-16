@@ -1,0 +1,15 @@
+:host {
+  @apply mx-auto w-full;
+}
+
+.langs-wrapper {
+  @apply flex flex-col gap-6 max-w-4xl mx-auto;
+}
+
+.category-title {
+  @apply text-[var(--color-textSecondary)] mb-4;
+}
+
+.langs-grid {
+  @apply grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-20;
+}

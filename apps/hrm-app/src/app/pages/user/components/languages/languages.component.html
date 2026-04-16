@@ -1,1 +1,91 @@
-<p>languages works!</p>
+<div class="langs-wrapper">
+  @if (accountOwner() && !profileLanguages().length) {
+    <lib-button
+      (click)="openAddLanguageDialog()"
+      [variant]="ButtonVariant.TEXT"
+      [width]="ButtonSize.FULL"
+      [textColor]="ButtonTextColor.SECONDARY">
+      <div class="flex items-center gap-2">
+        <mat-icon>add</mat-icon>
+        ADD LANGUAGE
+      </div>
+    </lib-button>
+  } @else {
+    <div class="langs-grid">
+      @for (lang of profileLanguages(); track lang.name) {
+        <lib-button
+          (click)="deleteMode ? toggleSelectedLanguage(lang.name) : openUpdateLanguageDialog(lang)"
+          [variant]="selectedLanguagesToDelete.includes(lang.name) ? ButtonVariant.OUTLINED : ButtonVariant.TEXT"
+          [width]="ButtonSize.FULL"
+          [textColor]="ButtonTextColor.SECONDARY"
+          [disabled]="!accountOwner()"
+        >
+          <div class="flex items-center justify-between w-full">
+            <div [style.color]="coloredProficiency(lang.proficiency)">
+              {{ lang.proficiency }}
+            </div>
+            <div>
+              {{ lang.name }}
+            </div>
+          </div>
+        </lib-button>
+      }
+    </div>
+
+    @if (accountOwner()) {
+      <div class="flex items-center justify-end gap-6">
+        @if (!deleteMode) {
+          <div class="flex gap-4">
+            <lib-button
+              (click)="openAddLanguageDialog()"
+              [variant]="ButtonVariant.TEXT"
+              [width]="ButtonSize.CONTENT"
+              [textColor]="ButtonTextColor.SECONDARY">
+              <div class="flex items-center gap-2">
+                <mat-icon>add</mat-icon>
+                ADD LANGUAGE
+              </div>
+            </lib-button>
+            <lib-button
+              (click)="toggleDeleteMode()"
+              [variant]="ButtonVariant.TEXT"
+              [width]="ButtonSize.CONTENT"
+              [textColor]="ButtonTextColor.PRIMARY">
+              <div class="flex items-center gap-2">
+                <mat-icon>delete</mat-icon>
+                <div class="whitespace-nowrap">DELETE LANGUAGES</div>
+              </div>
+            </lib-button>
+          </div>
+        } @else {
+          <div class="flex gap-4">
+            <lib-button
+              (click)="toggleDeleteMode()"
+              [variant]="ButtonVariant.OUTLINED"
+              [width]="ButtonSize.FULL"
+              [textColor]="ButtonTextColor.SECONDARY">
+              <div class="flex items-center gap-2">
+                CANCEL
+              </div>
+            </lib-button>
+            <lib-button
+              (click)="deleteLanguages()"
+              [variant]="ButtonVariant.CONTAINED"
+              [width]="ButtonSize.FULL"
+              [textColor]="ButtonTextColor.PRIMARY"
+              [disabled]="selectedLanguagesToDelete.length == 0">
+              <div class="flex items-center gap-2">
+                DELETE
+                @if (selectedLanguagesToDelete.length) {
+                  <span class="text-primary px-2 bg-white rounded-full">{{ selectedLanguagesToDelete.length }}</span>
+                }
+              </div>
+            </lib-button>
+          </div>
+        }
+
+      </div>
+    }
+  }
+
+</div>

@@ -1,5 +1,5 @@
 <div class="skills-wrapper">
-  @if (!groupedSkills() || !groupedSkills().length) {
+  @if (accountOwner() && !groupedSkills().length) {
     <lib-button
       (click)="openAddSkillDialog()"
       [variant]="ButtonVariant.TEXT"
