@@ -1,2 +1,11 @@
-<lib-table [columns]="columns()" [items]="employeesTable()" [loading]="isLoading()"
-           [firstItem]="selfUserTableData()"></lib-table>
+<lib-table [columns]="columns()"
+           [items]="employeesTable()"
+           [loading]="isLoading()"
+           [firstItem]="selfUserTableData()"
+           [isAdmin]="isAdmin()"
+           [addItemBtnLabel]="'+ CREATE USER'"
+           (addItemBtnAction)="openCreateUserDialog()"
+           (deleteItemBtnAction)="openDeleteUserDialog($event)"
+           (updateItemBtnAction)="openUpdateUserDialog($event)"
+
+></lib-table>

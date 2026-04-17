@@ -27,3 +27,7 @@ export type UpdateProfileResult = {
 export type ProfileResult = {
   profile: Profile
 }
+
+export type RoleResult = {
+
+}

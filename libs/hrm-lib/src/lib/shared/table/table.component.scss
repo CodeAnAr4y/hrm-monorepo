@@ -60,7 +60,7 @@
 }
 
 .table-tools {
-  @apply p-4 border-b border-[var(--color-border)] sticky top-0 z-20 bg-transparent;
+  @apply flex justify-between p-4 border-b border-[var(--color-border)] sticky top-0 z-20 bg-transparent;
 }
 
 .table-wrapper {

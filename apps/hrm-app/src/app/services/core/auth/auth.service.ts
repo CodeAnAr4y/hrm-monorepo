@@ -16,6 +16,7 @@ import { jwtDecode } from 'jwt-decode';
 import { USER } from '../../shared/user/user.graphql';
 import { UserResult } from '../../shared/user/user.model';
 import { Router } from '@angular/router';
+import { UserRole } from '../../../core/models/core.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -28,6 +29,7 @@ export class AuthService {
   private isInitialized$ = new ReplaySubject<boolean>(1);
 
   public isAuthenticated = computed(() => !!this.sessionSignal());
+  public isAdmin = this.userService.isAdmin;
   public session = computed(() => this.sessionSignal());
   public accessToken = computed(() => this.sessionSignal()?.access_token ?? null);
 
@@ -146,7 +148,7 @@ export class AuthService {
         if (!res.data) throw new Error('No signup data');
         this.userService.authenticatedUser.set(res.data.user);
         return res.data.user;
-      }),
+      })
     );
   }
 

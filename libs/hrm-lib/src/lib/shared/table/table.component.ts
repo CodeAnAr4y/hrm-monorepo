@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, effect, input, viewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, effect, input, output, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -10,6 +10,8 @@ import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIconButton } from '@angular/material/button';
+import { ButtonSize, ButtonVariant } from '../button/models/button-variant.constants';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'lib-table',
@@ -26,7 +28,8 @@ import { MatIconButton } from '@angular/material/button';
     MatMenu,
     MatMenuTrigger,
     MatIconButton,
-    MatMenuItem
+    MatMenuItem,
+    ButtonComponent
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
@@ -37,6 +40,11 @@ export class TableComponent<T extends TableItem> implements AfterViewInit {
   columns = input.required<TableHeader[]>();
   loading = input<boolean>(false);
   firstItem = input<T>();
+  isAdmin = input<boolean>(false);
+  addItemBtnLabel = input<string>();
+  addItemBtnAction = output();
+  updateItemBtnAction = output<string>();
+  deleteItemBtnAction = output<string>();
 
   dataSource = new MatTableDataSource<T>([]);
   sort = viewChild(MatSort);
@@ -65,4 +73,7 @@ export class TableComponent<T extends TableItem> implements AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  protected readonly ButtonSize = ButtonSize;
+  protected readonly ButtonVariant = ButtonVariant;
 }

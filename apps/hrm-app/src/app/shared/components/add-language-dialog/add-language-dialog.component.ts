@@ -10,7 +10,7 @@ import {
   Proficiency,
   Skill
 } from '../../../core/models/core.model';
-import { ButtonComponent, ButtonSize, ButtonVariant, SelectComponent } from '@hrm-monorepo/hrm-lib';
+import { ButtonComponent, ButtonSize, ButtonVariant, SelectComponent, SelectOption } from '@hrm-monorepo/hrm-lib';
 
 
 @Component({
@@ -40,8 +40,8 @@ export class AddLanguageDialogComponent {
     proficiency: new FormControl<Proficiency>(Proficiency.A1, Validators.required)
   });
 
-  public proficiencyOptions = Object.values(Proficiency).map(m => ({ label: m, value: m }));
-  public langOptions = this.data.map(lang => ({ label: lang.name, value: lang.name }));
+  public proficiencyOptions: SelectOption[] = Object.values(Proficiency).map(m => ({ label: m, value: m }));
+  public langOptions: SelectOption[] = this.data.map(lang => ({ label: lang.name, value: lang.name }));
 
   close() {
     this.dialogRef.close();

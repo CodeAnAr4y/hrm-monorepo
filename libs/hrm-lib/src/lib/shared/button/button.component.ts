@@ -15,6 +15,10 @@ import { ButtonSize, ButtonTextColor, ButtonVariant } from './models/button-vari
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[class.size-full]': 'width() === ButtonSize.FULL',
+    '[class.size-content]': 'width() === ButtonSize.CONTENT',
+  }
 })
 export class ButtonComponent {
   public variant = input<ButtonVariant>(ButtonVariant.CONTAINED);

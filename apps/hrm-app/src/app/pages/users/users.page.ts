@@ -1,7 +1,15 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { TableComponent, TableHeader, UsersTableData } from '@hrm-monorepo/hrm-lib';
 import { UserService } from '../../services/shared/user/user.service';
-import { User } from '../../core/models/core.model';
+import { CreateUserInput, UpdateUserInput, User } from '../../core/models/core.model';
+import { CREATE_NEW_STORYFILE_REQUEST } from 'storybook/internal/core-events';
+import { MatDialog } from '@angular/material/dialog';
+import { AddUserDialogComponent } from '../../shared/components/add-user-dialog/add-user-dialog.component';
+import { AdminService } from '../../services/shared/admin/admin.service';
+import { SnackBarService } from '../../services/shared/snack-bar/snack-bar.service';
+import { DeleteUserDialogComponent } from '../../shared/components/delete-user-dialog/delete-user-dialog.component';
+import { Router } from '@angular/router';
+import { UpdateUserDialogComponent } from '../../shared/components/update-user-dialog/update-user-dialog.component';
 
 @Component({
   selector: 'app-users-page',
@@ -13,6 +21,13 @@ import { User } from '../../core/models/core.model';
 })
 export class UsersPage {
   public userService = inject(UserService);
+  private adminService = inject(AdminService);
+  private snackBarService = inject(SnackBarService);
+  private router = inject(Router);
+
+  public isAdmin = this.userService.isAdmin;
+  private dialog = inject(MatDialog);
+
   public columns = signal<TableHeader[]>([
     { title: '', sourceName: 'avatar', sortable: false, type: 'image' },
     { title: 'First Name', sourceName: 'firstName', sortable: true },
@@ -23,7 +38,8 @@ export class UsersPage {
     { title: '', sourceName: 'actions', sortable: false, type: 'action' }
   ]);
   public selfUserTableData = computed((): UsersTableData | undefined => {
-    const user = this.userService.authenticatedUser();
+    const authUser = this.userService.authenticatedUser();
+    const user = this.userService.users().filter(user => user.id === authUser.id)[0];
     if (!user || !user.id) return undefined;
 
     return {
@@ -56,5 +72,94 @@ export class UsersPage {
     });
   });
   public isLoading = signal<boolean>(true);
+
+  public openCreateUserDialog() {
+    const dialogRef = this.dialog.open(AddUserDialogComponent, {
+      width: '60vw',
+      panelClass: 'custom-dialog-container'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const createUserData: CreateUserInput = {
+          auth: { email: result.email, password: result.password },
+          profile: { first_name: result.firstName, last_name: result.lastName },
+          cvsIds: [],
+          departmentId: result.department,
+          positionId: result.position,
+          role: result.role
+        };
+
+        this.adminService.createUser(createUserData)
+          .subscribe({
+            next: user => {
+              this.router.navigate(['/users', user.id]).then(() => {
+                this.snackBarService.openSnackBar(`User was successfully created!`);
+              });
+            },
+            error: error => this.snackBarService.openSnackBar('Error occured ' + error.message)
+          });
+      }
+    });
+  }
+
+  public openUpdateUserDialog(id: string) {
+    const user = this.userService.users().filter(user => user.id === id)[0];
+    console.log(user);
+
+    const dialogRef = this.dialog.open(UpdateUserDialogComponent, {
+      width: '60vw',
+      panelClass: 'custom-dialog-container',
+      data: user
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const updateUserData: UpdateUserInput = {
+          userId: user.id,
+          cvsIds: [],
+          departmentId: result.department,
+          positionId: result.position,
+          role: result.role
+        };
+
+        this.adminService.updateUser(updateUserData)
+          .subscribe({
+            next: () => {
+              this.snackBarService.openSnackBar(`User was successfully updated!`);
+              this.updateUsersTable()
+            },
+            error: error => this.snackBarService.openSnackBar('Error occured ' + error.message)
+          });
+      }
+    });
+  }
+
+  public openDeleteUserDialog(id: string) {
+    const user = this.userService.users().filter(user => user.id === id)[0];
+
+    const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
+      width: '40vw',
+      panelClass: 'custom-dialog-container',
+      data: user
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.adminService.deleteUser(user.id)
+          .subscribe({
+            next: () => {
+              this.snackBarService.openSnackBar(`User deleted!`)
+              this.updateUsersTable();
+            },
+            error: error => this.snackBarService.openSnackBar('Error occured ' + error.message)
+          });
+      }
+    });
+  }
+
+  public updateUsersTable(){
+    this.userService.getUsers().subscribe()
+  }
 
 }

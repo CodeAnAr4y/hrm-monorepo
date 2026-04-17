@@ -2,8 +2,15 @@
   <div class="table-tools">
     <div class="search">
       <mat-icon matPrefix class="dark:text-[var(--color-text-primary)] mr-2">search</mat-icon>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Search employees..." #input class="dark:text-[var(--color-text-primary)]">
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search employees..." #input
+             class="dark:text-[var(--color-text-primary)]">
     </div>
+    @if (isAdmin()) {
+      <lib-button (click)="addItemBtnAction.emit()" [variant]="ButtonVariant.TEXT"
+                  [width]="ButtonSize.CONTENT">{{ addItemBtnLabel() }}
+      </lib-button>
+    }
+
   </div>
   <div class="table-wrapper">
     <table mat-table [dataSource]="dataSource" matSort class="custom-table">
@@ -19,18 +26,19 @@
           <td mat-cell *matCellDef="let row">
             @switch (col.type) {
               @case ('image') {
-                <div class="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--color-border)] overflow-hidden">
+                <div
+                  class="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--color-border)] overflow-hidden">
                   @if (row[col.sourceName]) {
                     <img [src]="row[col.sourceName]" [alt]="row.firstName || 'User'" class="w-full h-full object-cover">
                   } @else {
-                    <span class="text-[10px] uppercase text-[var(--color-bg)]">
+                    <span class="text-[10px] uppercase text-white">
                       {{ (row.firstName?.[0] || row.email?.[0] || '?') }}
                     </span>
                   }
                 </div>
               }
               @case ('action') {
-                @if (row.id === firstItem()?.id) {
+                @if (row.id === firstItem()?.id || isAdmin()) {
                   <button mat-icon-button [matMenuTriggerFor]="menu" class="dark:text-[var(--color-text-primary)]">
                     <mat-icon>more_vert</mat-icon>
                   </button>
@@ -39,9 +47,15 @@
                     <a [routerLink]="[row.id]" mat-menu-item>
                       Profile
                     </a>
-                    <button mat-menu-item>
+                    <button (click)="updateItemBtnAction.emit(row.id)" mat-menu-item>
                       Update user
                     </button>
+                    @if (isAdmin()) {
+                      <button (click)="deleteItemBtnAction.emit(row.id)" [disabled]="row.id === firstItem()?.id"
+                              mat-menu-item>
+                        Delete user
+                      </button>
+                    }
                   </mat-menu>
                 } @else {
                   <a mat-icon-button [routerLink]="[row.id]" class="action-link dark:text-[var(--color-text-primary)]">

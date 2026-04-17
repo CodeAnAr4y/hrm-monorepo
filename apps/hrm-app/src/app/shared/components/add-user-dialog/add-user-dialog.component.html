@@ -1,0 +1,71 @@
+<div class="dialog-container" [formGroup]="userForm">
+  <div class="dialog-header">
+    <h2 class="text-xl font-bold">Add user</h2>
+    <button (click)="close()" class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="dialog-body">
+    <lib-input
+      label="Email"
+      placeholder="Email"
+      formControlName="email"
+    ></lib-input>
+    <lib-input
+      type="password"
+      label="Password"
+      placeholder="Password"
+      formControlName="password"
+    ></lib-input>
+    <lib-input
+      label="First Name"
+      placeholder="First Name"
+      formControlName="firstName"
+    ></lib-input>
+    <lib-input
+      label="Last Name"
+      placeholder="Last Name"
+      formControlName="lastName"
+    ></lib-input>
+
+    <lib-select
+      label="Department"
+      placeholder="Choose department"
+      [options]="departmentOptions"
+      formControlName="department"
+    ></lib-select>
+
+    <lib-select
+      label="Position"
+      placeholder="Choose position"
+      [options]="positionOptions"
+      formControlName="position"
+    ></lib-select>
+
+    <lib-select
+      label="Role"
+      placeholder="Choose Role"
+      [options]="roleOptions"
+      formControlName="role"
+    ></lib-select>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="dialog-actions">
+    <div class="flex gap-4">
+        <lib-button
+          [width]="ButtonSize.FULL"
+          [variant]="ButtonVariant.OUTLINED"
+          [textColor]="ButtonTextColor.SECONDARY"
+          (click)="close()">
+          CANCEL
+        </lib-button>
+        <lib-button
+          [width]="ButtonSize.FULL"
+          (click)="confirm()"
+          [disabled]="userForm.invalid">
+          CREATE
+        </lib-button>
+      </div>
+  </mat-dialog-actions>
+</div>

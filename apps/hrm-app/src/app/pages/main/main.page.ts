@@ -13,11 +13,11 @@ import { User } from '../../core/models/core.model';
   imports: [
     RouterOutlet,
     BreadcrumbsComponent,
-    SidebarComponent,
+    SidebarComponent
   ],
   templateUrl: './main.page.html',
   styleUrl: './main.page.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainPage implements OnInit {
   public userService = inject(UserService);
@@ -39,8 +39,9 @@ export class MainPage implements OnInit {
       this.refreshBreadcrumbs(users);
     });
   }
+
   ngOnInit() {
-    this.userService.getUsers().subscribe()
+    this.userService.getUsers().subscribe();
   }
 
   private refreshBreadcrumbs(users: any[]): void {

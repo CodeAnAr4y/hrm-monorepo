@@ -1,10 +1,17 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { UpdateProfileResult, UploadAvatarResult, UserResult, UsersResult } from './user.model';
 import { DELETE_AVATAR, UPDATE_PROFILE, UPDATE_USER, UPLOAD_AVATAR, USER, USERS } from './user.graphql';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { EMPTY, from, Observable } from 'rxjs';
-import { Profile, UpdateProfileInput, UpdateUserInput, UploadAvatarInput, User } from '../../../core/models/core.model';
+import {
+  Profile,
+  UpdateProfileInput,
+  UpdateUserInput,
+  UploadAvatarInput,
+  User,
+  UserRole
+} from '../../../core/models/core.model';
 import { SnackBarService } from '../snack-bar/snack-bar.service';
 import { jwtDecode } from 'jwt-decode';
 
@@ -15,9 +22,10 @@ export class UserService {
   private snackBarService = inject(SnackBarService);
 
   public authenticatedUser = signal<User>({} as User);
-  public selectedUser = signal<User>({profile: {}} as User);
+  public selectedUser = signal<User>({ profile: {} } as User);
   public profile = signal<Profile>({} as Profile);
   public users = signal<User[]>([]);
+  public isAdmin = computed(() => this.authenticatedUser().role === UserRole.Admin);
 
   public getUsers(): Observable<User[]> {
     return this.apollo.query<UsersResult>({ query: USERS }).pipe(
