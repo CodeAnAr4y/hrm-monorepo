@@ -37,6 +37,7 @@ export class ProfileComponent implements OnInit {
   public selectedUser = computed(() => this.userService.selectedUser());
 
   public isOwnProfile = computed(() => this.selectedUser().id === this.userService.authenticatedUser().id);
+  public isAdmin = this.userService.isAdmin;
 
   public profileForm = this.fb.group({
     firstName: ['', Validators.required],
@@ -74,10 +75,10 @@ export class ProfileComponent implements OnInit {
         position: user.position?.id
       });
 
-      if (!this.isOwnProfile()) {
-        this.profileForm.disable();
-      } else {
+      if (this.isOwnProfile() || this.isAdmin()) {
         this.profileForm.enable();
+      } else {
+        this.profileForm.disable();
       }
     });
   }

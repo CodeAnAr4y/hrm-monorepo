@@ -1,5 +1,5 @@
 <div class="langs-wrapper">
-  @if (accountOwner() && !profileLanguages().length) {
+  @if ((accountOwner() || isAdmin()) && !profileLanguages().length) {
     <lib-button
       (click)="openAddLanguageDialog()"
       [variant]="ButtonVariant.TEXT"
@@ -18,7 +18,7 @@
           [variant]="selectedLanguagesToDelete.includes(lang.name) ? ButtonVariant.OUTLINED : ButtonVariant.TEXT"
           [width]="ButtonSize.FULL"
           [textColor]="ButtonTextColor.SECONDARY"
-          [disabled]="!accountOwner()"
+          [disabled]="!accountOwner() && !isAdmin()"
         >
           <div class="flex items-center justify-between w-full">
             <div [style.color]="coloredProficiency(lang.proficiency)">
@@ -32,7 +32,7 @@
       }
     </div>
 
-    @if (accountOwner()) {
+    @if (accountOwner() || isAdmin()) {
       <div class="flex items-center justify-end gap-6">
         @if (!deleteMode) {
           <div class="flex gap-4">

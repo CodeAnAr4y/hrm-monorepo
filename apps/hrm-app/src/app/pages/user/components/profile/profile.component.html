@@ -33,7 +33,7 @@
       formControlName="position"
     ></lib-select>
 
-    @if (isOwnProfile()) {
+    @if (isOwnProfile() || isAdmin()) {
       <div></div>
       <div>
         <lib-button [disabled]="profileForm.invalid || profileForm.pristine" [variant]=ButtonVariant.CONTAINED [width]="ButtonSize.FULL">

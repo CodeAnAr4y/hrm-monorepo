@@ -43,6 +43,8 @@ export class LanguagesComponent {
   public selectedUser = this.userService.selectedUser;
   public authenticatedUser = this.userService.authenticatedUser;
   public accountOwner = computed(() => this.selectedUser().id === this.authenticatedUser().id);
+  public isAdmin = this.userService.isAdmin;
+
   public allLanguages = toSignal(this.langService.getAllLanguages(), { initialValue: [] });
 
   public profileLanguages = toSignal(

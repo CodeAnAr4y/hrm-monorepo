@@ -44,6 +44,7 @@ export class SkillsComponent {
   public selectedUser = this.userService.selectedUser;
   public authenticatedUser = this.userService.authenticatedUser;
   public accountOwner = computed(() => this.selectedUser().id === this.authenticatedUser().id);
+  public isAdmin = this.userService.isAdmin;
 
   protected readonly ButtonVariant = ButtonVariant;
   protected readonly ButtonSize = ButtonSize;
