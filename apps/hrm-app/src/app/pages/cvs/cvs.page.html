@@ -1,1 +1,27 @@
-<p>cvs works!</p>
+<div class="min-h-screen">
+
+  <lib-table
+    [items]="employees()"
+    [columns]="columns"
+    [detailTemplate]="detailInfo"
+    [isAdmin]="true"
+    addItemBtnLabel="CREATE CV"
+    (addItemBtnAction)="handleAddItem()"
+    (updateItemBtnAction)="handleUpdate($event)">
+  </lib-table>
+
+  <ng-template #detailInfo let-row>
+
+    <div class="description-box">
+      <p>{{ row.description }}</p>
+
+      <div class="tags mt-3 flex gap-2">
+        <span class="tag">React</span>
+        <span class="tag">WebGL</span>
+        <span class="tag">Node.js</span>
+      </div>
+    </div>
+
+  </ng-template>
+
+</div>

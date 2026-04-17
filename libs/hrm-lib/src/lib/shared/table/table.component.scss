@@ -37,10 +37,6 @@
     @apply py-4 px-6 text-sm align-middle border-none;
     color: var(--color-text-secondary);
   }
-
-  .mat-mdc-header-cell {
-    @apply capitalize font-[600];
-  }
 }
 
 .search {
@@ -67,8 +63,43 @@
   @apply overflow-x-auto;
 }
 
-.loader-cell {
-  @apply py-10 flex justify-center items-center w-full;
+.custom-table {
+  .element-row {
+    &.expanded-row {
+      border-bottom: none;
+      background: rgba(0,0,0,0.02);
+    }
+
+    &.expanded-row td {
+      border-bottom: none;
+    }
+  }
+
+  .detail-row {
+    height: 0;
+
+    td {
+      border-bottom-width: 0;
+      padding: 0 !important;
+    }
+  }
+}
+
+.detail-grid-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms ease-out;
+  background: rgba(0,0,0,0.02);
+
+  &.expanded {
+    grid-template-rows: 1fr;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .detail-inner-content {
+    overflow: hidden;
+    min-height: 0;
+  }
 }
 
 ::ng-deep .mat-mdc-form-field {
@@ -76,15 +107,12 @@
   .mat-mdc-text-field-wrapper {
     @apply rounded-full px-4;
   }
-
   .mat-mdc-form-field-flex {
     @apply items-center;
   }
-
   .mat-mdc-floating-label {
     @apply hidden;
   }
-
   .mdc-line-ripple {
     @apply hidden;
   }

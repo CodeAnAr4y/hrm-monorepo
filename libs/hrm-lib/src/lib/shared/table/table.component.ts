@@ -1,4 +1,14 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, effect, input, output, viewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  input,
+  output,
+  signal,
+  TemplateRef,
+  viewChild
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -46,8 +56,14 @@ export class TableComponent<T extends TableItem> implements AfterViewInit {
   updateItemBtnAction = output<string>();
   deleteItemBtnAction = output<string>();
 
+  detailTemplate = input<TemplateRef<any>>();
+  expandedElement = signal<T | null>(null);
+
   dataSource = new MatTableDataSource<T>([]);
   sort = viewChild(MatSort);
+
+  protected readonly ButtonSize = ButtonSize;
+  protected readonly ButtonVariant = ButtonVariant;
 
   get columnKeys(): string[] {
     return this.columns().map(c => c.sourceName);
@@ -65,7 +81,7 @@ export class TableComponent<T extends TableItem> implements AfterViewInit {
     this.dataSource.sort = this.sort() ?? null;
     this.dataSource.sortingDataAccessor = (item: any, property: string) => {
       const value = property.split('.').reduce((obj, key) => obj?.[key], item);
-      return value.toLowerCase();
+      return value?.toLowerCase() ?? '';
     };
   }
 
@@ -74,6 +90,8 @@ export class TableComponent<T extends TableItem> implements AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  protected readonly ButtonSize = ButtonSize;
-  protected readonly ButtonVariant = ButtonVariant;
+  toggleRow(row: T, event: Event) {
+    if ((event.target as HTMLElement).closest('button, a')) return;
+    this.expandedElement.update(current => current === row ? null : row);
+  }
 }
