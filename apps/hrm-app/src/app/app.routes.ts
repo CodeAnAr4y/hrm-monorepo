@@ -56,6 +56,11 @@ export const appRoutes: Route[] = [
         ]
       },
       {
+        path: 'cvs',
+        loadComponent: () => import('./pages/cvs/cvs.page').then(m => m.CvsPage),
+        data: { breadcrumb: 'CVs' },
+      },
+      {
         path: 'settings',
         loadComponent: () => import('./pages/settings/settings.page').then(m => m.SettingsPage),
         data: { breadcrumb: 'Settings' }
