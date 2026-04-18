@@ -1,9 +1,9 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { Cv } from '../../../core/models/core.model';
-import { CvResult, CvsResult } from './cv.model';
-import { CV, CVS } from './cv.graphql';
-import { map } from 'rxjs/operators';
+import { CreateCvInput, Cv } from '../../../core/models/core.model';
+import { CreateCvResult, CvResult, CvsResult } from './cv.model';
+import { CREATE_CV, CV, CVS } from './cv.graphql';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +25,21 @@ export class CvService {
   }
 
   public getCvs() {
-    return this.apollo.query<CvsResult>({ query: CVS }).pipe(
+    return this.apollo.query<CvsResult>({ query: CVS, fetchPolicy: 'network-only' }).pipe(
       map(res => {
         if (!res.data) throw new Error('no data');
         this.userCvs.set(res.data.cvs);
+        console.log(res.data.cvs);
         return res.data.cvs;
+      })
+    );
+  }
+
+  public createCv(cv: CreateCvInput) {
+    return this.apollo.mutate<CreateCvResult>({ mutation: CREATE_CV, variables: { cv } }).pipe(
+      map(res => {
+        if (!res.data) throw new Error('no data');
+        return res.data.createCv;
       })
     );
   }

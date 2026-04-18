@@ -6,7 +6,7 @@ import {
   Mastery,
   Proficiency,
   UpdateProfileLanguageInput
-} from '../../../core/models/core.model';
+} from '../../../../core/models/core.model';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonComponent, ButtonSize, ButtonVariant, SelectComponent } from '@hrm-monorepo/hrm-lib';
 import { MatIcon } from '@angular/material/icon';

@@ -1,6 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
 import { TableComponent, TableHeader, TableItem, TableType } from '@hrm-monorepo/hrm-lib';
 import { CvService } from '../../services/shared/cv/cv.service';
+import { CreateCvInput, CreateUserInput } from '../../core/models/core.model';
+import { MatDialog } from '@angular/material/dialog';
+import { AddCvDialogComponent } from '../../shared/components/cv/add-cv-dialog/add-cv-dialog.component';
+import { UserService } from '../../services/shared/user/user.service';
+import { SnackBarService } from '../../services/shared/snack-bar/snack-bar.service';
 
 interface CvTable extends TableItem {
   name: string;
@@ -19,8 +24,13 @@ interface CvTable extends TableItem {
   styleUrl: './cvs.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CvsPage implements OnInit {
+export class CvsPage {
   private cvService = inject(CvService);
+  private dialog = inject(MatDialog);
+  private userService = inject(UserService);
+  public snackBarService = inject(SnackBarService);
+
+  private authenticatedUser = this.userService.authenticatedUser;
 
   protected readonly TableType = TableType;
   public columns: TableHeader[] = [
@@ -39,51 +49,37 @@ export class CvsPage implements OnInit {
       education: cv.education || '',
       description: cv.description,
       email: cv.user?.email || '',
-      skills: cv.skills.map(skill => skill.name)
-    }))
+      skills: cv.skills ? cv.skills.map(skill => skill.name) : []
+    }));
 
     console.log(cvsTableData);
 
     return cvsTableData;
-  })
+  });
 
-  ngOnInit() {
+  public openCreateCvDialog() {
+    const dialogRef = this.dialog.open(AddCvDialogComponent, {
+      width: '40vw',
+      panelClass: 'custom-dialog-container'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const createCvData: CreateCvInput = {
+          ...result,
+          userId: this.authenticatedUser().id
+        };
+        this.cvService.createCv(createCvData).subscribe({
+          next: result => {
+            this.updateTable()
+          },
+          error: error => this.snackBarService.openSnackBar('Error occured ' + error.message)
+        });
+      }
+    });
+  }
+
+  public updateTable() {
     this.cvService.getCvs().subscribe();
   }
-
-  // public cvs = signal<Cv[]>([
-  //   {
-  //     id: '1',
-  //     name: 'Software Engineer with 5+ years of experience',
-  //     education: 'Computer Systems Design',
-  //     email: 'thorn_pear@icloud.com',
-  //     description: 'Highly motivated and experienced Software Engineer with 5+ years of proven success in leading and developing robust and scalable applications. Adept at leveraging React, Node.js, Three.js, and WebGL to create innovative and visually appealing user interfaces.',
-  //     tags: ['React', 'WebGL', 'Python']
-  //   },
-  //   {
-  //     id: '2',
-  //     name: 'Senior Frontend Developer',
-  //     education: 'MSc in Computer Science',
-  //     email: 'dev.lead@company.com',
-  //     description: 'Passionate about delivering high-quality solutions and contributing to the success of dynamic projects. Strong leadership and mentoring skills, effectively guiding junior developers and fostering a collaborative team environment.',
-  //     tags: ['qwe']
-  //   },
-  //   {
-  //     id: '3',
-  //     name: 'UX/UI Designer',
-  //     education: 'Graphic Design Institute',
-  //     email: 'design.hero@creative.io',
-  //     description: 'Adept at architecting complex systems, ensuring efficient performance, and adhering to best practices. Focused on creating intuitive user experiences that drive engagement and satisfaction.',
-  //     tags: ['qwe', 'asd', 'zxc']
-  //   }
-  // ]);
-
-  public handleAddItem() {
-    console.log('Add item clicked');
-  }
-
-  public handleUpdate(id: string) {
-    console.log('Update item', id);
-  }
-
 }

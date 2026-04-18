@@ -9,7 +9,7 @@ import {
   Mastery,
   Proficiency,
   Skill
-} from '../../../core/models/core.model';
+} from '../../../../core/models/core.model';
 import { ButtonComponent, ButtonSize, ButtonVariant, SelectComponent, SelectOption } from '@hrm-monorepo/hrm-lib';
 
 

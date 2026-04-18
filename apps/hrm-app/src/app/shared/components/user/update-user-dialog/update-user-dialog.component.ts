@@ -1,40 +1,46 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { Department, Position, UserRole } from '../../../core/models/core.model';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ConstantsService } from '../../../services/shared/constants/constants.service';
 import {
   ButtonComponent,
   ButtonSize,
   ButtonTextColor,
   ButtonVariant,
   InputComponent,
-  SelectComponent
+  SelectComponent,
+  SelectOption
 } from '@hrm-monorepo/hrm-lib';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
-import { SelectOption } from '@hrm-monorepo/hrm-lib';
+import { ConstantsService } from '../../../../services/shared/constants/constants.service';
+import { User, UserRole } from '../../../../core/models/core.model';
 import { map } from 'rxjs/operators';
+import { UserService } from '../../../../services/shared/user/user.service';
 
 @Component({
-  selector: 'app-add-user-dialog',
+  selector: 'app-update-user-dialog',
   imports: [
     ButtonComponent,
     FormsModule,
+    InputComponent,
     MatDialogActions,
     MatDialogContent,
     MatIcon,
     ReactiveFormsModule,
-    SelectComponent,
-    InputComponent
+    SelectComponent
   ],
-  templateUrl: './add-user-dialog.component.html',
-  styleUrl: './add-user-dialog.component.scss',
+  templateUrl: './update-user-dialog.component.html',
+  styleUrl: './update-user-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddUserDialogComponent implements OnInit {
-  private dialogRef = inject(MatDialogRef<AddUserDialogComponent>);
+export class UpdateUserDialogComponent implements OnInit {
+  private dialogRef = inject(MatDialogRef<UpdateUserDialogComponent>);
   private constantsService = inject(ConstantsService);
   private cdr = inject(ChangeDetectorRef);
+  private userService = inject(UserService);
+
+  public authUser = this.userService.authenticatedUser;
+
+  public data: User = inject(MAT_DIALOG_DATA);
 
   protected readonly ButtonSize = ButtonSize;
   protected readonly ButtonVariant = ButtonVariant;
@@ -45,17 +51,21 @@ export class AddUserDialogComponent implements OnInit {
   roleOptions: SelectOption[] = [];
 
   public userForm = new FormGroup({
-    email: new FormControl<string | null>(null, [Validators.required]),
-    password: new FormControl<string | null>(null, [Validators.required]),
-    firstName: new FormControl<string | null>(null, [Validators.required]),
-    lastName: new FormControl<string | null>(null, [Validators.required]),
-    department: new FormControl<Department | null>(null, [Validators.required]),
-    position: new FormControl<Position | null>(null, [Validators.required]),
-    role: new FormControl<UserRole | null>(UserRole.Employee, [Validators.required])
+    email: new FormControl<string | null>({
+      value: this.data.email,
+      disabled: this.authUser().id !== this.data.id
+    }, [Validators.required]),
+    password: new FormControl<string | null>({ value: null, disabled: this.authUser().id !== this.data.id }),
+    firstName: new FormControl<string | null>(this.data.profile?.first_name || null, [Validators.required]),
+    lastName: new FormControl<string | null>(this.data.profile?.last_name || null, [Validators.required]),
+    department: new FormControl<string | null>(this.data.department?.id || null, [Validators.required]),
+    position: new FormControl<string | null>(this.data.position?.id || null, [Validators.required]),
+    role: new FormControl<UserRole | null>(this.data.role, [Validators.required])
   });
 
   ngOnInit() {
     this.initSelectOptions();
+    console.log('data is:', this.data);
 
   }
 
@@ -97,5 +107,4 @@ export class AddUserDialogComponent implements OnInit {
       this.dialogRef.close(this.userForm.value);
     }
   }
-
 }

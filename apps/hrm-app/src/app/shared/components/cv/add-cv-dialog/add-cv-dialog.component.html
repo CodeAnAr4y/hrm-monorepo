@@ -1,0 +1,44 @@
+<div class="dialog-container" [formGroup]="cvForm">
+  <div class="dialog-header">
+    <h2 class="text-xl font-bold">Create CV</h2>
+    <button (click)="close()" class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="dialog-body">
+    <lib-input
+      label="Name"
+      placeholder="Name"
+      formControlName="name"
+    ></lib-input>
+    <lib-input
+      label="Education"
+      placeholder="Education"
+      formControlName="education"
+    ></lib-input>
+    <lib-text-area
+      label="Description"
+      placeholder="Description"
+      formControlName="description"
+    ></lib-text-area>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="dialog-actions">
+    <div class="flex gap-4">
+      <lib-button
+        [width]="ButtonSize.FULL"
+        [variant]="ButtonVariant.OUTLINED"
+        [textColor]="ButtonTextColor.SECONDARY"
+        (click)="close()">
+        CANCEL
+      </lib-button>
+      <lib-button
+        [width]="ButtonSize.FULL"
+        (click)="confirm()"
+        [disabled]="cvForm.invalid">
+        CREATE
+      </lib-button>
+    </div>
+  </mat-dialog-actions>
+</div>

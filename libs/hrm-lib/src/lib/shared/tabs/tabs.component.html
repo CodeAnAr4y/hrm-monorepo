@@ -1,5 +1,5 @@
 <nav class="flex w-full" [ngClass]="align() === 'center' ? 'justify-center' : ''">
-  <div class="flex w-80">
+  <div class="flex">
     @for (tab of tabs(); track tab.link) {
       <a
         [routerLink]="tab.link"
@@ -17,7 +17,7 @@
 
 
 <div class="flex-1 flex items-center"
-[ngClass]="contentAlign() === 'center' ? 'justify-center': ''"
+     [ngClass]="contentAlign() === 'center' ? 'justify-center': ''"
 >
-    <ng-content />
-  </div>
+  <ng-content />
+</div>

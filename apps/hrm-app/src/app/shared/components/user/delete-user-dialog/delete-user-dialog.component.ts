@@ -3,7 +3,7 @@ import { ButtonComponent, ButtonSize, ButtonTextColor, ButtonVariant } from '@hr
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
-import { User } from '../../../core/models/core.model';
+import { User } from '../../../../core/models/core.model';
 
 @Component({
   selector: 'app-delete-user-dialog',

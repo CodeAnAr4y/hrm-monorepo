@@ -6,6 +6,7 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map, startWith } from 'rxjs/operators';
 import { AuthService } from '../../services/core/auth/auth.service';
+import { CvService } from '../../services/shared/cv/cv.service';
 
 @Component({
   selector: 'app-main',
@@ -17,6 +18,7 @@ import { AuthService } from '../../services/core/auth/auth.service';
 })
 export class MainPage implements OnInit {
   public userService = inject(UserService);
+  private cvService = inject(CvService);
   private breadcrumbService = inject(BreadcrumbService);
   private router = inject(Router);
   public authService = inject(AuthService);
@@ -37,11 +39,13 @@ export class MainPage implements OnInit {
 
   ngOnInit() {
     this.userService.getUsers().subscribe();
+    this.cvService.getCvs().subscribe();
   }
 
   private updateBreadcrumbs() {
     const params = this.routeParams();
     const users = this.userService.users();
+    const cvs = this.cvService.userCvs();
 
     if (!params) return;
 
@@ -55,8 +59,11 @@ export class MainPage implements OnInit {
         this.breadcrumbService.set('@userEmail', name);
       }
     }
-    if (cvId) {
-      this.breadcrumbService.set('@userCv', `CV #${cvId}`);
+    if (cvId && cvs.length > 0) {
+      const cv = cvs.find(u => u.id === cvId);
+      if (cv) {
+        this.breadcrumbService.set('@userCv', `${cv.name}`);
+      }
     }
   }
 

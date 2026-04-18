@@ -14,7 +14,7 @@ import {
 } from '@hrm-monorepo/hrm-lib';
 import { UserService } from '../../../../services/shared/user/user.service';
 import { SkillService } from '../../../../services/shared/skill/skill.service';
-import { AddSkillDialogComponent } from '../../../../shared/components/add-skill-dialog/add-skill-dialog.component';
+import { AddSkillDialogComponent } from '../../../../shared/components/user/add-skill-dialog/add-skill-dialog.component';
 import {
   AddProfileSkillInput,
   DeleteProfileSkillInput,
@@ -23,7 +23,7 @@ import {
 } from '../../../../core/models/core.model';
 import {
   UpdateSkillDialogComponent
-} from '../../../../shared/components/update-skill-dialog/update-skill-dialog.component';
+} from '../../../../shared/components/user/update-skill-dialog/update-skill-dialog.component';
 
 @Component({
   selector: 'app-skills',

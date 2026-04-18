@@ -3,8 +3,7 @@ import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { ButtonComponent, ButtonSize, ButtonVariant, SelectComponent } from '@hrm-monorepo/hrm-lib';
-import { AddProfileSkillInput, Mastery, Skill, SkillMastery } from '../../../core/models/core.model';
-import { data } from 'autoprefixer';
+import { AddProfileSkillInput, Mastery, Skill } from '../../../../core/models/core.model';
 
 @Component({
   selector: 'app-add-skill-dialog',
@@ -16,19 +15,19 @@ import { data } from 'autoprefixer';
     ButtonComponent,
     SelectComponent
   ],
-  templateUrl: './update-skill-dialog.component.html',
-  styleUrls: ['./update-skill-dialog.component.scss'],
+  templateUrl: './add-skill-dialog.component.html',
+  styleUrls: ['./add-skill-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UpdateSkillDialogComponent {
-  private dialogRef = inject(MatDialogRef<UpdateSkillDialogComponent>);
-  public data: Skill = inject(MAT_DIALOG_DATA);
+export class AddSkillDialogComponent {
+  private dialogRef = inject(MatDialogRef<AddSkillDialogComponent>);
+  public data: Skill[] = inject(MAT_DIALOG_DATA);
 
   protected readonly ButtonVariant = ButtonVariant;
   protected readonly ButtonSize = ButtonSize;
 
   public skillForm = new FormGroup({
-    skillId: new FormControl<string>({ value: this.data.id, disabled: true }, Validators.required),
+    skillId: new FormControl<string | null>(null, Validators.required),
     mastery: new FormControl<Mastery>(Mastery.Novice, Validators.required)
   });
 
@@ -37,13 +36,17 @@ export class UpdateSkillDialogComponent {
     value: m
   }));
 
+  public extractSkillOptions() {
+    return this.data.map(skill => ({ label: skill.name, value: skill.id }));
+  }
+
   returnSkill(): Omit<AddProfileSkillInput, 'userId'> {
-    const formValue = this.skillForm.getRawValue();
+    const skill: Skill = this.data.filter(s => s.id === this.skillForm.value.skillId)[0];
     return {
-      name: this.data.name,
-      categoryId: this.data.category?.id,
-      mastery: formValue.mastery!
-    };
+      name: skill.name,
+      categoryId: skill.category?.id,
+      mastery: this.skillForm.value.mastery!
+    }
   }
 
   close() {

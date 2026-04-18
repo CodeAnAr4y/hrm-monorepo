@@ -14,10 +14,10 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import {
   UpdateLanguageDialogComponent
-} from '../../../../shared/components/update-language-dialog/update-language-dialog.component';
+} from '../../../../shared/components/user/update-language-dialog/update-language-dialog.component';
 import {
   AddLanguageDialogComponent
-} from '../../../../shared/components/add-language-dialog/add-language-dialog.component';
+} from '../../../../shared/components/user/add-language-dialog/add-language-dialog.component';
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 

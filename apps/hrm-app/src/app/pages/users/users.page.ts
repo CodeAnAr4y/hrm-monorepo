@@ -4,12 +4,12 @@ import { UserService } from '../../services/shared/user/user.service';
 import { CreateUserInput, UpdateUserInput, User } from '../../core/models/core.model';
 import { CREATE_NEW_STORYFILE_REQUEST } from 'storybook/internal/core-events';
 import { MatDialog } from '@angular/material/dialog';
-import { AddUserDialogComponent } from '../../shared/components/add-user-dialog/add-user-dialog.component';
+import { AddUserDialogComponent } from '../../shared/components/user/add-user-dialog/add-user-dialog.component';
 import { AdminService } from '../../services/shared/admin/admin.service';
 import { SnackBarService } from '../../services/shared/snack-bar/snack-bar.service';
-import { DeleteUserDialogComponent } from '../../shared/components/delete-user-dialog/delete-user-dialog.component';
+import { DeleteUserDialogComponent } from '../../shared/components/user/delete-user-dialog/delete-user-dialog.component';
 import { Router } from '@angular/router';
-import { UpdateUserDialogComponent } from '../../shared/components/update-user-dialog/update-user-dialog.component';
+import { UpdateUserDialogComponent } from '../../shared/components/user/update-user-dialog/update-user-dialog.component';
 
 @Component({
   selector: 'app-users-page',

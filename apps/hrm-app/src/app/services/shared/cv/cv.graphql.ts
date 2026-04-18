@@ -11,6 +11,11 @@ export const CVS = gql`
         id
         email
       }
+      skills {
+        name
+        categoryId
+        mastery
+      }
     }
   }
 `;
