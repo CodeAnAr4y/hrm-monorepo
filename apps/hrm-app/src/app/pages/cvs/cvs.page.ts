@@ -6,6 +6,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddCvDialogComponent } from '../../shared/components/cv/add-cv-dialog/add-cv-dialog.component';
 import { UserService } from '../../services/shared/user/user.service';
 import { SnackBarService } from '../../services/shared/snack-bar/snack-bar.service';
+import {
+  DeleteUserDialogComponent
+} from '../../shared/components/user/delete-user-dialog/delete-user-dialog.component';
+import { DeleteCvDialogComponent } from '../../shared/components/cv/delete-cv-dialog/delete-cv-dialog.component';
 
 interface CvTable extends TableItem {
   name: string;
@@ -70,11 +74,34 @@ export class CvsPage {
           userId: this.authenticatedUser().id
         };
         this.cvService.createCv(createCvData).subscribe({
-          next: result => {
-            this.updateTable()
+          next: () => {
+            this.updateTable();
           },
-          error: error => this.snackBarService.openSnackBar('Error occured ' + error.message)
+          error: error => this.snackBarService.openSnackBar('Error occurred ' + error.message)
         });
+      }
+    });
+  }
+
+  public openDeleteCvDialog(id: string) {
+    const cv = this.cvService.userCvs().filter(cv => cv.id === id)[0];
+
+    const dialogRef = this.dialog.open(DeleteCvDialogComponent, {
+      width: '40vw',
+      panelClass: 'custom-dialog-container',
+      data: cv
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.cvService.deleteCv({ cvId: cv.id })
+          .subscribe({
+            next: () => {
+              this.snackBarService.openSnackBar(`CV "${cv.name}" deleted!`);
+              this.updateTable();
+            },
+            error: error => this.snackBarService.openSnackBar('Error occured ' + error.message)
+          });
       }
     });
   }

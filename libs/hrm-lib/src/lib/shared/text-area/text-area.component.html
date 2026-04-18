@@ -2,10 +2,12 @@
   <mat-label>{{ label() }}</mat-label>
   <textarea
     matInput
+    cdkTextareaAutosize
+    cdkAutosizeMinRows="4"
+    cdkAutosizeMaxRows="14"
     [placeholder]="placeholder()"
     [value]="value()"
     [disabled]="disabled()"
-    [rows]="rows()"
     (input)="handleInput($any($event.target).value)"
     (blur)="handleBlur()"
   ></textarea>

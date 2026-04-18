@@ -1,8 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { CreateCvInput, Cv } from '../../../core/models/core.model';
-import { CreateCvResult, CvResult, CvsResult } from './cv.model';
-import { CREATE_CV, CV, CVS } from './cv.graphql';
+import { CreateCvInput, Cv, DeleteCvInput, UpdateCvInput } from '../../../core/models/core.model';
+import { CreateCvResult, CvResult, CvsResult, UpdateCvResult } from './cv.model';
+import { CREATE_CV, CV, CVS, DELETE_CV, UPDATE_CV } from './cv.graphql';
 import { map, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -40,6 +40,36 @@ export class CvService {
       map(res => {
         if (!res.data) throw new Error('no data');
         return res.data.createCv;
+      })
+    );
+  }
+
+  public updateCv(cv: UpdateCvInput) {
+    return this.apollo.mutate<UpdateCvResult>({
+      mutation: UPDATE_CV,
+      variables: { cv }
+    }).pipe(
+      map(res => {
+        if (!res.data) throw new Error('no data');
+        this.selectedCv.set(res.data.updateCv)
+        return res.data.updateCv;
+      })
+    );
+  }
+
+  public deleteCv(cv: DeleteCvInput) {
+    return this.apollo.mutate({
+      mutation: DELETE_CV,
+      variables: { cv },
+      update: (cache) => {
+        const id = cache.identify({ id: cv.cvId, __typename: 'Cv' });
+        cache.evict({ id });
+        cache.gc();
+      }
+    }).pipe(
+      map(res => {
+        if (!res.data) throw new Error('no data');
+        return res.data;
       })
     );
   }

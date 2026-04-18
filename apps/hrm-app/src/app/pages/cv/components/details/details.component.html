@@ -1,1 +1,30 @@
-<p>details works!</p>
+<div class="max-w-4xl mx-auto">
+  <form [formGroup]="cvForm" (ngSubmit)="updateCvData()" class="mt-8 grid grid-cols-2 gap-4">
+    <lib-input
+      label="Name"
+      placeholder="Name"
+      formControlName="name"
+      class="col-span-2"
+    ></lib-input>
+    <lib-input
+      label="Education"
+      placeholder="Education"
+      formControlName="education"
+      class="col-span-2"
+    ></lib-input>
+    <lib-text-area
+      label="Description"
+      placeholder="Description"
+      formControlName="description"
+      class="col-span-2"
+    ></lib-text-area>
+
+    <div></div>
+    <div>
+      <lib-button [disabled]="cvForm.invalid || cvForm.pristine || isUnchanged()" [variant]=ButtonVariant.CONTAINED
+                  [width]="ButtonSize.FULL">
+        UPDATE
+      </lib-button>
+    </div>
+  </form>
+</div>

@@ -1,13 +1,15 @@
 import { ChangeDetectionStrategy, Component, forwardRef, input, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 
 @Component({
   selector: 'lib-text-area',
   imports: [
     MatLabel,
     MatFormField,
-    MatInput
+    MatInput,
+    CdkTextareaAutosize
   ],
   templateUrl: './text-area.component.html',
   styleUrl: './text-area.component.scss',
@@ -23,7 +25,6 @@ import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 export class TextAreaComponent implements ControlValueAccessor {
   placeholder = input<string>('');
   label = input<string>('');
-  rows = input<number>(4);
 
   private _disabled = signal(false);
   value = signal<string>('');

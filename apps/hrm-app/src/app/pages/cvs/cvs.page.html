@@ -7,7 +7,9 @@
     [isAdmin]="true"
     [type]="TableType.CV"
     addItemBtnLabel="+ CREATE CV"
-    (addItemBtnAction)="openCreateCvDialog()">
+    (addItemBtnAction)="openCreateCvDialog()"
+    (deleteItemBtnAction)="openDeleteCvDialog($event)"
+  >
   </lib-table>
 
   <ng-template #detailInfo let-row>
