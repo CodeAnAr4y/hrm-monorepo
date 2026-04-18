@@ -32,7 +32,7 @@ export const appRoutes: Route[] = [
             loadComponent: () => import('./pages/users/users.page').then(m => m.UsersPage)
           },
           {
-            path: ':id',
+            path: ':userId',
             loadComponent: () => import('./pages/user/user.page').then(m => m.UserPage),
             data: { breadcrumb: { label: '', alias: 'userEmail' } },
             children: [
@@ -57,8 +57,40 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'cvs',
-        loadComponent: () => import('./pages/cvs/cvs.page').then(m => m.CvsPage),
         data: { breadcrumb: 'CVs' },
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./pages/cvs/cvs.page').then(m => m.CvsPage)
+          },
+          {
+            path: ':cvId',
+            loadComponent: () => import('./pages/cv/cv.page').then(m => m.CvPage),
+            data: { breadcrumb: { label: '', alias: 'userCv' } },
+            children: [
+              {
+                path: '',
+                loadComponent: () => import('./pages/cv/components/details/details.component').then(m => m.DetailsComponent),
+                data: { breadcrumb: 'Details' }
+              },
+              {
+                path: 'skills',
+                loadComponent: () => import('./pages/cv/components/cv-skills/cv-skills.component').then(m => m.CvSkillsComponent),
+                data: { breadcrumb: 'Skills' }
+              },
+              {
+                path: 'projects',
+                loadComponent: () => import('./pages/cv/components/projects/projects.component').then(m => m.ProjectsComponent),
+                data: { breadcrumb: 'Projects' }
+              },
+              {
+                path: 'preview',
+                loadComponent: () => import('./pages/cv/components/preview/preview.component').then(m => m.PreviewComponent),
+                data: { breadcrumb: 'Preview' }
+              }
+            ]
+          }
+        ]
       },
       {
         path: 'settings',

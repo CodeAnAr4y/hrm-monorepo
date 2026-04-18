@@ -17,7 +17,6 @@ export interface TableHeader {
 }
 
 
-
 export interface UsersTableData {
   id: string;
   avatar: string;
@@ -26,4 +25,9 @@ export interface UsersTableData {
   email: string;
   department: string;
   position: string;
+}
+
+export enum TableType {
+  USER,
+  CV
 }

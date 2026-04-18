@@ -1,5 +1,5 @@
 import { ApplicationConfig, inject, Injector, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { provideRouter, withComponentInputBinding, withRouterConfig } from '@angular/router';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideApollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
@@ -97,6 +97,8 @@ export const appConfig: ApplicationConfig = {
         cache: new InMemoryCache()
       };
     }),
-    provideRouter(appRoutes)
+    provideRouter(appRoutes, withComponentInputBinding(), withRouterConfig({
+      paramsInheritanceStrategy: 'always'
+    })),
   ]
 };

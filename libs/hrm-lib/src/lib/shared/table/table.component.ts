@@ -15,7 +15,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { TableHeader, TableItem } from './table.model';
+import { TableHeader, TableItem, TableType } from './table.model';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -52,6 +52,8 @@ export class TableComponent<T extends TableItem> implements AfterViewInit {
   firstItem = input<T>();
   isAdmin = input<boolean>(false);
   addItemBtnLabel = input<string>();
+  protected readonly TableType = TableType;
+  type = input<TableType>(TableType.USER);
   addItemBtnAction = output();
   updateItemBtnAction = output<string>();
   deleteItemBtnAction = output<string>();
@@ -94,4 +96,5 @@ export class TableComponent<T extends TableItem> implements AfterViewInit {
     if ((event.target as HTMLElement).closest('button, a')) return;
     this.expandedElement.update(current => current === row ? null : row);
   }
+
 }

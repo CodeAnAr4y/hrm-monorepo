@@ -19,7 +19,7 @@ export class UserPage {
 
   public userId = toSignal(
     this.route.paramMap.pipe(
-      map(params => params.get('id')),
+      map(params => params.get('userId')),
       filter((id): id is string => !!id)
     )
   );

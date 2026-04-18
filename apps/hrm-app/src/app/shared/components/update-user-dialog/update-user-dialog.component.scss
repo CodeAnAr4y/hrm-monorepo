@@ -1,38 +1,8 @@
-:host {
-  display: block;
-}
-
 .dialog-container {
-  padding: 20px;
-
-  .dialog-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-
-    h2 {
-      margin: 0;
-      font-size: 20px;
-      font-weight: 600;
-    }
-
-    .close-btn {
-      display: flex;
-      align-items: center;
-    }
-  }
-
   .dialog-body {
     padding: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-  }
-
-  .dialog-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
   }
 }
