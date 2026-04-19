@@ -93,6 +93,16 @@ export const appRoutes: Route[] = [
         ]
       },
       {
+        path: 'projects',
+        data: { breadcrumb: 'Projects' },
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./pages/projects/projects.page').then(m => m.ProjectsPage),
+          },
+        ]
+      },
+      {
         path: 'settings',
         loadComponent: () => import('./pages/settings/settings.page').then(m => m.SettingsPage),
         data: { breadcrumb: 'Settings' }

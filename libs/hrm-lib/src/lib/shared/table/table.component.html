@@ -42,10 +42,12 @@
                   </button>
 
                   <mat-menu #menu="matMenu">
-                    <a [routerLink]="[row.id]" mat-menu-item>
-                      Details
-                    </a>
-                    @if (type() === TableType.USER) {
+                    @if (type() === TableType.USER || type() === TableType.CV) {
+                      <a [routerLink]="[row.id]" mat-menu-item>
+                        Details
+                      </a>
+                    }
+                    @if (type() === TableType.USER || type() === TableType.PROJECT) {
                       <button (click)="updateItemBtnAction.emit(row.id)" mat-menu-item>
                         Update
                       </button>

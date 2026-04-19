@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
 import { TableComponent, TableHeader, TableItem, TableType } from '@hrm-monorepo/hrm-lib';
 import { MatDialog } from '@angular/material/dialog';
-import { ProjectService } from '../../../../services/shared/project/project.service';
-import { UserService } from '../../../../services/shared/user/user.service';
-import { SnackBarService } from '../../../../services/shared/snack-bar/snack-bar.service';
+import { ProjectService } from '../../services/shared/project/project.service';
+import { UserService } from '../../services/shared/user/user.service';
+import { SnackBarService } from '../../services/shared/snack-bar/snack-bar.service';
 
 interface ProjectTable extends TableItem {
   name: string;
@@ -18,11 +18,11 @@ interface ProjectTable extends TableItem {
   selector: 'app-projects',
   standalone: true,
   imports: [TableComponent],
-  templateUrl: './projects.component.html',
-  styleUrl: './projects.component.scss',
+  templateUrl: './projects.page.html',
+  styleUrl: './projects.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsPage implements OnInit {
   private projectService = inject(ProjectService);
   private userService = inject(UserService);
   private dialog = inject(MatDialog);
