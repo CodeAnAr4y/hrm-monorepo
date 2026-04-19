@@ -5,6 +5,7 @@ import { UserService } from '../../services/shared/user/user.service';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { CvService } from '../../services/shared/cv/cv.service';
+import { ProjectService } from '../../services/shared/project/project.service';
 
 @Component({
   selector: 'app-cv',
@@ -19,6 +20,7 @@ import { CvService } from '../../services/shared/cv/cv.service';
 export class CvPage {
   private route = inject(ActivatedRoute);
   private cvService = inject(CvService);
+  private projectService = inject(ProjectService);
 
   public cvId = toSignal(
     this.route.paramMap.pipe(
@@ -32,6 +34,12 @@ export class CvPage {
       switchMap(id => this.cvService.getCvById(id!))
     )
   );
+
+  public projects =toSignal(
+    toObservable(this.cvId).pipe(
+      switchMap(id => this.projectService.getProjects())
+    )
+  )
 
   public tabs = computed(() => {
     const id = this.cvId();

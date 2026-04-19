@@ -8,6 +8,7 @@ import { appRoutes } from './app.routes';
 import { AuthService } from './services/core/auth/auth.service';
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 
 export const authLink = new ApolloLink((operation, forward) => {
@@ -81,6 +82,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     // provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(),
+    provideNativeDateAdapter(),
     provideTranslateService({
       loader: provideTranslateHttpLoader({
         prefix: '/assets/i18n/',

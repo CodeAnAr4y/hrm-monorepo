@@ -1,0 +1,31 @@
+<mat-form-field appearance="outline" class="w-full">
+  <mat-label>{{ label() }}</mat-label>
+
+  <mat-chip-grid #chipGrid [disabled]="disabled()" aria-label="Technology selection">
+    @for (val of value(); track val) {
+      <mat-chip-row
+        [disabled]="disabled()"
+        (removed)="remove(val)">
+        {{ getLabel(val) }}
+        <button matChipRemove [disabled]="disabled()" aria-label="remove">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+    }
+  </mat-chip-grid>
+
+  <mat-select
+    multiple
+    [value]="value()"
+    [disabled]="disabled()"
+    [placeholder]="placeholder()"
+    (selectionChange)="handleSelectionChange($event.value)"
+    (blur)="onTouched()"
+  >
+    @for (option of options(); track option.value) {
+      <mat-option [value]="option.value">
+        {{ option.label }}
+      </mat-option>
+    }
+  </mat-select>
+</mat-form-field>

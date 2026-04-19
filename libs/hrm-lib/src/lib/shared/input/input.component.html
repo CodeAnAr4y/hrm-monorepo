@@ -1,15 +1,32 @@
 <mat-form-field appearance="outline" class="w-full">
   <mat-label>{{ label() }}</mat-label>
-  <input
-    matInput
-    [type]="inputType()"
-    [placeholder]="placeholder()"
-    [value]="value()"
-    [disabled]="disabled()"
-    (input)="handleInput($any($event.target).value)"
-    (blur)="handleBlur()"
-    [autocomplete]="!autocomplete() ? 'one-time-code' : 'on'"
-  />
+
+  @if (type() === 'date') {
+    <input
+      matInput
+      [matDatepicker]="picker"
+      [placeholder]="placeholder()"
+      [value]="value()"
+      [disabled]="disabled()"
+      (dateChange)="handleInput($event.value)"
+      (blur)="handleBlur()"
+    />
+  } @else {
+    <input
+      matInput
+      [type]="inputType()"
+      [placeholder]="placeholder()"
+      [value]="value()"
+      [disabled]="disabled()"
+      (input)="handleInput($any($event.target).value)"
+      (blur)="handleBlur()"
+      [autocomplete]="!autocomplete() ? 'one-time-code' : 'on'"
+    />
+  }
+
+  @if (type() === 'date') {
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  }
 
   @if (type() === 'password') {
     <button
@@ -22,4 +39,6 @@
       <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
     </button>
   }
+
+  <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>

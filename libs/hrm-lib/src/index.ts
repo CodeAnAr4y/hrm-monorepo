@@ -25,3 +25,5 @@ export * from './lib/shared/select/select.constants';
 export * from './lib/shared/avatar/avatar.component';
 
 export * from './lib/shared/text-area/text-area.component';
+
+export * from './lib/shared/multi-select/multi-select.component';

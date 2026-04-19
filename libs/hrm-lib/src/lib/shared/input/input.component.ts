@@ -6,14 +6,13 @@ import {
   signal,
   computed
 } from '@angular/core';
-import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR
-} from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'lib-input',
@@ -22,7 +21,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss',
@@ -36,13 +37,14 @@ import { MatButtonModule } from '@angular/material/button';
   ]
 })
 export class InputComponent implements ControlValueAccessor {
-  type = input<'text' | 'password' | 'email'>('text');
+  // Добавили 'date'
+  type = input<'text' | 'password' | 'email' | 'date'>('text');
   placeholder = input<string>('');
   label = input<string>('');
   autocomplete = input<boolean>(false);
 
   private _disabled = signal(false);
-  value = signal<string>('');
+  value = signal<any>(''); // Изменили на any для поддержки Date объектов
 
   hide = signal(true);
 
@@ -50,17 +52,17 @@ export class InputComponent implements ControlValueAccessor {
     if (this.type() === 'password') {
       return this.hide() ? 'password' : 'text';
     }
-    return this.type();
+    return this.type() === 'date' ? 'text' : this.type();
   });
 
-  private onChange = (value: string) => {};
+  private onChange = (value: any) => {};
   private onTouched = () => {};
 
-  writeValue(value: string): void {
+  writeValue(value: any): void {
     this.value.set(value ?? '');
   }
 
-  registerOnChange(fn: (value: string) => void): void {
+  registerOnChange(fn: (value: any) => void): void {
     this.onChange = fn;
   }
 
@@ -72,7 +74,7 @@ export class InputComponent implements ControlValueAccessor {
     this._disabled.set(isDisabled);
   }
 
-  handleInput(value: string) {
+  handleInput(value: any) {
     this.value.set(value);
     this.onChange(value);
   }
