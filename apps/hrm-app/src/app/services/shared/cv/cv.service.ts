@@ -4,21 +4,28 @@ import { CreateCvInput, Cv, DeleteCvInput, UpdateCvInput } from '../../../core/m
 import { CreateCvResult, CvResult, CvsResult, UpdateCvResult } from './cv.model';
 import { CREATE_CV, CV, CVS, DELETE_CV, UPDATE_CV } from './cv.graphql';
 import { map, tap } from 'rxjs/operators';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CvService {
   private apollo = inject(Apollo);
+  private userService = inject(UserService);
 
   public selectedCv = signal<Cv>({} as Cv);
   public userCvs = signal<Cv[]>([]);
+  public selectedUser = this.userService.selectedUser;
 
   public getCvById(cvId: string) {
     return this.apollo.query<CvResult>({ query: CV, variables: { cvId } }).pipe(
       map(res => {
         if (!res.data) throw new Error('no data');
         this.selectedCv.set(res.data.cv);
+        console.log("this.selectedCv is:", this.selectedCv());
+        if (res.data.cv.user) {
+          this.selectedUser.set(res.data.cv.user);
+        }
         return res.data.cv;
       })
     );
@@ -51,7 +58,7 @@ export class CvService {
     }).pipe(
       map(res => {
         if (!res.data) throw new Error('no data');
-        this.selectedCv.set(res.data.updateCv)
+        this.selectedCv.set(res.data.updateCv);
         return res.data.updateCv;
       })
     );

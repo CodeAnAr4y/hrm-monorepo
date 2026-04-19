@@ -17,8 +17,8 @@
         <div class="skills-grid">
           @for (skill of category.skills; track skill.name) {
             <lib-button
-              (click)="deleteMode ? toggleSelectedSkill(skill.name) : openUpdateSkillDialog(skill)"
-              [variant]="selectedSkillsToDelete.includes(skill.name) ? ButtonVariant.OUTLINED : ButtonVariant.TEXT"
+              (click)="deleteMode() ? toggleSelectedSkill(skill.name) : openUpdateSkillDialog(skill)"
+              [variant]="selectedSkillsToDelete().includes(skill.name) ? ButtonVariant.OUTLINED : ButtonVariant.TEXT"
               [width]="ButtonSize.CONTENT"
               [textColor]="ButtonTextColor.SECONDARY"
               [disabled]="!accountOwner() && !isAdmin()"
@@ -31,61 +31,36 @@
         </div>
       </section>
     }
+
     @if (accountOwner() || isAdmin()) {
       <div class="flex items-center justify-end gap-6">
-        @if (!deleteMode) {
+        @if (!deleteMode()) {
           <div class="flex gap-4">
-            <lib-button
-              (click)="openAddSkillDialog()"
-              [variant]="ButtonVariant.TEXT"
-              [width]="ButtonSize.CONTENT"
-              [textColor]="ButtonTextColor.SECONDARY">
-              <div class="flex items-center gap-2">
-                <mat-icon>add</mat-icon>
-                ADD SKILL
-              </div>
+            <lib-button (click)="openAddSkillDialog()" [variant]="ButtonVariant.TEXT" [textColor]="ButtonTextColor.SECONDARY">
+              <div class="flex items-center gap-2"><mat-icon>add</mat-icon> ADD SKILL</div>
             </lib-button>
-            <lib-button
-              (click)="toggleDeleteMode()"
-              [variant]="ButtonVariant.TEXT"
-              [width]="ButtonSize.CONTENT"
-              [textColor]="ButtonTextColor.PRIMARY">
-              <div class="flex items-center gap-2">
-                <mat-icon>delete</mat-icon>
-                <div class="whitespace-nowrap">DELETE SKILLS</div>
-              </div>
+            <lib-button (click)="toggleDeleteMode()" [variant]="ButtonVariant.TEXT" [textColor]="ButtonTextColor.PRIMARY">
+              <div class="flex items-center gap-2"><mat-icon>delete</mat-icon> DELETE SKILLS</div>
             </lib-button>
           </div>
         } @else {
           <div class="flex gap-4">
-            <lib-button
-              (click)="toggleDeleteMode()"
-              [variant]="ButtonVariant.OUTLINED"
-              [width]="ButtonSize.FULL"
-              [textColor]="ButtonTextColor.SECONDARY">
-              <div class="flex items-center gap-2">
-                CANCEL
-              </div>
+            <lib-button (click)="toggleDeleteMode()" [variant]="ButtonVariant.OUTLINED" [textColor]="ButtonTextColor.SECONDARY">
+              CANCEL
             </lib-button>
             <lib-button
               (click)="deleteSkills()"
               [variant]="ButtonVariant.CONTAINED"
-              [width]="ButtonSize.FULL"
               [textColor]="ButtonTextColor.PRIMARY"
-              [disabled]="selectedSkillsToDelete.length == 0">
-              <div class="flex items-center gap-2">
-                DELETE
-                @if (selectedSkillsToDelete.length) {
-                  <span class="text-primary px-2 bg-white rounded-full">{{ selectedSkillsToDelete.length }}</span>
-                }
-              </div>
+              [disabled]="selectedSkillsToDelete().length === 0">
+              DELETE
+              @if (selectedSkillsToDelete().length) {
+                <span class="ml-2 px-2 bg-white text-black rounded-full">{{ selectedSkillsToDelete().length }}</span>
+              }
             </lib-button>
           </div>
         }
-
       </div>
     }
-
   }
-
 </div>

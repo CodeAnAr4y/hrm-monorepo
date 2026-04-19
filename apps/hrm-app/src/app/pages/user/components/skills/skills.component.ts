@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { map, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { MatIcon } from '@angular/material/icon';
+import { map, switchMap, startWith, Subject } from 'rxjs';
 
 import {
   ButtonComponent,
@@ -12,18 +11,17 @@ import {
   ButtonVariant,
   SkillIndicatorComponent
 } from '@hrm-monorepo/hrm-lib';
+
 import { UserService } from '../../../../services/shared/user/user.service';
 import { SkillService } from '../../../../services/shared/skill/skill.service';
 import { AddSkillDialogComponent } from '../../../../shared/components/user/add-skill-dialog/add-skill-dialog.component';
+import { UpdateSkillDialogComponent } from '../../../../shared/components/user/update-skill-dialog/update-skill-dialog.component';
 import {
   AddProfileSkillInput,
   DeleteProfileSkillInput,
   SkillMastery,
   UpdateProfileSkillInput
 } from '../../../../core/models/core.model';
-import {
-  UpdateSkillDialogComponent
-} from '../../../../shared/components/user/update-skill-dialog/update-skill-dialog.component';
 
 @Component({
   selector: 'app-skills',
@@ -34,116 +32,111 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkillsComponent {
-  private userService = inject(UserService);
-  private skillService = inject(SkillService);
-  private dialog = inject(MatDialog);
+  private readonly userService = inject(UserService);
+  private readonly skillService = inject(SkillService);
+  private readonly dialog = inject(MatDialog);
 
-  deleteMode: boolean = false;
-  selectedSkillsToDelete: string[] = [];
-
-  public selectedUser = this.userService.selectedUser;
-  public authenticatedUser = this.userService.authenticatedUser;
-  public accountOwner = computed(() => this.selectedUser().id === this.authenticatedUser().id);
-  public isAdmin = this.userService.isAdmin;
-
+  // Constants
   protected readonly ButtonVariant = ButtonVariant;
   protected readonly ButtonSize = ButtonSize;
   protected readonly ButtonTextColor = ButtonTextColor;
 
-  public allAvailableSkills = toSignal(this.skillService.getAllSkills(), { initialValue: [] });
-  public skillCategories = toSignal(this.skillService.getSkillCategories(), { initialValue: [] });
+  // State
+  public readonly deleteMode = signal(false);
+  public readonly selectedSkillsToDelete = signal<string[]>([]);
+  private readonly refreshTrigger$ = new Subject<void>(); // Триггер для обновления данных
 
-  public userSkills = toSignal(
+  // Global Data
+  public readonly selectedUser = this.userService.selectedUser;
+  public readonly authenticatedUser = this.userService.authenticatedUser;
+  public readonly isAdmin = this.userService.isAdmin;
+  public readonly allAvailableSkills = toSignal(this.skillService.getAllSkills(), { initialValue: [] });
+  private readonly skillCategories = toSignal(this.skillService.getSkillCategories(), { initialValue: [] });
+
+  // Computed Logic
+  public readonly accountOwner = computed(() => this.selectedUser()?.id === this.authenticatedUser()?.id);
+
+  public readonly userSkills = toSignal(
     toObservable(this.selectedUser).pipe(
+      switchMap(user => this.refreshTrigger$.pipe(
+        startWith(null),
+        map(() => user)
+      )),
       switchMap(user => {
-        if (!user?.id) return of([]);
+        if (!user?.id) return [[]];
         return this.skillService.getUserSkills(user.id).pipe(map(profile => profile.skills));
       })
     ),
     { initialValue: [] }
   );
 
-  public groupedSkills = computed(() => {
+  public readonly groupedSkills = computed(() => {
     const categories = this.skillCategories();
     const skills = this.userSkills();
-
     if (!skills.length) return [];
 
-    return categories.map(cat => ({
-      ...cat, skills: skills.filter(skill => skill.categoryId === cat.id)
-    })).filter(cat => cat.skills.length > 0);
+    return categories
+      .map(cat => ({ ...cat, skills: skills.filter(s => s.categoryId === cat.id) }))
+      .filter(cat => cat.skills.length > 0);
   });
 
-  public toggleDeleteMode() {
-    this.selectedSkillsToDelete = [];
-    this.deleteMode = !this.deleteMode;
+  // Actions
+  public toggleDeleteMode(): void {
+    this.selectedSkillsToDelete.set([]);
+    this.deleteMode.update(v => !v);
   }
 
-  public toggleSelectedSkill(skillName: string) {
-    if (this.selectedSkillsToDelete.includes(skillName)) {
-      this.selectedSkillsToDelete = this.selectedSkillsToDelete.filter(name => name !== skillName);
-    } else {
-      this.selectedSkillsToDelete.push(skillName);
-    }
+  public toggleSelectedSkill(skillName: string): void {
+    this.selectedSkillsToDelete.update(current =>
+      current.includes(skillName)
+        ? current.filter(n => n !== skillName)
+        : [...current, skillName]
+    );
   }
 
-  public openAddSkillDialog() {
+  public openAddSkillDialog(): void {
+    const available = this.allAvailableSkills().filter(s =>
+      !this.userSkills().some(u => u.name === s.name)
+    );
+
     const dialogRef = this.dialog.open(AddSkillDialogComponent, {
       width: '40vw',
-      panelClass: 'custom-dialog-container',
-      data: this.allAvailableSkills()
-        .filter(skill => !this.userSkills()
-          .some((uSkill) => uSkill.name === skill.name))
+      data: available
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const skill: AddProfileSkillInput = {
-          ...result,
-          userId: this.selectedUser().id
-        };
-        this.saveSkill(skill);
+        const input: AddProfileSkillInput = { ...result, userId: this.selectedUser().id };
+        this.skillService.addUserSkill(input).subscribe(() => this.refreshTrigger$.next());
       }
     });
   }
 
-  public openUpdateSkillDialog(skill: SkillMastery) {
+  public openUpdateSkillDialog(skill: SkillMastery): void {
+    const skillData = this.allAvailableSkills().find(s => s.name === skill.name);
+
     const dialogRef = this.dialog.open(UpdateSkillDialogComponent, {
       width: '40vw',
-      panelClass: 'custom-dialog-container',
-      data: this.allAvailableSkills().filter(s => s.name === skill.name)[0]
+      data: skillData
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const skill: UpdateProfileSkillInput = {
-          ...result,
-          userId: this.selectedUser().id
-        };
-        this.skillService.updateProfileSkill(skill).subscribe(() => {
-          this.userService.selectedUser.update(user => ({ ...user }));
-        });
+        const input: UpdateProfileSkillInput = { ...result, userId: this.selectedUser().id };
+        this.skillService.updateProfileSkill(input).subscribe(() => this.refreshTrigger$.next());
       }
     });
   }
 
-  private saveSkill(skill: AddProfileSkillInput) {
-    this.skillService.addUserSkill(skill).subscribe(() => {
-      this.userService.selectedUser.update(user => ({ ...user }));
-    });
-  }
-
-  public deleteSkills() {
-    const userId = this.selectedUser().id;
-    const skillInput: DeleteProfileSkillInput = {
-      userId,
-      name: [...this.selectedSkillsToDelete]
+  public deleteSkills(): void {
+    const input: DeleteProfileSkillInput = {
+      userId: this.selectedUser().id,
+      name: this.selectedSkillsToDelete()
     };
 
-    this.skillService.deleteProfileSkill(skillInput).subscribe(() => {
-      this.deleteMode = false;
-      this.selectedSkillsToDelete = [];
-      this.userService.selectedUser.update(user => ({ ...user }));
+    this.skillService.deleteProfileSkill(input).subscribe(() => {
+      this.toggleDeleteMode();
+      this.refreshTrigger$.next();
     });
   }
 }
