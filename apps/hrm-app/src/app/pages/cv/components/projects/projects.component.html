@@ -7,7 +7,7 @@
     [type]="TableType.PROJECT"
     addItemBtnLabel="+ ADD PROJECT"
     (addItemBtnAction)="openCreateProjectDialog()"
-    (updateItemBtnAction)="openUpdateProjectDialog()"
+    (updateItemBtnAction)="openUpdateProjectDialog($event)"
     (deleteItemBtnAction)="openDeleteProjectDialog($event)"
   >
   </lib-table>
