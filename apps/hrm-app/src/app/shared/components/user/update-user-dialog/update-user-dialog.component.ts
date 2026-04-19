@@ -65,7 +65,6 @@ export class UpdateUserDialogComponent implements OnInit {
 
   ngOnInit() {
     this.initSelectOptions();
-    console.log('data is:', this.data);
 
   }
 

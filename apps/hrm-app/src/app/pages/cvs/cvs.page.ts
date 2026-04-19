@@ -56,8 +56,6 @@ export class CvsPage {
       skills: cv.skills ? cv.skills.map(skill => skill.name) : []
     }));
 
-    console.log(cvsTableData);
-
     return cvsTableData;
   });
 

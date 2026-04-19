@@ -39,19 +39,16 @@ import { filter, switchMap } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CvSkillsComponent {
-  // Services
   private readonly userService = inject(UserService);
   private readonly cvService = inject(CvService);
   private readonly cvSkillsService = inject(CvSkillsService);
   private readonly skillService = inject(SkillService);
   private readonly dialog = inject(MatDialog);
 
-  // Constants for template
   protected readonly ButtonVariant = ButtonVariant;
   protected readonly ButtonSize = ButtonSize;
   protected readonly ButtonTextColor = ButtonTextColor;
 
-  // State Signals
   public deleteMode = signal(false);
   public selectedSkillsToDelete = signal<string[]>([]);
 
@@ -64,7 +61,6 @@ export class CvSkillsComponent {
     });
   }
 
-  // Data Signals
   public readonly selectedUser = this.userService.selectedUser;
   public readonly selectedCv = this.cvService.selectedCv;
   public readonly authenticatedUser = this.userService.authenticatedUser;
@@ -80,7 +76,6 @@ export class CvSkillsComponent {
     takeUntilDestroyed()
   ).subscribe();
 
-  // Computed
   public readonly accountOwner = computed(() => this.selectedUser().id === this.authenticatedUser().id);
 
   public readonly groupedSkills = computed(() => {
@@ -97,7 +92,6 @@ export class CvSkillsComponent {
       .filter(cat => cat.skills.length > 0);
   });
 
-  // Actions
   public toggleDeleteMode(): void {
     this.selectedSkillsToDelete.set([]);
     this.deleteMode.update(v => !v);

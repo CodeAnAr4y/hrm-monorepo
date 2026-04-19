@@ -105,7 +105,6 @@ export class UsersPage {
 
   public openUpdateUserDialog(id: string) {
     const user = this.userService.users().filter(user => user.id === id)[0];
-    console.log(user);
 
     const dialogRef = this.dialog.open(UpdateUserDialogComponent, {
       width: '60vw',

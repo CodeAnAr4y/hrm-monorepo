@@ -78,7 +78,6 @@ export class CvProjectService {
   }
 
   private reloadCvProjectsData(id: string) {
-    console.log('reloading projects...');
     this.getCvProjects(id).subscribe();
   }
 }

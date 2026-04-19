@@ -22,7 +22,6 @@ export class CvService {
       map(res => {
         if (!res.data) throw new Error('no data');
         this.selectedCv.set(res.data.cv);
-        console.log("this.selectedCv is:", this.selectedCv());
         if (res.data.cv.user) {
           this.selectedUser.set(res.data.cv.user);
         }
@@ -36,7 +35,6 @@ export class CvService {
       map(res => {
         if (!res.data) throw new Error('no data');
         this.userCvs.set(res.data.cvs);
-        console.log(res.data.cvs);
         return res.data.cvs;
       })
     );

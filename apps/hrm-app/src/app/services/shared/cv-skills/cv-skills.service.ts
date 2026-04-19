@@ -22,12 +22,10 @@ export class CvSkillsService {
   public cvSkills = signal<SkillMastery[]>([]);
 
   public getCvSkills(cvId: string) {
-    console.log('getting...')
     return this.apollo.query<CvResult>({ query: CV_SKILLS, variables: { cvId }, fetchPolicy: "network-only" }).pipe(
       map(res => {
         if (!res.data) throw new Error('no data');
         this.cvSkills.set(res.data.cv.skills);
-        console.log('result setted...', this.cvSkills());
         return res.data.cv;
       })
     );
@@ -72,7 +70,6 @@ export class CvSkillsService {
   }
 
   private reloadCvSkillsData(id: string) {
-    console.log('reloading...');
     this.getCvSkills(id).subscribe()
   }
 }
