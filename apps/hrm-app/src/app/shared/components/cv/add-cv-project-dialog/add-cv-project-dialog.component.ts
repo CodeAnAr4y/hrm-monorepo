@@ -43,7 +43,11 @@ export class AddCvProjectDialogComponent {
   protected readonly ButtonVariant = ButtonVariant;
   protected readonly ButtonTextColor = ButtonTextColor;
 
-  private projects = this.projectService.projects;
+  private allProjects$ = this.projectService.getProjects();
+
+  private projects = toSignal(this.allProjects$, {
+    initialValue: [],
+  });
 
   public projectOptions = computed(() =>
     this.projects().map(p => ({ label: p.name, value: p.id }))

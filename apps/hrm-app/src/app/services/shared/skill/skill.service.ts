@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import {
   ADD_PROFILE_SKILL,
@@ -18,7 +18,7 @@ import {
 } from './skill.model';
 import {
   AddProfileSkillInput,
-  DeleteProfileSkillInput,
+  DeleteProfileSkillInput, SkillMastery,
   UpdateProfileSkillInput
 } from '../../../core/models/core.model';
 
@@ -28,10 +28,13 @@ import {
 export class SkillService {
   private apollo = inject(Apollo);
 
+  public userSkills = signal<SkillMastery[]>([])
+
   public getUserSkills(userId: string) {
-    return this.apollo.query<ProfileResult>({ query: PROFILE_SKILLS, variables: { userId }, fetchPolicy: 'network-only' }).pipe(
+    return this.apollo.query<ProfileResult>({ query: PROFILE_SKILLS, variables: { userId } }).pipe(
       map(res => {
         if (!res.data) throw new Error('No data');
+        this.userSkills.set(res.data.profile.skills);
         return res.data.profile;
       })
     );

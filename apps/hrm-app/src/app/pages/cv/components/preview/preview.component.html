@@ -1,1 +1,103 @@
-<p>preview works!</p>
+<div #cvContent class="flex flex-col gap-6 max-w-4xl mx-auto mb-12">
+  <div class="doc-header">
+    <div>
+      <h1>{{ selectedUser().profile.full_name }}</h1>
+      <p class="uppercase">{{ selectedUser().position_name }}</p>
+    </div>
+
+    <lib-button
+      (click)="exportPdf()"
+      [variant]="ButtonVariant.OUTLINED"
+      [width]="ButtonSize.CONTENT"
+    >EXPORT PDF
+    </lib-button>
+  </div>
+
+  <div class="doc-grid">
+    <div class="doc-profile border-r-2 border-primary">
+      <section>
+        <h3>Education</h3>
+        <p>Master's degree</p>
+      </section>
+
+      <section>
+        <h3>Language proficiency</h3>
+        @for (language of selectedUser().profile.languages; track language) {
+          <p>{{ language.name }} - {{ language.proficiency }}</p>
+        }
+      </section>
+
+      <section>
+        <h3>Domains</h3>
+        @for (project of cvProjects(); track project.id) {
+          <p>{{ project.domain }}</p>
+        }
+      </section>
+    </div>
+
+    <div class="doc-profile md:col-span-2">
+      <section>
+        <h3>{{ selectedCv().name }}</h3>
+        <p>
+          {{ selectedCv().description }}
+        </p>
+      </section>
+
+      @for (skillGroup of groupedCvSkills(); track skillGroup.id) {
+        <section>
+          <h3>{{ skillGroup.name }}</h3>
+          <p>{{ skillGroup.skills.join(', ') }}</p>
+        </section>
+      }
+    </div>
+  </div>
+
+  <div class="doc-header">
+    <h1>Projects</h1>
+  </div>
+  <div>
+    @for (project of cvProjects(); track project.id) {
+      <div class="doc-grid">
+        <div class="doc-profile doc-profile-bordered">
+          <section>
+            <h3 class="uppercase text-primary">{{ project.name }}</h3>
+            <p>{{project.description}}</p>
+          </section>
+        </div>
+        <div class="doc-profile md:col-span-2">
+        <section>
+          <h3>Project roles</h3>
+            <p>{{ project.roles.join(', ') }}</p>
+          <p></p>
+        </section>
+          <section>
+            <h3>Period</h3>
+            <p>{{project.start_date | date}} - {{project.end_date | date}}</p>
+          </section>
+          <section>
+            <h3>Responsibilities</h3>
+            <ul>
+              @for (resp of project.responsibilities; track resp) {
+                <li>{{resp}}</li>
+              }
+            </ul>
+          </section>
+          <section>
+            <h3>Environments</h3>
+              <p>{{project.environment.join(', ')}}</p>
+          </section>
+        </div>
+      </div>
+
+    }
+  </div>
+
+  <div class="doc-header">
+    <h1>Professional skills</h1>
+  </div>
+  <lib-table [columns]="columns"
+             [items]="skillsTable()"
+             [search]="false"
+  ></lib-table>
+
+</div>

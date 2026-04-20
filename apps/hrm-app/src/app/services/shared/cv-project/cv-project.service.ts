@@ -1,12 +1,12 @@
 import { inject, Injectable, signal } from '@angular/core';
 import {
   AddCvProjectInput,
-  CvProject,
+  CvProject, ExportPdfInput,
   RemoveCvProjectInput,
   UpdateCvProjectInput
 } from '../../../core/models/core.model';
-import { ADD_CV_PROJECT, CV_PROJECTS, REMOVE_CV_PROJECT, UPDATE_CV_PROJECT } from './cv-project.graphql';
-import { AddCvProjectResult, RemoveCvProjectResult, UpdateCvProjectResult } from './cv-project.model';
+import { ADD_CV_PROJECT, CV_PROJECTS, EXPORT_PDF, REMOVE_CV_PROJECT, UPDATE_CV_PROJECT } from './cv-project.graphql';
+import { AddCvProjectResult, ExportPdfResult, RemoveCvProjectResult, UpdateCvProjectResult } from './cv-project.model';
 import { map } from 'rxjs/operators';
 import { Apollo } from 'apollo-angular';
 import { CvResult } from '../cv/cv.model';
@@ -73,6 +73,15 @@ export class CvProjectService {
         if (!res.data) throw new Error('no data');
         this.reloadCvProjectsData(res.data.removeCvProject.id);
         return res.data.removeCvProject;
+      })
+    );
+  }
+
+  public exportPdf(pdf: ExportPdfInput) {
+    return this.apollo.mutate<ExportPdfResult>({mutation: EXPORT_PDF, variables: { pdf }}).pipe(
+      map(res => {
+        if (!res.data) throw new Error('no data');
+        return res.data.exportPdf;
       })
     );
   }

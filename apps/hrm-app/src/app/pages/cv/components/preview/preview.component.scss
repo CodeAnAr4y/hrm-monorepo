@@ -1,0 +1,47 @@
+:host {
+  @apply mx-auto w-full;
+}
+
+.doc-header{
+  @apply flex justify-between items-start;
+
+  h1 {
+    @apply text-4xl;
+  }
+}
+
+.doc-grid {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-8 mb-12;
+}
+
+.doc-profile{
+  @apply space-y-8;
+}
+
+.doc-profile-bordered{
+  @apply border-r-2 border-primary pe-8
+}
+
+section {
+  @apply  space-y-3;
+  h3 {
+    @apply font-bold;
+
+  }
+  p {}
+}
+
+.zero-margin{
+  @apply mb-0
+}
+
+ul {
+  @apply list-disc list-inside;
+  li {
+    @apply marker:text-primary;
+  }
+}
+
+::ng-deep.mat-mdc-table{
+  @apply bg-transparent
+}

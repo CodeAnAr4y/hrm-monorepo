@@ -65,7 +65,7 @@ export class ProjectsComponent {
   public openCreateProjectDialog() {
     const dialogRef = this.dialog.open(AddCvProjectDialogComponent, {
       width: '60vw',
-      panelClass: 'custom-dialog-container'
+      panelClass: 'custom-dialog-container',
     });
 
     dialogRef.afterClosed().subscribe(result => {

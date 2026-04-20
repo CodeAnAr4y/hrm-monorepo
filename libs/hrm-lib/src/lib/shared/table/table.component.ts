@@ -46,6 +46,7 @@ import { ButtonComponent } from '../button/button.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent<T extends TableItem> implements AfterViewInit {
+  search = input<boolean>(true);
   items = input.required<T[]>();
   columns = input.required<TableHeader[]>();
   loading = input<boolean>(false);

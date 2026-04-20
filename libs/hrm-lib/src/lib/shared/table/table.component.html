@@ -1,10 +1,12 @@
 <div class="table-container">
   <div class="table-tools">
-    <div class="search">
-      <mat-icon matPrefix class="dark:text-[var(--color-text-primary)] mr-2">search</mat-icon>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Search employees..." #input
-             class="dark:text-[var(--color-text-primary)]">
-    </div>
+    @if (search()) {
+      <div class="search">
+        <mat-icon matPrefix class="dark:text-[var(--color-text-primary)] mr-2">search</mat-icon>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search employees..." #input
+               class="dark:text-[var(--color-text-primary)]">
+      </div>
+    }
     @if (isAdmin()) {
       <lib-button (click)="addItemBtnAction.emit()" [variant]="ButtonVariant.TEXT"
                   [width]="ButtonSize.CONTENT">{{ addItemBtnLabel() }}
