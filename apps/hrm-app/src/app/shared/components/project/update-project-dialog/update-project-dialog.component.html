@@ -1,0 +1,65 @@
+<div class="dialog-container" [formGroup]="projectForm">
+  <div class="dialog-header">
+    <h2>Update project</h2>
+    <button (click)="close()" type="button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="dialog-body">
+    <div class="grid grid-cols-2 gap-2">
+      <lib-input
+        label="Project"
+        formControlName="project"
+      ></lib-input>
+
+      <lib-input
+        label="Domain"
+        formControlName="domain"
+      ></lib-input>
+
+      <lib-input
+        type="date"
+        label="Start Date"
+        formControlName="startDate"
+      ></lib-input>
+
+      <lib-input
+        type="date"
+        label="End Date"
+        formControlName="endDate"
+      ></lib-input>
+
+      <div class="col-span-2">
+        <lib-text-area
+          label="Description"
+          formControlName="description"
+        ></lib-text-area>
+      </div>
+
+      <div class="col-span-2">
+        <lib-multi-select
+          label="Environment"
+          [options]="envOptions()"
+          formControlName="environment"
+        ></lib-multi-select>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="p-4">
+    <div class="flex gap-4 w-full justify-end">
+      <lib-button
+        [variant]="ButtonVariant.OUTLINED"
+        [textColor]="ButtonTextColor.SECONDARY"
+        (click)="close()">
+        CANCEL
+      </lib-button>
+      <lib-button
+        (click)="confirm()"
+        [disabled]="projectForm.invalid">
+        UPDATE
+      </lib-button>
+    </div>
+  </mat-dialog-actions>
+</div>

@@ -65,7 +65,6 @@ export class ProjectsComponent {
   public openCreateProjectDialog() {
     const dialogRef = this.dialog.open(AddCvProjectDialogComponent, {
       width: '60vw',
-      panelClass: 'custom-dialog-container',
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -97,7 +96,6 @@ export class ProjectsComponent {
 
     const dialogRef = this.dialog.open(UpdateCvProjectDialogComponent, {
       width: '60vw',
-      panelClass: 'custom-dialog-container',
       data: projectToUpdate
     });
 
@@ -125,7 +123,6 @@ export class ProjectsComponent {
 
     const dialogRef = this.dialog.open(DeleteCvProjectDialogComponent, {
       width: '40vw',
-      panelClass: 'custom-dialog-container',
       data: { id: id, name: project?.name }
     });
 

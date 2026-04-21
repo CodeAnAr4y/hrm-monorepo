@@ -1,26 +1,30 @@
 <div class="min-h-screen">
+
   <lib-table
     [items]="projectsTableData()"
     [columns]="columns"
-    [detailTemplate]="projectDetail"
+    [detailTemplate]="detailInfo"
     [isAdmin]="true"
     [type]="TableType.PROJECT"
     addItemBtnLabel="+ CREATE PROJECT"
     (addItemBtnAction)="openCreateProjectDialog()"
-    (updateItemBtnAction)="openUpdateProjectDialog()"
     (deleteItemBtnAction)="openDeleteProjectDialog($event)"
+    (updateItemBtnAction)="openUpdateProjectDialog($event)"
   >
   </lib-table>
 
-  <ng-template #projectDetail let-row>
+  <ng-template #detailInfo let-row>
+
     <div class="description-box">
       <p>{{ row.description }}</p>
 
-      <div class="tags mt-3 flex gap-2 flex-wrap">
-        @for (tag of row.tags; track tag) {
-          <span class="tag">{{ tag }}</span>
+      <div class="tags mt-3 flex flex-wrap gap-2 whitespace-nowrap">
+        @for (env of row['environment']; track env) {
+          <span class="tag">{{ env }}</span>
         }
       </div>
     </div>
+
   </ng-template>
+
 </div>

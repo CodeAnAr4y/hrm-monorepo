@@ -14,7 +14,7 @@ import { MatIcon } from '@angular/material/icon';
 import { map } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SkillService } from '../../../../services/shared/skill/skill.service';
-import { CvProject } from '../../../../core/models/core.model';
+import { Project } from '../../../../core/models/core.model';
 
 @Component({
   selector: 'app-update-project-dialog',
@@ -29,14 +29,14 @@ import { CvProject } from '../../../../core/models/core.model';
     ButtonComponent,
     MultiSelectComponent
   ],
-  templateUrl: './update-cv-project-dialog.component.html',
-  styleUrl: './update-cv-project-dialog.component.scss',
+  templateUrl: './update-project-dialog.component.html',
+  styleUrl: './update-project-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UpdateCvProjectDialogComponent implements OnInit {
-  private dialogRef = inject(MatDialogRef<UpdateCvProjectDialogComponent>);
+export class UpdateProjectDialogComponent implements OnInit {
+  private dialogRef = inject(MatDialogRef<UpdateProjectDialogComponent>);
   private skillService = inject(SkillService);
-  public data = inject<CvProject>(MAT_DIALOG_DATA);
+  public data = inject<Project>(MAT_DIALOG_DATA);
 
   protected readonly ButtonVariant = ButtonVariant;
   protected readonly ButtonTextColor = ButtonTextColor;
@@ -53,14 +53,12 @@ export class UpdateCvProjectDialogComponent implements OnInit {
   });
 
   public projectForm = new FormGroup({
-    project: new FormControl({ value: '', disabled: true }),
-    domain: new FormControl({ value: '', disabled: true }),
-    description: new FormControl({ value: '', disabled: true }),
-    environment: new FormControl<string[]>({ value: [], disabled: true }),
-
+    project: new FormControl(''),
+    domain: new FormControl(''),
+    description: new FormControl(''),
+    environment: new FormControl<string[]>([]),
     startDate: new FormControl<Date | null>(null, [Validators.required]),
     endDate: new FormControl<Date | null>(null),
-    responsibilities: new FormControl('', [Validators.required])
   });
 
   ngOnInit() {
@@ -72,7 +70,6 @@ export class UpdateCvProjectDialogComponent implements OnInit {
         endDate: this.data.end_date ? new Date(this.data.end_date) : null,
         description: this.data.description,
         environment: this.data.environment,
-        responsibilities: this.data.responsibilities?.join(', ') || ''
       });
     }
   }

@@ -1,0 +1,29 @@
+<div class="dialog-container">
+  <div class="dialog-header">
+    <h2 class="text-xl font-bold">Delete Project</h2>
+    <button (click)="close()" class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="dialog-body">
+    <p>Are you sure you want to delete project <b>{{ data.name }}?</b></p>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="dialog-actions">
+    <div class="flex gap-4">
+      <lib-button
+        [width]="ButtonSize.FULL"
+        [variant]="ButtonVariant.OUTLINED"
+        [textColor]="ButtonTextColor.SECONDARY"
+        (click)="close()">
+        CANCEL
+      </lib-button>
+      <lib-button
+        [width]="ButtonSize.FULL"
+        (click)="confirm()">
+        CONFIRM
+      </lib-button>
+    </div>
+  </mat-dialog-actions>
+</div>

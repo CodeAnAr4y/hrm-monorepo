@@ -18,7 +18,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { SkillService } from '../../../../services/shared/skill/skill.service';
 
 @Component({
-  selector: 'app-add-cv-project-dialog',
+  selector: 'app-add-project-dialog',
   standalone: true,
   imports: [
     MatIcon,

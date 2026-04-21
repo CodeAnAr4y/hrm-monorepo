@@ -12,6 +12,7 @@ import {
 import { DeleteCvDialogComponent } from '../../shared/components/cv/delete-cv-dialog/delete-cv-dialog.component';
 
 interface CvTable extends TableItem {
+  id: string;
   name: string;
   education: string;
   email: string;
@@ -62,7 +63,6 @@ export class CvsPage {
   public openCreateCvDialog() {
     const dialogRef = this.dialog.open(AddCvDialogComponent, {
       width: '40vw',
-      panelClass: 'custom-dialog-container'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -86,7 +86,6 @@ export class CvsPage {
 
     const dialogRef = this.dialog.open(DeleteCvDialogComponent, {
       width: '40vw',
-      panelClass: 'custom-dialog-container',
       data: cv
     });
 

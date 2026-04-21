@@ -1,0 +1,21 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AddProjectDialogComponent } from './add-project-dialog.component';
+
+describe('AddProjectDialogComponent', () => {
+  let component: AddProjectDialogComponent;
+  let fixture: ComponentFixture<AddProjectDialogComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AddProjectDialogComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(AddProjectDialogComponent);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

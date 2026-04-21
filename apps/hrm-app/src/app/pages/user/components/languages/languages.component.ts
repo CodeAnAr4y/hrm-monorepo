@@ -73,7 +73,6 @@ export class LanguagesComponent {
   public openUpdateLanguageDialog(lang: LanguageProficiency) {
     const dialogRef = this.dialog.open(UpdateLanguageDialogComponent, {
       width: '40vw',
-      panelClass: 'custom-dialog-container',
       data: this.allLanguages().filter(l => l.name === lang.name)[0]
     });
 
@@ -93,7 +92,6 @@ export class LanguagesComponent {
   public openAddLanguageDialog() {
     const dialogRef = this.dialog.open(AddLanguageDialogComponent, {
       width: '40vw',
-      panelClass: 'custom-dialog-container',
       data: this.allLanguages()
         .filter(lang => !this.profileLanguages()
           .some((pLang) => pLang.name === lang.name))

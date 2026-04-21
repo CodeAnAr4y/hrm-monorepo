@@ -11,12 +11,12 @@ import { MatIcon } from '@angular/material/icon';
     ButtonComponent,
     MatDialogActions
   ],
-  templateUrl: './delete-cv-project-dialog.component.html',
-  styleUrl: './delete-cv-project-dialog.component.scss',
+  templateUrl: './delete-project-dialog.component.html',
+  styleUrl: './delete-project-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DeleteCvProjectDialogComponent {
-  private dialogRef = inject(MatDialogRef<DeleteCvProjectDialogComponent>);
+export class DeleteProjectDialogComponent {
+  private dialogRef = inject(MatDialogRef<DeleteProjectDialogComponent>);
   public data = inject<{ id: string; name: string }>(MAT_DIALOG_DATA);
 
   protected readonly ButtonSize = ButtonSize;

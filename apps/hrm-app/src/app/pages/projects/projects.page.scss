@@ -1,14 +1,11 @@
 .description-box {
   padding: 8px 24px 24px 24px;
-
-  color: var(--color-text-secondary, #6b7280);
+  color: var(--color-text-secondary);
   font-size: 0.875rem;
   line-height: 1.6;
-  max-width: 90%;
 }
 
 .tag {
-  @apply px-2 py-1 bg-gray-200 dark:bg-white/10 rounded text-xs font-medium text-gray-600 dark:text-gray-300;
-  white-space: nowrap;
+  @apply px-2 py-1 bg-gray-200 dark:bg-white/10 rounded text-xs font-medium text-gray-600 dark:text-gray-300 box-border;
 }
 

@@ -1,5 +1,6 @@
 import { authGuard } from './core/guards/auth/auth-guard';
 import { Route } from '@angular/router';
+import { adminGuard } from './core/guards/admin/admin-guard';
 
 export const appRoutes: Route[] = [
   {
@@ -94,6 +95,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'projects',
+        canActivate: [adminGuard],
         data: { breadcrumb: 'Projects' },
         children: [
           {

@@ -76,7 +76,6 @@ export class UsersPage {
   public openCreateUserDialog() {
     const dialogRef = this.dialog.open(AddUserDialogComponent, {
       width: '60vw',
-      panelClass: 'custom-dialog-container'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -108,7 +107,6 @@ export class UsersPage {
 
     const dialogRef = this.dialog.open(UpdateUserDialogComponent, {
       width: '60vw',
-      panelClass: 'custom-dialog-container',
       data: user
     });
 
@@ -139,7 +137,6 @@ export class UsersPage {
 
     const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
       width: '40vw',
-      panelClass: 'custom-dialog-container',
       data: user
     });
 

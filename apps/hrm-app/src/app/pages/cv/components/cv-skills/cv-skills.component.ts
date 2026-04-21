@@ -111,7 +111,6 @@ export class CvSkillsComponent {
 
     const dialogRef = this.dialog.open(AddSkillDialogComponent, {
       width: '40vw',
-      panelClass: 'custom-dialog-container',
       data: available
     });
 
@@ -128,7 +127,6 @@ export class CvSkillsComponent {
 
     const dialogRef = this.dialog.open(UpdateSkillDialogComponent, {
       width: '40vw',
-      panelClass: 'custom-dialog-container',
       data: skillData
     });
 
