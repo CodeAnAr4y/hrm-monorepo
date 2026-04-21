@@ -30,5 +30,6 @@ export interface UsersTableData {
 export enum TableType {
   USER,
   CV,
-  PROJECT
+  PROJECT,
+  SKILL
 }

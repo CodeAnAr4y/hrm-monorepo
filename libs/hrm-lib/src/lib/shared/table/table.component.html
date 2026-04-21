@@ -49,7 +49,7 @@
                         Details
                       </a>
                     }
-                    @if (type() === TableType.USER || type() === TableType.PROJECT) {
+                    @if (type() === TableType.USER || type() === TableType.PROJECT || type() === TableType.SKILL) {
                       <button (click)="updateItemBtnAction.emit(row.id)" mat-menu-item>
                         Update
                       </button>

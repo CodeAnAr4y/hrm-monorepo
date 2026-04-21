@@ -1,0 +1,11 @@
+<lib-table [columns]="columns"
+           [items]="skillsTable()"
+           [type]="TableType.SKILL"
+           [loading]="isLoading()"
+           [isAdmin]="isAdmin()"
+           [addItemBtnLabel]="'+ CREATE SKILL'"
+           (addItemBtnAction)="openCreateSkillDialog()"
+           (deleteItemBtnAction)="openDeleteSkillDialog($event)"
+           (updateItemBtnAction)="openUpdateSkillDialog($event)"
+
+></lib-table>

@@ -105,6 +105,17 @@ export const appRoutes: Route[] = [
         ]
       },
       {
+        path: 'skills',
+        canActivate: [adminGuard],
+        data: { breadcrumb: 'Skills' },
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./pages/skills/skills.page').then(m => m.SkillsPage),
+          },
+        ]
+      },
+      {
         path: 'settings',
         loadComponent: () => import('./pages/settings/settings.page').then(m => m.SettingsPage),
         data: { breadcrumb: 'Settings' }

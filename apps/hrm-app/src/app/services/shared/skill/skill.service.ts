@@ -18,7 +18,7 @@ import {
 } from './skill.model';
 import {
   AddProfileSkillInput,
-  DeleteProfileSkillInput, SkillMastery,
+  DeleteProfileSkillInput, Skill, SkillMastery,
   UpdateProfileSkillInput
 } from '../../../core/models/core.model';
 
@@ -29,6 +29,7 @@ export class SkillService {
   private apollo = inject(Apollo);
 
   public userSkills = signal<SkillMastery[]>([])
+  public allSkills = signal<Skill[]>([])
 
   public getUserSkills(userId: string) {
     return this.apollo.query<ProfileResult>({ query: PROFILE_SKILLS, variables: { userId } }).pipe(
@@ -61,6 +62,7 @@ export class SkillService {
     return this.apollo.query<SkillsResult>({ query: SKILLS }).pipe(
       map(res => {
         if (!res.data) throw new Error('No data');
+        this.allSkills.set(res.data.skills);
         return res.data.skills;
       })
     );
