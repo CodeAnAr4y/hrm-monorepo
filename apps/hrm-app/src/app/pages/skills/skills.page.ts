@@ -15,10 +15,12 @@ import {
 } from '../../shared/components/user/delete-user-dialog/delete-user-dialog.component';
 import { SkillService } from '../../services/shared/skill/skill.service';
 import { COLUMNS } from './skills.page.constants';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-skills',
+  standalone: true,
   imports: [
     TableComponent
   ],
@@ -32,6 +34,7 @@ export class SkillsPage implements OnInit {
   private skillService = inject(SkillService);
   private snackBarService = inject(SnackBarService);
   private router = inject(Router);
+  private translate = inject(TranslateService);
 
   public isAdmin = this.userService.isAdmin;
   private dialog = inject(MatDialog);
@@ -56,15 +59,15 @@ export class SkillsPage implements OnInit {
   }
 
   public openCreateSkillDialog() {
-    this.snackBarService.openSnackBar('Work in progress...')
+    this.snackBarService.openSnackBar(this.translate.instant('common.workInProgress'))
   }
 
   public openUpdateSkillDialog(id: string) {
-    this.snackBarService.openSnackBar('Work in progress...')
+    this.snackBarService.openSnackBar(this.translate.instant('common.workInProgress'))
   }
 
   public openDeleteSkillDialog(id: string) {
-    this.snackBarService.openSnackBar('Work in progress...')
+    this.snackBarService.openSnackBar(this.translate.instant('common.workInProgress'))
   }
 
   protected readonly TableType = TableType;

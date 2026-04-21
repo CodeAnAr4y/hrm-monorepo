@@ -19,11 +19,12 @@ import {
   UserRole
 } from '../../../../core/models/core.model';
 import { ConstantsService } from '../../../../services/shared/constants/constants.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [AvatarComponent, DatePipe, InputComponent, ReactiveFormsModule, SelectComponent, ButtonComponent],
+  imports: [AvatarComponent, DatePipe, InputComponent, ReactiveFormsModule, SelectComponent, ButtonComponent, TranslateModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -33,6 +34,7 @@ export class ProfileComponent implements OnInit {
   private constantsService = inject(ConstantsService);
   private fb = inject(FormBuilder);
   private snackBarService = inject(SnackBarService);
+  private translate = inject(TranslateService);
 
   public selectedUser = computed(() => this.userService.selectedUser());
 
@@ -112,19 +114,19 @@ export class ProfileComponent implements OnInit {
       last_name: this.profileForm.value.lastName || ''
     };
     this.userService.updateUserProfile(profileData).subscribe(res =>
-      this.snackBarService.openSnackBar('User data successfully updated!')
+      this.snackBarService.openSnackBar(this.translate.instant('user.profile.messages.updateSuccess'))
     );
 
   }
 
   uploadAvatar(file: File) {
     if (file.size > 0.5 * 1024 * 1024) {
-      this.snackBarService.openSnackBar('File is too large');
+      this.snackBarService.openSnackBar(this.translate.instant('user.profile.messages.fileTooLarge'));
       return;
     }
     this.userService.uploadAvatar(file, this.selectedUser().id).subscribe({
       next: () => {
-        alert('Аватар обновлен!');
+        alert(this.translate.instant('user.profile.messages.avatarUpdated'));
       },
       error: (err) => console.error(err)
     });

@@ -26,7 +26,7 @@ export const appRoutes: Route[] = [
       { path: '', redirectTo: 'users', pathMatch: 'full' },
       {
         path: 'users',
-        data: { breadcrumb: 'Employees' },
+        data: { breadcrumb: 'breadcrumbs.employees' },
         children: [
           {
             path: '',
@@ -40,17 +40,17 @@ export const appRoutes: Route[] = [
               {
                 path: '',
                 loadComponent: () => import('./pages/user/components/profile/profile.component').then(m => m.ProfileComponent),
-                data: { breadcrumb: 'Profile' }
+                data: { breadcrumb: 'breadcrumbs.profile' }
               },
               {
                 path: 'skills',
                 loadComponent: () => import('./pages/user/components/skills/skills.component').then(m => m.SkillsComponent),
-                data: { breadcrumb: 'Skills' }
+                data: { breadcrumb: 'breadcrumbs.skills' }
               },
               {
                 path: 'languages',
                 loadComponent: () => import('./pages/user/components/languages/languages.component').then(m => m.LanguagesComponent),
-                data: { breadcrumb: 'Languages' }
+                data: { breadcrumb: 'breadcrumbs.languages' }
               }
             ]
           }
@@ -58,7 +58,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'cvs',
-        data: { breadcrumb: 'CVs' },
+        data: { breadcrumb: 'breadcrumbs.cvs' },
         children: [
           {
             path: '',
@@ -72,22 +72,22 @@ export const appRoutes: Route[] = [
               {
                 path: '',
                 loadComponent: () => import('./pages/cv/components/details/details.component').then(m => m.DetailsComponent),
-                data: { breadcrumb: 'Details' }
+                data: { breadcrumb: 'breadcrumbs.details' }
               },
               {
                 path: 'skills',
                 loadComponent: () => import('./pages/cv/components/cv-skills/cv-skills.component').then(m => m.CvSkillsComponent),
-                data: { breadcrumb: 'Skills' }
+                data: { breadcrumb: 'breadcrumbs.skills' }
               },
               {
                 path: 'projects',
                 loadComponent: () => import('./pages/cv/components/projects/projects.component').then(m => m.ProjectsComponent),
-                data: { breadcrumb: 'Projects' }
+                data: { breadcrumb: 'breadcrumbs.projects' }
               },
               {
                 path: 'preview',
                 loadComponent: () => import('./pages/cv/components/preview/preview.component').then(m => m.PreviewComponent),
-                data: { breadcrumb: 'Preview' }
+                data: { breadcrumb: 'breadcrumbs.preview' }
               }
             ]
           }
@@ -96,7 +96,7 @@ export const appRoutes: Route[] = [
       {
         path: 'projects',
         canActivate: [adminGuard],
-        data: { breadcrumb: 'Projects' },
+        data: { breadcrumb: 'breadcrumbs.projects' },
         children: [
           {
             path: '',
@@ -107,7 +107,7 @@ export const appRoutes: Route[] = [
       {
         path: 'skills',
         canActivate: [adminGuard],
-        data: { breadcrumb: 'Skills' },
+        data: { breadcrumb: 'breadcrumbs.skills' },
         children: [
           {
             path: '',
@@ -118,7 +118,7 @@ export const appRoutes: Route[] = [
       {
         path: 'settings',
         loadComponent: () => import('./pages/settings/settings.page').then(m => m.SettingsPage),
-        data: { breadcrumb: 'Settings' }
+        data: { breadcrumb: 'breadcrumbs.settings' }
       }
     ]
   },

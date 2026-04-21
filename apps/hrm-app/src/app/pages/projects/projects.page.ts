@@ -13,6 +13,7 @@ import {
 import {
   UpdateProjectDialogComponent
 } from '../../shared/components/project/update-project-dialog/update-project-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 interface ProjectsTable extends TableItem {
   name: string;
@@ -25,6 +26,7 @@ interface ProjectsTable extends TableItem {
 
 @Component({
   selector: 'app-projects',
+  standalone: true,
   imports: [
     TableComponent
   ],
@@ -36,13 +38,14 @@ export class ProjectsPage implements OnInit {
   private projectService = inject(ProjectService);
   private dialog = inject(MatDialog);
   public snackBarService = inject(SnackBarService);
+  private translate = inject(TranslateService);
 
   protected readonly TableType = TableType;
   public columns: TableHeader[] = [
-    { title: 'Name', sourceName: 'name', sortable: true },
-    { title: 'Domain', sourceName: 'domain', sortable: true },
-    { title: 'Start Date', sourceName: 'startDate', sortable: true },
-    { title: 'Start Date', sourceName: 'endDate', sortable: true },
+    { title: 'projects.list.table.name', sourceName: 'name', sortable: true },
+    { title: 'projects.list.table.domain', sourceName: 'domain', sortable: true },
+    { title: 'projects.list.table.startDate', sourceName: 'startDate', sortable: true },
+    { title: 'projects.list.table.endDate', sourceName: 'endDate', sortable: true },
     { title: '', sourceName: 'actions', sortable: false, type: 'action' }
   ];
 
@@ -54,7 +57,7 @@ export class ProjectsPage implements OnInit {
       name: project.name,
       domain: project.domain,
       startDate: project.start_date,
-      endDate: project.end_date ?? 'Till Now',
+      endDate: project.end_date ?? this.translate.instant('projects.list.table.tillNow'),
       description: project.description,
       environment: project.environment ?? []
     }));
@@ -83,10 +86,10 @@ export class ProjectsPage implements OnInit {
         };
         this.projectService.createProject(createProjectData).subscribe({
           next: () => {
-            this.snackBarService.openSnackBar('Project successfully created');
+            this.snackBarService.openSnackBar(this.translate.instant('projects.list.messages.createSuccess'));
             this.updateTable();
           },
-          error: error => this.snackBarService.openSnackBar('Error occurred ' + error.message)
+          error: error => this.snackBarService.openSnackBar(this.translate.instant('projects.list.messages.error') + error.message)
         });
       }
     });
@@ -113,10 +116,10 @@ export class ProjectsPage implements OnInit {
         };
         this.projectService.updateProject(updateProjectData).subscribe({
           next: () => {
-            this.snackBarService.openSnackBar('Project successfully updated');
+            this.snackBarService.openSnackBar(this.translate.instant('projects.list.messages.updateSuccess'));
             this.updateTable();
           },
-          error: error => this.snackBarService.openSnackBar('Error occurred ' + error.message)
+          error: error => this.snackBarService.openSnackBar(this.translate.instant('projects.list.messages.error') + error.message)
         });
       }
     });
@@ -135,10 +138,12 @@ export class ProjectsPage implements OnInit {
         this.projectService.deleteProject({ projectId: project.id })
           .subscribe({
             next: () => {
-              this.snackBarService.openSnackBar(`Project "${project.name}" deleted!`);
+              this.snackBarService.openSnackBar(
+                this.translate.instant('projects.list.messages.deleteSuccess', { name: project.name })
+              );
               this.updateTable();
             },
-            error: error => this.snackBarService.openSnackBar('Error occured ' + error.message)
+            error: error => this.snackBarService.openSnackBar(this.translate.instant('projects.list.messages.error') + error.message)
           });
       }
     });

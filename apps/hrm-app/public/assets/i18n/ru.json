@@ -1,3 +1,302 @@
 {
-  "test": "Тест"
+  "sidebar": {
+    "tabs": {
+      "employees": "Сотрудники",
+      "projects": "Проекты",
+      "cvs": "CV",
+      "departments": "Департаменты",
+      "positions": "Должности",
+      "skills": "Навыки",
+      "languages": "Языки"
+    },
+    "menu": {
+      "profile": "Профиль",
+      "settings": "Настройки",
+      "logout": "Выйти"
+    }
+  },
+  "breadcrumbs": {
+    "employees": "Сотрудники",
+    "profile": "Профиль",
+    "skills": "Навыки",
+    "languages": "Языки",
+    "cvs": "CV",
+    "details": "Детали",
+    "projects": "Проекты",
+    "preview": "Предпросмотр",
+    "settings": "Настройки"
+  },
+  "auth": {
+    "login": "Войти",
+    "signup": "Регистрация",
+    "login-title": "С возвращением",
+    "login-subtitle": "Приветствуем снова! Войдите, чтобы продолжить",
+    "signup-title": "Зарегистрируйтесь сейчас",
+    "signup-subtitle": "Добро пожаловать! Зарегистрируйтесь, чтобы продолжить",
+    "email": "Email",
+    "password": "Пароль",
+    "login-btn": "ВОЙТИ",
+    "signup-btn": "СОЗДАТЬ АККАУНТ",
+    "forgot-password": "ЗАБЫЛИ ПАРОЛЬ",
+    "have-account": "У МЕНЯ ЕСТЬ АККАУНТ"
+  },
+  "skills": {
+    "actions": {
+      "add": "ДОБАВИТЬ НАВЫК",
+      "delete-mode": "УДАЛИТЬ НАВЫКИ",
+      "delete-confirm": "УДАЛИТЬ",
+      "cancel": "ОТМЕНА"
+    },
+    "form": {
+      "selectSkill": "Навык",
+      "chooseSkill": "Выберите навык",
+      "masteryLevel": "Уровень владения"
+    },
+    "dialogs": {
+      "addTitle": "Добавить навык",
+      "updateTitle": "Обновить навык",
+      "confirm": "ПОДТВЕРДИТЬ",
+      "cancel": "ОТМЕНА"
+    },
+    "list": {
+      "table": {
+        "name": "Название",
+        "type": "Тип",
+        "category": "Категория"
+      }
+    }
+  },
+  "languages": {
+    "actions": {
+      "add": "ДОБАВИТЬ ЯЗЫК",
+      "delete-mode": "УДАЛИТЬ ЯЗЫКИ",
+      "delete-confirm": "УДАЛИТЬ",
+      "cancel": "ОТМЕНА"
+    },
+    "form": {
+      "selectLanguage": "Язык",
+      "chooseLanguage": "Выберите язык",
+      "proficiencyLevel": "Уровень владения"
+    },
+    "dialogs": {
+      "addTitle": "Добавить язык",
+      "updateTitle": "Обновить язык",
+      "confirm": "ПОДТВЕРДИТЬ",
+      "cancel": "ОТМЕНА"
+    }
+  },
+  "users": {
+    "list": {
+      "table": {
+        "firstName": "Имя",
+        "lastName": "Фамилия",
+        "email": "Email",
+        "department": "Департамент",
+        "position": "Должность"
+      },
+      "actions": {
+        "create": "+ СОЗДАТЬ ПОЛЬЗОВАТЕЛЯ"
+      },
+      "form": {
+        "role": "Роль",
+        "chooseRole": "Выберите роль"
+      },
+      "dialogs": {
+        "addTitle": "Добавить пользователя",
+        "updateTitle": "Обновить пользователя",
+        "create": "СОЗДАТЬ",
+        "update": "ОБНОВИТЬ",
+        "deleteTitle": "Удалить пользователя",
+        "deleteConfirm": "Вы уверены, что хотите удалить пользователя",
+        "confirm": "ПОДТВЕРДИТЬ",
+        "cancel": "ОТМЕНА"
+      },
+      "messages": {
+        "createSuccess": "Пользователь успешно создан!",
+        "updateSuccess": "Пользователь успешно обновлен!",
+        "deleteSuccess": "Пользователь удален!",
+        "error": "Произошла ошибка: "
+      }
+    }
+  },
+  "user": {
+    "tabs": {
+      "profile": "Профиль",
+      "skills": "Навыки",
+      "languages": "Языки"
+    },
+    "profile": {
+      "memberSince": "В команде с ",
+      "avatar": {
+        "upload": "Загрузить аватар",
+        "hint": "png, jpg или gif не более 0.5MB"
+      },
+      "form": {
+        "firstName": "Имя",
+        "firstNamePlaceholder": "Введите имя",
+        "lastName": "Фамилия",
+        "lastNamePlaceholder": "Введите фамилию",
+        "department": "Департамент",
+        "chooseDepartment": "Выберите департамент",
+        "position": "Должность",
+        "choosePosition": "Выберите должность"
+      },
+      "actions": {
+        "update": "ОБНОВИТЬ"
+      },
+      "messages": {
+        "updateSuccess": "Данные пользователя успешно обновлены!",
+        "fileTooLarge": "Файл слишком большой",
+        "avatarUpdated": "Аватар обновлен!"
+      }
+    }
+  },
+  "cv": {
+    "tabs": {
+      "details": "Детали",
+      "skills": "Навыки",
+      "projects": "Проекты",
+      "preview": "Предпросмотр"
+    },
+    "list": {
+      "table": {
+        "name": "Название",
+        "education": "Образование",
+        "employee": "Сотрудник"
+      },
+      "messages": {
+        "deleteSuccess": "CV \"{{name}}\" удалено!",
+        "error": "Произошла ошибка: "
+      },
+      "dialogs": {
+        "createTitle": "Создать CV",
+        "create": "СОЗДАТЬ",
+        "deleteTitle": "Удалить CV",
+        "deleteConfirm": "Вы уверены, что хотите удалить CV",
+        "confirm": "ПОДТВЕРДИТЬ",
+        "cancel": "ОТМЕНА"
+      }
+    },
+    "form": {
+      "name": "Название",
+      "education": "Образование",
+      "description": "Описание"
+    },
+    "actions": {
+      "update": "ОБНОВИТЬ"
+    },
+    "preview": {
+      "actions": {
+        "export": "ЭКСПОРТ PDF"
+      },
+      "sections": {
+        "education": "Образование",
+        "languages": "Владение языками",
+        "domains": "Домены",
+        "projects": "Проекты",
+        "professional-skills": "Профессиональные навыки"
+      },
+      "project": {
+        "roles": "Роли в проекте",
+        "period": "Период",
+        "responsibilities": "Обязанности",
+        "environments": "Технологии"
+      }
+    },
+    "projects": {
+      "table": {
+        "name": "Название",
+        "domain": "Домен",
+        "startDate": "Дата начала",
+        "endDate": "Дата окончания",
+        "tillNow": "По настоящее время"
+      },
+      "messages": {
+        "addSuccess": "Проект успешно добавлен",
+        "addError": "Не удалось добавить проект",
+        "updateSuccess": "Проект успешно обновлен",
+        "updateError": "Не удалось обновить проект",
+        "deleteSuccess": "Проект успешно удален",
+        "deleteError": "Не удалось удалить проект"
+      },
+      "form": {
+        "project": "Проект",
+        "projectPlaceholder": "Выберите проект",
+        "domain": "Домен",
+        "startDate": "Дата начала",
+        "endDate": "Дата окончания",
+        "description": "Описание",
+        "environment": "Технологии",
+        "environmentPlaceholder": "Выберите технологии",
+        "responsibilities": "Обязанности",
+        "responsibilitiesPlaceholder": "Опишите ваши обязанности"
+      },
+      "dialogs": {
+        "addTitle": "Добавить проект",
+        "add": "ДОБАВИТЬ",
+        "updateTitle": "Обновить проект",
+        "update": "ОБНОВИТЬ",
+        "deleteTitle": "Удалить проект",
+        "deleteConfirm": "Вы уверены, что хотите удалить проект",
+        "confirm": "ПОДТВЕРДИТЬ",
+        "cancel": "ОТМЕНА"
+      }
+    }
+  },
+  "projects": {
+    "list": {
+      "table": {
+        "name": "Название",
+        "domain": "Домен",
+        "startDate": "Дата начала",
+        "endDate": "Дата окончания",
+        "tillNow": "По настоящее время"
+      },
+      "messages": {
+        "createSuccess": "Проект успешно создан",
+        "updateSuccess": "Проект успешно обновлен",
+        "deleteSuccess": "Проект \"{{name}}\" удален!",
+        "error": "Произошла ошибка: "
+      },
+      "form": {
+        "name": "Название",
+        "domain": "Домен",
+        "startDate": "Дата начала",
+        "endDate": "Дата окончания",
+        "description": "Описание",
+        "environment": "Технологии",
+        "environmentPlaceholder": "Выберите технологии"
+      },
+      "dialogs": {
+        "addTitle": "Добавить проект",
+        "add": "ДОБАВИТЬ",
+        "updateTitle": "Обновить проект",
+        "update": "ОБНОВИТЬ",
+        "cancel": "ОТМЕНА",
+        "deleteTitle": "Удалить проект",
+        "deleteConfirm": "Вы уверены, что хотите удалить проект",
+        "confirm": "ПОДТВЕРДИТЬ"
+      }
+    }
+  },
+  "settings": {
+    "language": "Язык",
+    "appearance": {
+      "title": "Оформление",
+      "options": {
+        "default": "Системные настройки",
+        "dark": "Темная",
+        "light": "Светлая"
+      }
+    }
+  },
+  "common": {
+    "workInProgress": "В разработке...",
+    "search": "Поиск...",
+    "details": "Детали",
+    "update": "Обновить",
+    "delete": "Удалить",
+    "confirm": "Подтвердить",
+    "cancel": "Отмена"
+  }
 }

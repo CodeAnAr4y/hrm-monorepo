@@ -20,10 +20,11 @@ import {
 } from '../../../../shared/components/user/add-language-dialog/add-language-dialog.component';
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-languages',
-  imports: [ButtonComponent, MatIcon],
+  imports: [ButtonComponent, MatIcon, TranslatePipe],
   templateUrl: './languages.component.html',
   styleUrl: './languages.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

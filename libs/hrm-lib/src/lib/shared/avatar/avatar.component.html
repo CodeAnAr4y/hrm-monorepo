@@ -15,10 +15,10 @@
       <div class="upload-controls">
         <label class="group upload-label">
           <mat-icon class="upload-icon">upload</mat-icon>
-          <span class="upload-text">Upload avatar image</span>
+          <span class="upload-text">{{ 'user.profile.avatar.upload' | translate }}</span>
           <input type="file" class="hidden" accept="image/png, image/jpeg, image/gif" (change)="onFileSelected($event)" />
         </label>
-        <p class="upload-hint">png, jpg or gif no more than 0.5MB</p>
+        <p class="upload-hint">{{ 'user.profile.avatar.hint' | translate }}</p>
       </div>
     }
   </div>

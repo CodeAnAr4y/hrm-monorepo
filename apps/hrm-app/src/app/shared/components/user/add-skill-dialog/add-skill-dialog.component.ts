@@ -4,6 +4,7 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 import { MatIcon } from '@angular/material/icon';
 import { ButtonComponent, ButtonSize, ButtonVariant, SelectComponent } from '@hrm-monorepo/hrm-lib';
 import { AddProfileSkillInput, Mastery, Skill } from '../../../../core/models/core.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-skill-dialog',
@@ -13,7 +14,8 @@ import { AddProfileSkillInput, Mastery, Skill } from '../../../../core/models/co
     MatDialogModule,
     MatIcon,
     ButtonComponent,
-    SelectComponent
+    SelectComponent,
+    TranslateModule
   ],
   templateUrl: './add-skill-dialog.component.html',
   styleUrls: ['./add-skill-dialog.component.scss'],

@@ -15,13 +15,15 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { SkillService } from '../../../../services/shared/skill/skill.service';
 import { DatePipe } from '@angular/common';
 import { SnackBarService } from '../../../../services/shared/snack-bar/snack-bar.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-preview',
   imports: [
     ButtonComponent,
     DatePipe,
-    TableComponent
+    TableComponent,
+    TranslatePipe
   ],
   templateUrl: './preview.component.html',
   styleUrl: './preview.component.scss',

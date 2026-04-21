@@ -26,13 +26,15 @@ import {
 import { CvSkillsService } from '../../../../services/shared/cv-skills/cv-skills.service';
 import { CvService } from '../../../../services/shared/cv/cv.service';
 import { filter, switchMap } from 'rxjs/operators';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cv-skills',
   imports: [
     ButtonComponent,
     MatIcon,
-    SkillIndicatorComponent
+    SkillIndicatorComponent,
+    TranslatePipe
   ],
   templateUrl: './cv-skills.component.html',
   styleUrl: './cv-skills.component.scss',

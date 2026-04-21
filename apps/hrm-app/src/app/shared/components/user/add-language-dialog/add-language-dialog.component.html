@@ -1,6 +1,6 @@
 <div class="dialog-container" [formGroup]="languageForm">
   <div class="dialog-header">
-    <h2 class="text-xl font-bold">Add language</h2>
+    <h2 class="text-xl font-bold">{{ 'languages.dialogs.addTitle' | translate }}</h2>
     <button (click)="close()" class="close-btn">
       <mat-icon>close</mat-icon>
     </button>
@@ -8,14 +8,14 @@
 
   <mat-dialog-content class="dialog-body">
     <lib-select
-      label="Select Language"
-      placeholder="Choose language"
+      [label]="'languages.form.selectLanguage' | translate"
+      [placeholder]="'languages.form.chooseLanguage' | translate"
       [options]="langOptions"
       formControlName="name">
     </lib-select>
 
     <lib-select
-      label="Proficiency Level"
+      [label]="'languages.form.proficiencyLevel' | translate"
       [options]="proficiencyOptions"
       formControlName="proficiency">
     </lib-select>
@@ -27,13 +27,13 @@
         [width]="ButtonSize.CONTENT"
         [variant]="ButtonVariant.OUTLINED"
         (click)="close()">
-        CANCEL
+        {{ 'languages.dialogs.cancel' | translate }}
       </lib-button>
       <lib-button
         [width]="ButtonSize.CONTENT"
         (click)="confirm()"
         [disabled]="languageForm.invalid">
-        CONFIRM
+        {{ 'languages.dialogs.confirm' | translate }}
       </lib-button>
     </div>
   </mat-dialog-actions>

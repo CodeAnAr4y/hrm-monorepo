@@ -1,24 +1,24 @@
 <div class="flex-1 px-4 md:p-0">
   <div class="text-center mb-10 text-[var(--color-text-primary)]">
-    <h1 class="text-4xl mb-3 font-bold">Welcome back</h1>
-    <p class="text-textSecondary">Hello again! Log in to continue</p>
+    <h1 class="text-4xl mb-3 font-bold">{{ 'auth.login-title' | translate }}</h1>
+    <p class="text-textSecondary">{{ 'auth.login-subtitle' | translate }}</p>
   </div>
 
   <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-10">
 
     <div class="flex flex-col gap-4">
       <lib-input
-        label="Email"
+        [label]="'auth.email' | translate"
         formControlName="email"
-        placeholder="Email"
+        [placeholder]="'auth.email' | translate"
         type="email"
         [autocomplete]="true"
       />
 
       <lib-input
-        label="Password"
+        [label]="'auth.password' | translate"
         formControlName="password"
-        placeholder="Password"
+        [placeholder]="'auth.password' | translate"
         [type]="'password'"
         [autocomplete]="true"
       />
@@ -29,13 +29,13 @@
         <lib-button
           [variant]=ButtonVariant.CONTAINED
         >
-          LOG IN
+          {{ 'auth.login-btn' | translate }}
         </lib-button>
       </div>
 
       <div class="text-center pt-2">
         <a [routerLink]="['/restore-password']" class="text-textSecondary hover:text-primary transition-colors text-sm cursor-pointer">
-          FORGOT PASSWORD
+          {{ 'auth.forgot-password' | translate }}
         </a>
       </div>
     </div>

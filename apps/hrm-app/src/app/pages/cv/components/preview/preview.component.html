@@ -9,26 +9,26 @@
       (click)="exportPdf()"
       [variant]="ButtonVariant.OUTLINED"
       [width]="ButtonSize.CONTENT"
-    >EXPORT PDF
+    >{{ 'cv.preview.actions.export' | translate }}
     </lib-button>
   </div>
 
   <div class="doc-grid">
     <div class="doc-profile border-r-2 border-primary">
       <section>
-        <h3>Education</h3>
-        <p>Master's degree</p>
+        <h3>{{ 'cv.preview.sections.education' | translate }}</h3>
+        <p>{{ selectedCv().education }}</p>
       </section>
 
       <section>
-        <h3>Language proficiency</h3>
+        <h3>{{ 'cv.preview.sections.languages' | translate }}</h3>
         @for (language of selectedUser().profile.languages; track language) {
           <p>{{ language.name }} - {{ language.proficiency }}</p>
         }
       </section>
 
       <section>
-        <h3>Domains</h3>
+        <h3>{{ 'cv.preview.sections.domains' | translate }}</h3>
         @for (project of cvProjects(); track project.id) {
           <p>{{ project.domain }}</p>
         }
@@ -53,7 +53,7 @@
   </div>
 
   <div class="doc-header">
-    <h1>Projects</h1>
+    <h1>{{ 'cv.preview.sections.projects' | translate }}</h1>
   </div>
   <div>
     @for (project of cvProjects(); track project.id) {
@@ -65,17 +65,17 @@
           </section>
         </div>
         <div class="doc-profile md:col-span-2">
-        <section>
-          <h3>Project roles</h3>
-            <p>{{ project.roles.join(', ') }}</p>
-          <p></p>
-        </section>
           <section>
-            <h3>Period</h3>
+            <h3>{{ 'cv.preview.project.roles' | translate }}</h3>
+            <p>{{ project.roles.join(', ') }}</p>
+            <p></p>
+          </section>
+          <section>
+            <h3>{{ 'cv.preview.project.period' | translate }}</h3>
             <p>{{project.start_date | date}} - {{project.end_date | date}}</p>
           </section>
           <section>
-            <h3>Responsibilities</h3>
+            <h3>{{ 'cv.preview.project.responsibilities' | translate }}</h3>
             <ul>
               @for (resp of project.responsibilities; track resp) {
                 <li>{{resp}}</li>
@@ -83,8 +83,8 @@
             </ul>
           </section>
           <section>
-            <h3>Environments</h3>
-              <p>{{project.environment.join(', ')}}</p>
+            <h3>{{ 'cv.preview.project.environments' | translate }}</h3>
+            <p>{{project.environment.join(', ')}}</p>
           </section>
         </div>
       </div>
@@ -93,7 +93,7 @@
   </div>
 
   <div class="doc-header">
-    <h1>Professional skills</h1>
+    <h1>{{ 'cv.preview.sections.professional-skills' | translate }}</h1>
   </div>
   <lib-table [columns]="columns"
              [items]="skillsTable()"

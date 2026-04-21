@@ -1,6 +1,6 @@
 <div class="dialog-container" [formGroup]="cvForm">
   <div class="dialog-header">
-    <h2 class="text-xl font-bold">Create CV</h2>
+    <h2 class="text-xl font-bold">{{ 'cv.list.dialogs.createTitle' | translate }}</h2>
     <button (click)="close()" class="close-btn">
       <mat-icon>close</mat-icon>
     </button>
@@ -8,18 +8,18 @@
 
   <mat-dialog-content class="dialog-body">
     <lib-input
-      label="Name"
-      placeholder="Name"
+      [label]="'cv.form.name' | translate"
+      [placeholder]="'cv.form.name' | translate"
       formControlName="name"
     ></lib-input>
     <lib-input
-      label="Education"
-      placeholder="Education"
+      [label]="'cv.form.education' | translate"
+      [placeholder]="'cv.form.education' | translate"
       formControlName="education"
     ></lib-input>
     <lib-text-area
-      label="Description"
-      placeholder="Description"
+      [label]="'cv.form.description' | translate"
+      [placeholder]="'cv.form.description' | translate"
       formControlName="description"
     ></lib-text-area>
   </mat-dialog-content>
@@ -31,13 +31,13 @@
         [variant]="ButtonVariant.OUTLINED"
         [textColor]="ButtonTextColor.SECONDARY"
         (click)="close()">
-        CANCEL
+        {{ 'cv.list.dialogs.cancel' | translate }}
       </lib-button>
       <lib-button
         [width]="ButtonSize.FULL"
         (click)="confirm()"
         [disabled]="cvForm.invalid">
-        CREATE
+        {{ 'cv.list.dialogs.create' | translate }}
       </lib-button>
     </div>
   </mat-dialog-actions>

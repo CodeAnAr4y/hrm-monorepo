@@ -1,6 +1,6 @@
 <div class="dialog-container" [formGroup]="skillForm">
   <div class="dialog-header">
-    <h2 class="text-xl font-bold">Update skill</h2>
+    <h2 class="text-xl font-bold">{{ 'skills.dialogs.updateTitle' | translate }}</h2>
     <button (click)="close()" class="close-btn">
       <mat-icon>close</mat-icon>
     </button>
@@ -8,15 +8,15 @@
 
   <mat-dialog-content class="dialog-body">
     <lib-select
-      label="Skill"
-      placeholder="Choose a skill"
+      [label]="'skills.form.selectSkill' | translate"
+      [placeholder]="'skills.form.chooseSkill' | translate"
       [options]="[{label: data.name, value: data.id}]"
       formControlName="skillId"
     >
     </lib-select>
 
     <lib-select
-      label="Mastery Level"
+      [label]="'skills.form.masteryLevel' | translate"
       [options]="masteryOptions"
       formControlName="mastery">
     </lib-select>
@@ -28,13 +28,13 @@
         [width]="ButtonSize.CONTENT"
         [variant]="ButtonVariant.OUTLINED"
         (click)="close()">
-        CANCEL
+        {{ 'skills.dialogs.cancel' | translate }}
       </lib-button>
       <lib-button
         [width]="ButtonSize.CONTENT"
         (click)="confirm()"
         [disabled]="skillForm.invalid">
-        CONFIRM
+        {{ 'skills.dialogs.confirm' | translate }}
       </lib-button>
     </div>
   </mat-dialog-actions>

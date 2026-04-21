@@ -3,9 +3,8 @@
            [loading]="isLoading()"
            [firstItem]="selfUserTableData()"
            [isAdmin]="isAdmin()"
-           [addItemBtnLabel]="'+ CREATE USER'"
+           [addItemBtnLabel]="'users.list.actions.create' | translate"
            (addItemBtnAction)="openCreateUserDialog()"
            (deleteItemBtnAction)="openDeleteUserDialog($event)"
            (updateItemBtnAction)="openUpdateUserDialog($event)"
-
 ></lib-table>

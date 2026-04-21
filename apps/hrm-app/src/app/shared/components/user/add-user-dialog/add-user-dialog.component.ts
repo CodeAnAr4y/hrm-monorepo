@@ -14,9 +14,11 @@ import {
 import { MatIcon } from '@angular/material/icon';
 import { SelectOption } from '@hrm-monorepo/hrm-lib';
 import { map } from 'rxjs/operators';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-user-dialog',
+  standalone: true,
   imports: [
     ButtonComponent,
     FormsModule,
@@ -25,7 +27,8 @@ import { map } from 'rxjs/operators';
     MatIcon,
     ReactiveFormsModule,
     SelectComponent,
-    InputComponent
+    InputComponent,
+    TranslateModule
   ],
   templateUrl: './add-user-dialog.component.html',
   styleUrl: './add-user-dialog.component.scss',

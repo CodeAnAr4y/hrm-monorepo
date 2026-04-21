@@ -7,7 +7,7 @@
       [textColor]="ButtonTextColor.SECONDARY">
       <div class="flex items-center gap-2">
         <mat-icon>add</mat-icon>
-        ADD SKILL
+        {{ 'skills.actions.add' | translate }}
       </div>
     </lib-button>
   } @else {
@@ -42,7 +42,7 @@
               [textColor]="ButtonTextColor.SECONDARY">
               <div class="flex items-center gap-2">
                 <mat-icon>add</mat-icon>
-                ADD SKILL
+                {{ 'skills.actions.add' | translate }}
               </div>
             </lib-button>
             <lib-button
@@ -52,7 +52,7 @@
               [textColor]="ButtonTextColor.PRIMARY">
               <div class="flex items-center gap-2">
                 <mat-icon>delete</mat-icon>
-                <div class="whitespace-nowrap">DELETE SKILLS</div>
+                <div class="whitespace-nowrap">{{ 'skills.actions.delete-mode' | translate }}</div>
               </div>
             </lib-button>
           </div>
@@ -64,7 +64,7 @@
               [width]="ButtonSize.FULL"
               [textColor]="ButtonTextColor.SECONDARY">
               <div class="flex items-center gap-2">
-                CANCEL
+                {{ 'skills.actions.cancel' | translate }}
               </div>
             </lib-button>
             <lib-button
@@ -74,7 +74,7 @@
               [textColor]="ButtonTextColor.PRIMARY"
               [disabled]="selectedSkillsToDelete().length == 0">
               <div class="flex items-center gap-2">
-                DELETE
+                {{ 'skills.actions.delete-confirm' | translate }}
                 @if (selectedSkillsToDelete().length) {
                   <span class="text-primary px-2 bg-white rounded-full">{{ selectedSkillsToDelete().length }}</span>
                 }

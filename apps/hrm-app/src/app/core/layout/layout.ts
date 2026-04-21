@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TranslateDirective, TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ThemeService } from '../../services/core/theme/theme.service';
 
 @Component({
@@ -16,6 +16,6 @@ export class Layout {
   constructor() {
     this.translate.addLangs(['ru', 'en']);
     this.translate.setFallbackLang('en');
-    this.translate.use('en');
+    this.translate.use(localStorage.getItem('lang') || 'en');
   }
 }

@@ -2,14 +2,17 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { ButtonTextColor, ButtonVariant, ButtonSize, ButtonComponent } from '@hrm-monorepo/hrm-lib';
 import { MatIcon } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-delete-project-dialog',
+  standalone: true,
   imports: [
     MatDialogContent,
     MatIcon,
     ButtonComponent,
-    MatDialogActions
+    MatDialogActions,
+    TranslateModule
   ],
   templateUrl: './delete-cv-project-dialog.component.html',
   styleUrl: './delete-cv-project-dialog.component.scss',

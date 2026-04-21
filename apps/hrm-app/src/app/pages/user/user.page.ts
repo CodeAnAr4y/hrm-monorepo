@@ -4,6 +4,7 @@ import { UserService } from '../../services/shared/user/user.service';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { filter, map, switchMap } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user',
@@ -16,6 +17,7 @@ import { filter, map, switchMap } from 'rxjs/operators';
 export class UserPage {
   private route = inject(ActivatedRoute);
   private userService = inject(UserService);
+  private translate = inject(TranslateService);
 
   public userId = toSignal(
     this.route.paramMap.pipe(
@@ -35,9 +37,9 @@ export class UserPage {
     if (!id) return [];
 
     return [
-      { title: 'Profile', link: `/users/${id}` },
-      { title: 'Skills', link: `/users/${id}/skills` },
-      { title: 'Languages', link: `/users/${id}/languages` }
+      { title: this.translate.instant('user.tabs.profile'), link: `/users/${id}` },
+      { title: this.translate.instant('user.tabs.skills'), link: `/users/${id}/skills` },
+      { title: this.translate.instant('user.tabs.languages'), link: `/users/${id}/languages` }
     ];
   });
 }

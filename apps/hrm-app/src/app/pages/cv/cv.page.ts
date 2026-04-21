@@ -10,9 +10,11 @@ import { CvProjectService } from '../../services/shared/cv-project/cv-project.se
 import { CvSkillsService } from '../../services/shared/cv-skills/cv-skills.service';
 import { SkillService } from '../../services/shared/skill/skill.service';
 import { CV } from '../../services/shared/cv/cv.graphql';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cv',
+  standalone: true,
   imports: [
     RouterOutlet,
     TabsComponent
@@ -27,6 +29,7 @@ export class CvPage {
   private cvProjectService = inject(CvProjectService);
   private cvSkillsService = inject(CvSkillsService);
   private skillService = inject(SkillService);
+  private translate = inject(TranslateService);
 
   public cvId = toSignal(
     this.route.paramMap.pipe(
@@ -68,10 +71,10 @@ export class CvPage {
     if (!id) return [];
 
     return [
-      { title: 'Details', link: `/cvs/${id}` },
-      { title: 'Skills', link: `/cvs/${id}/skills` },
-      { title: 'Projects', link: `/cvs/${id}/projects` },
-      { title: 'Preview', link: `/cvs/${id}/preview` }
+      { title: this.translate.instant('cv.tabs.details'), link: `/cvs/${id}` },
+      { title: this.translate.instant('cv.tabs.skills'), link: `/cvs/${id}/skills` },
+      { title: this.translate.instant('cv.tabs.projects'), link: `/cvs/${id}/projects` },
+      { title: this.translate.instant('cv.tabs.preview'), link: `/cvs/${id}/preview` }
     ];
   });
 }

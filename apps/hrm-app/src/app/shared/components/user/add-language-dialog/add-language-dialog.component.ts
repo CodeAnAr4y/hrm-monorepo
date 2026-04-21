@@ -11,10 +11,12 @@ import {
   Skill
 } from '../../../../core/models/core.model';
 import { ButtonComponent, ButtonSize, ButtonVariant, SelectComponent, SelectOption } from '@hrm-monorepo/hrm-lib';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-add-language-dialog',
+  standalone: true,
   imports: [
     ButtonComponent,
     FormsModule,
@@ -22,7 +24,8 @@ import { ButtonComponent, ButtonSize, ButtonVariant, SelectComponent, SelectOpti
     MatDialogContent,
     MatIcon,
     ReactiveFormsModule,
-    SelectComponent
+    SelectComponent,
+    TranslateModule
   ],
   templateUrl: './add-language-dialog.component.html',
   styleUrl: './add-language-dialog.component.scss',

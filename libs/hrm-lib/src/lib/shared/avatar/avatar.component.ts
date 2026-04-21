@@ -1,10 +1,13 @@
 import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'lib-avatar',
+  standalone: true,
   imports: [
-    MatIcon
+    MatIcon,
+    TranslateModule
   ],
   templateUrl: './avatar.component.html',
   styleUrl: './avatar.component.scss',

@@ -15,6 +15,7 @@ import { map } from 'rxjs/operators';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SkillService } from '../../../../services/shared/skill/skill.service';
 import { Project } from '../../../../core/models/core.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-update-project-dialog',
@@ -27,7 +28,8 @@ import { Project } from '../../../../core/models/core.model';
     TextAreaComponent,
     MatDialogActions,
     ButtonComponent,
-    MultiSelectComponent
+    MultiSelectComponent,
+    TranslateModule
   ],
   templateUrl: './update-project-dialog.component.html',
   styleUrl: './update-project-dialog.component.scss',

@@ -4,16 +4,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { Cv } from '../../../../core/models/core.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-delete-user-dialog',
+  standalone: true,
   imports: [
     ButtonComponent,
     FormsModule,
     MatDialogActions,
     MatDialogContent,
     MatIcon,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   templateUrl: './delete-cv-dialog.component.html',
   styleUrl: './delete-cv-dialog.component.scss',

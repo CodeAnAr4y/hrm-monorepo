@@ -1,22 +1,20 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   ButtonComponent,
   ButtonSize,
   ButtonTextColor,
   ButtonVariant,
   InputComponent,
-  SelectOption,
   TextAreaComponent
 } from '@hrm-monorepo/hrm-lib';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
-import { ConstantsService } from '../../../../services/shared/constants/constants.service';
-import { UserRole } from '../../../../core/models/core.model';
-import { map } from 'rxjs/operators';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-cv-dialog',
+  standalone: true,
   imports: [
     ButtonComponent,
     FormsModule,
@@ -25,7 +23,8 @@ import { map } from 'rxjs/operators';
     MatDialogContent,
     MatIcon,
     ReactiveFormsModule,
-    TextAreaComponent
+    TextAreaComponent,
+    TranslateModule
   ],
   templateUrl: './add-cv-dialog.component.html',
   styleUrl: './add-cv-dialog.component.scss',

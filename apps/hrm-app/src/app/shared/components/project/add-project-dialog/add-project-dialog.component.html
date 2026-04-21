@@ -1,6 +1,6 @@
 <div class="dialog-container" [formGroup]="projectForm">
   <div class="dialog-header">
-    <h2>Add project</h2>
+    <h2>{{ 'projects.list.dialogs.addTitle' | translate }}</h2>
     <button (click)="close()" type="button">
       <mat-icon>close</mat-icon>
     </button>
@@ -9,41 +9,41 @@
   <mat-dialog-content class="dialog-body">
     <div class="grid grid-cols-2 gap-2">
       <lib-input
-      label="Name"
-      placeholder="Name"
-      formControlName="project"
+        [label]="'projects.list.form.name' | translate"
+        [placeholder]="'projects.list.form.name' | translate"
+        formControlName="project"
       ></lib-input>
 
       <lib-input
-        label="Domain"
-        placeholder="Domain"
+        [label]="'projects.list.form.domain' | translate"
+        [placeholder]="'projects.list.form.domain' | translate"
         formControlName="domain"
       ></lib-input>
 
       <lib-input
         type="date"
-        label="Start Date"
+        [label]="'projects.list.form.startDate' | translate"
         formControlName="startDate"
       ></lib-input>
 
       <lib-input
         type="date"
-        label="End Date"
+        [label]="'projects.list.form.endDate' | translate"
         formControlName="endDate"
       ></lib-input>
 
       <div class="col-span-2">
         <lib-text-area
-          label="Description"
-          placeholder="Description"
+          [label]="'projects.list.form.description' | translate"
+          [placeholder]="'projects.list.form.description' | translate"
           formControlName="description"
         ></lib-text-area>
       </div>
 
       <div class="col-span-2">
         <lib-multi-select
-          label="Environment"
-          placeholder="Select technologies"
+          [label]="'projects.list.form.environment' | translate"
+          [placeholder]="'projects.list.form.environmentPlaceholder' | translate"
           [options]="envOptions()!"
           formControlName="environment"
         ></lib-multi-select>
@@ -57,12 +57,12 @@
         [variant]="ButtonVariant.OUTLINED"
         [textColor]="ButtonTextColor.SECONDARY"
         (click)="close()">
-        CANCEL
+        {{ 'projects.list.dialogs.cancel' | translate }}
       </lib-button>
       <lib-button
         (click)="confirm()"
         [disabled]="projectForm.invalid">
-        ADD
+        {{ 'projects.list.dialogs.add' | translate }}
       </lib-button>
     </div>
   </mat-dialog-actions>

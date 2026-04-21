@@ -10,6 +10,7 @@ import {
   DeleteUserDialogComponent
 } from '../../shared/components/user/delete-user-dialog/delete-user-dialog.component';
 import { DeleteCvDialogComponent } from '../../shared/components/cv/delete-cv-dialog/delete-cv-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 interface CvTable extends TableItem {
   id: string;
@@ -22,6 +23,7 @@ interface CvTable extends TableItem {
 
 @Component({
   selector: 'app-cvs',
+  standalone: true,
   imports: [
     TableComponent
   ],
@@ -34,14 +36,15 @@ export class CvsPage {
   private dialog = inject(MatDialog);
   private userService = inject(UserService);
   public snackBarService = inject(SnackBarService);
+  private translate = inject(TranslateService);
 
   private authenticatedUser = this.userService.authenticatedUser;
 
   protected readonly TableType = TableType;
   public columns: TableHeader[] = [
-    { title: 'Name', sourceName: 'name', sortable: true },
-    { title: 'Education', sourceName: 'education', sortable: true },
-    { title: 'Employee', sourceName: 'email', sortable: true },
+    { title: 'cv.list.table.name', sourceName: 'name', sortable: true },
+    { title: 'cv.list.table.education', sourceName: 'education', sortable: true },
+    { title: 'cv.list.table.employee', sourceName: 'email', sortable: true },
     { title: '', sourceName: 'actions', sortable: false, type: 'action' }
   ];
 
@@ -75,7 +78,7 @@ export class CvsPage {
           next: () => {
             this.updateTable();
           },
-          error: error => this.snackBarService.openSnackBar('Error occurred ' + error.message)
+          error: error => this.snackBarService.openSnackBar(this.translate.instant('cv.list.messages.error') + error.message)
         });
       }
     });
@@ -94,10 +97,12 @@ export class CvsPage {
         this.cvService.deleteCv({ cvId: cv.id })
           .subscribe({
             next: () => {
-              this.snackBarService.openSnackBar(`CV "${cv.name}" deleted!`);
+              this.snackBarService.openSnackBar(
+                this.translate.instant('cv.list.messages.deleteSuccess', { name: cv.name })
+              );
               this.updateTable();
             },
-            error: error => this.snackBarService.openSnackBar('Error occured ' + error.message)
+            error: error => this.snackBarService.openSnackBar(this.translate.instant('cv.list.messages.error') + error.message)
           });
       }
     });

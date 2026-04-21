@@ -1,6 +1,6 @@
 <div class="dialog-container" [formGroup]="projectForm">
   <div class="dialog-header">
-    <h2>Add project</h2>
+    <h2>{{ 'cv.projects.dialogs.addTitle' | translate }}</h2>
     <button (click)="close()" type="button">
       <mat-icon>close</mat-icon>
     </button>
@@ -9,42 +9,42 @@
   <mat-dialog-content class="dialog-body">
     <div class="grid grid-cols-2 gap-2">
       <lib-select
-        label="Project"
-        placeholder="Select project"
+        [label]="'cv.projects.form.project' | translate"
+        [placeholder]="'cv.projects.form.projectPlaceholder' | translate"
         [options]="projectOptions()"
         formControlName="project"
       ></lib-select>
 
       <lib-input
-        label="Domain"
-        placeholder="Domain"
+        [label]="'cv.projects.form.domain' | translate"
+        [placeholder]="'cv.projects.form.domain' | translate"
         formControlName="domain"
       ></lib-input>
 
       <lib-input
         type="date"
-        label="Start Date"
+        [label]="'cv.projects.form.startDate' | translate"
         formControlName="startDate"
       ></lib-input>
 
       <lib-input
         type="date"
-        label="End Date"
+        [label]="'cv.projects.form.endDate' | translate"
         formControlName="endDate"
       ></lib-input>
 
       <div class="col-span-2">
         <lib-text-area
-          label="Description"
-          placeholder="Description"
+          [label]="'cv.projects.form.description' | translate"
+          [placeholder]="'cv.projects.form.description' | translate"
           formControlName="description"
         ></lib-text-area>
       </div>
 
       <div class="col-span-2">
         <lib-multi-select
-          label="Environment"
-          placeholder="Select technologies"
+          [label]="'cv.projects.form.environment' | translate"
+          [placeholder]="'cv.projects.form.environmentPlaceholder' | translate"
           [options]="envOptions()!"
           formControlName="environment"
         ></lib-multi-select>
@@ -52,8 +52,8 @@
 
       <div class="col-span-2">
         <lib-input
-          label="Responsibilities"
-          placeholder="Enter your responsibilities"
+          [label]="'cv.projects.form.responsibilities' | translate"
+          [placeholder]="'cv.projects.form.responsibilitiesPlaceholder' | translate"
           formControlName="responsibilities"
         ></lib-input>
       </div>
@@ -66,12 +66,12 @@
         [variant]="ButtonVariant.OUTLINED"
         [textColor]="ButtonTextColor.SECONDARY"
         (click)="close()">
-        CANCEL
+        {{ 'cv.projects.dialogs.cancel' | translate }}
       </lib-button>
       <lib-button
         (click)="confirm()"
         [disabled]="projectForm.invalid">
-        ADD
+        {{ 'cv.projects.dialogs.add' | translate }}
       </lib-button>
     </div>
   </mat-dialog-actions>

@@ -7,7 +7,7 @@
       [textColor]="ButtonTextColor.SECONDARY">
       <div class="flex items-center gap-2">
         <mat-icon>add</mat-icon>
-        ADD LANGUAGE
+        {{ 'languages.actions.add' | translate }}
       </div>
     </lib-button>
   } @else {
@@ -43,7 +43,7 @@
               [textColor]="ButtonTextColor.SECONDARY">
               <div class="flex items-center gap-2">
                 <mat-icon>add</mat-icon>
-                ADD LANGUAGE
+                {{ 'languages.actions.add' | translate }}
               </div>
             </lib-button>
             <lib-button
@@ -53,7 +53,7 @@
               [textColor]="ButtonTextColor.PRIMARY">
               <div class="flex items-center gap-2">
                 <mat-icon>delete</mat-icon>
-                <div class="whitespace-nowrap">DELETE LANGUAGES</div>
+                <div class="whitespace-nowrap">{{ 'languages.actions.delete-mode' | translate }}</div>
               </div>
             </lib-button>
           </div>
@@ -65,7 +65,7 @@
               [width]="ButtonSize.FULL"
               [textColor]="ButtonTextColor.SECONDARY">
               <div class="flex items-center gap-2">
-                CANCEL
+                {{ 'languages.actions.cancel' | translate }}
               </div>
             </lib-button>
             <lib-button
@@ -75,7 +75,7 @@
               [textColor]="ButtonTextColor.PRIMARY"
               [disabled]="selectedLanguagesToDelete.length == 0">
               <div class="flex items-center gap-2">
-                DELETE
+                {{ 'languages.actions.delete-confirm' | translate }}
                 @if (selectedLanguagesToDelete.length) {
                   <span class="text-primary px-2 bg-white rounded-full">{{ selectedLanguagesToDelete.length }}</span>
                 }

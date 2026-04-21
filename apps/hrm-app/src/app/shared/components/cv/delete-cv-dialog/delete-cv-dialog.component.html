@@ -1,14 +1,16 @@
 <div class="dialog-container">
   <div class="dialog-header">
-    <h2 class="text-xl font-bold">Delete Cv</h2>
+    <h2 class="text-xl font-bold">{{ 'cv.list.dialogs.deleteTitle' | translate }}</h2>
     <button (click)="close()" class="close-btn">
       <mat-icon>close</mat-icon>
     </button>
   </div>
 
   <mat-dialog-content class="dialog-body">
+    <p>
+      {{ 'cv.list.dialogs.deleteConfirm' | translate }} <b>{{ data.name }}?</b>
+    </p>
   </mat-dialog-content>
-  Are you sure you want to delete user <b>{{ data.name }}?</b>
 
   <mat-dialog-actions align="end" class="dialog-actions">
     <div class="flex gap-4">
@@ -17,12 +19,12 @@
         [variant]="ButtonVariant.OUTLINED"
         [textColor]="ButtonTextColor.SECONDARY"
         (click)="close()">
-        CANCEL
+        {{ 'cv.list.dialogs.cancel' | translate }}
       </lib-button>
       <lib-button
         [width]="ButtonSize.FULL"
         (click)="confirm()">
-        CONFIRM
+        {{ 'cv.list.dialogs.confirm' | translate }}
       </lib-button>
     </div>
   </mat-dialog-actions>

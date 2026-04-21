@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonComponent, InputComponent, ButtonVariant } from '@hrm-monorepo/hrm-lib';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../services/core/auth/auth.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signup-page',
@@ -10,7 +11,8 @@ import { AuthService } from '../../../../services/core/auth/auth.service';
     ReactiveFormsModule,
     ButtonComponent,
     InputComponent,
-    RouterLink
+    RouterLink,
+    TranslatePipe
   ],
   templateUrl: './signup.page.html',
   styleUrl: './signup.page.scss',

@@ -1,18 +1,18 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import {
-  AddProfileSkillInput,
   LanguageProficiency,
-  Mastery,
   Proficiency,
   UpdateProfileLanguageInput
 } from '../../../../core/models/core.model';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonComponent, ButtonSize, ButtonVariant, SelectComponent } from '@hrm-monorepo/hrm-lib';
 import { MatIcon } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-update-language-dialog',
+  standalone: true,
   imports: [
     ButtonComponent,
     FormsModule,
@@ -20,7 +20,8 @@ import { MatIcon } from '@angular/material/icon';
     MatDialogContent,
     MatIcon,
     ReactiveFormsModule,
-    SelectComponent
+    SelectComponent,
+    TranslateModule
   ],
   templateUrl: './update-language-dialog.component.html',
   styleUrl: './update-language-dialog.component.scss',
@@ -35,7 +36,7 @@ export class UpdateLanguageDialogComponent {
 
   public languageForm = new FormGroup({
     langName: new FormControl<string>({ value: this.data.name, disabled: true }, Validators.required),
-    proficiency: new FormControl<Proficiency>(Proficiency.A1, Validators.required)
+    proficiency: new FormControl<Proficiency>(this.data.proficiency, Validators.required)
   });
 
   public proficiencyOptions = Object.values(Proficiency).map(m => ({

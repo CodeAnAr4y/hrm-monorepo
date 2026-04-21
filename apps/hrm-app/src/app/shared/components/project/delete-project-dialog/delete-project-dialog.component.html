@@ -1,13 +1,13 @@
 <div class="dialog-container">
   <div class="dialog-header">
-    <h2 class="text-xl font-bold">Delete Project</h2>
+    <h2 class="text-xl font-bold">{{ 'projects.list.dialogs.deleteTitle' | translate }}</h2>
     <button (click)="close()" class="close-btn">
       <mat-icon>close</mat-icon>
     </button>
   </div>
 
   <mat-dialog-content class="dialog-body">
-    <p>Are you sure you want to delete project <b>{{ data.name }}?</b></p>
+    <p>{{ 'projects.list.dialogs.deleteConfirm' | translate }} <b>{{ data.name }}?</b></p>
   </mat-dialog-content>
 
   <mat-dialog-actions align="end" class="dialog-actions">
@@ -17,12 +17,12 @@
         [variant]="ButtonVariant.OUTLINED"
         [textColor]="ButtonTextColor.SECONDARY"
         (click)="close()">
-        CANCEL
+        {{ 'projects.list.dialogs.cancel' | translate }}
       </lib-button>
       <lib-button
         [width]="ButtonSize.FULL"
         (click)="confirm()">
-        CONFIRM
+        {{ 'projects.list.dialogs.confirm' | translate }}
       </lib-button>
     </div>
   </mat-dialog-actions>

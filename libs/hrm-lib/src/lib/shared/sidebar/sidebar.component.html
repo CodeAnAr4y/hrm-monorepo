@@ -11,14 +11,14 @@
           [routerLink]="link.to"
           routerLinkActive="active"
           class="nav-link"
-          [title]="!isOpen() ? link.name : ''"
+          [title]="!isOpen() ? (link.name | translate) : ''"
         >
           <mat-icon class="min-w-[24px]">{{ link.icon }}</mat-icon>
           <span
             class="link-text"
             [ngClass]="isOpen() ? 'visible-text' : 'hidden-text'"
           >
-            {{ link.name }}
+            {{ link.name | translate }}
           </span>
         </a>
       }
@@ -46,12 +46,18 @@
     <mat-menu #menu="matMenu">
       <a [routerLink]="['/users', user()?.id]" mat-menu-item>
         <mat-icon>account_circle<</mat-icon>
-        Profile</a>
-      <a routerLink="/settings" mat-menu-item><mat-icon>settings</mat-icon> Settings</a>
+        {{ 'sidebar.menu.profile' | translate }}
+      </a>
+      <a routerLink="/settings" mat-menu-item>
+        <mat-icon>settings</mat-icon>
+        {{ 'sidebar.menu.settings' | translate }}
+      </a>
       <mat-divider></mat-divider>
       <button mat-menu-item (click)="logout.emit()">
         <mat-icon>logout</mat-icon>
-        <span>Logout</span>
+        <span>
+      {{ 'sidebar.menu.logout' | translate }}
+        </span>
       </button>
     </mat-menu>
 

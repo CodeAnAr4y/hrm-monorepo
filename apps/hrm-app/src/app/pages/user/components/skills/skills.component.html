@@ -7,7 +7,7 @@
       [textColor]="ButtonTextColor.SECONDARY">
       <div class="flex items-center gap-2">
         <mat-icon>add</mat-icon>
-        ADD SKILL
+        {{ 'skills.actions.add' | translate }}
       </div>
     </lib-button>
   } @else {
@@ -37,23 +37,29 @@
         @if (!deleteMode()) {
           <div class="flex gap-4">
             <lib-button (click)="openAddSkillDialog()" [variant]="ButtonVariant.TEXT" [textColor]="ButtonTextColor.SECONDARY">
-              <div class="flex items-center gap-2"><mat-icon>add</mat-icon> ADD SKILL</div>
+              <div class="flex items-center gap-2">
+                <mat-icon>add</mat-icon>
+                {{ 'skills.actions.add' | translate }}
+              </div>
             </lib-button>
             <lib-button (click)="toggleDeleteMode()" [variant]="ButtonVariant.TEXT" [textColor]="ButtonTextColor.PRIMARY">
-              <div class="flex items-center gap-2"><mat-icon>delete</mat-icon> DELETE SKILLS</div>
+              <div class="flex items-center gap-2">
+                <mat-icon>delete</mat-icon>
+                {{ 'skills.actions.delete-mode' | translate }}
+              </div>
             </lib-button>
           </div>
         } @else {
           <div class="flex gap-4">
             <lib-button (click)="toggleDeleteMode()" [variant]="ButtonVariant.OUTLINED" [textColor]="ButtonTextColor.SECONDARY">
-              CANCEL
+              {{ 'skills.actions.cancel' | translate }}
             </lib-button>
             <lib-button
               (click)="deleteSkills()"
               [variant]="ButtonVariant.CONTAINED"
               [textColor]="ButtonTextColor.PRIMARY"
               [disabled]="selectedSkillsToDelete().length === 0">
-              DELETE
+              {{ 'skills.actions.delete-confirm' | translate }}
               @if (selectedSkillsToDelete().length) {
                 <span class="ml-2 px-2 bg-white text-black rounded-full">{{ selectedSkillsToDelete().length }}</span>
               }

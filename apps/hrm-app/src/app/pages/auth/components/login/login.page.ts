@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent, InputComponent, ButtonVariant } from '@hrm-monorepo/hrm-lib';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../services/core/auth/auth.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login-page',
@@ -12,7 +13,8 @@ import { AuthService } from '../../../../services/core/auth/auth.service';
     ReactiveFormsModule,
     ButtonComponent,
     InputComponent,
-    RouterLink
+    RouterLink,
+    TranslatePipe
   ],
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],

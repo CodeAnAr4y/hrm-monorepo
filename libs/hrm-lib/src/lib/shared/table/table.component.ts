@@ -22,6 +22,7 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIconButton } from '@angular/material/button';
 import { ButtonSize, ButtonVariant } from '../button/models/button-variant.constants';
 import { ButtonComponent } from '../button/button.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'lib-table',
@@ -39,7 +40,8 @@ import { ButtonComponent } from '../button/button.component';
     MatMenuTrigger,
     MatIconButton,
     MatMenuItem,
-    ButtonComponent
+    ButtonComponent,
+    TranslateModule
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
@@ -84,7 +86,7 @@ export class TableComponent<T extends TableItem> implements AfterViewInit {
     this.dataSource.sort = this.sort() ?? null;
     this.dataSource.sortingDataAccessor = (item: any, property: string) => {
       const value = property.split('.').reduce((obj, key) => obj?.[key], item);
-      return value?.toLowerCase() ?? '';
+      return typeof value === 'string' ? value.toLowerCase() : value;
     };
   }
 
@@ -97,5 +99,4 @@ export class TableComponent<T extends TableItem> implements AfterViewInit {
     if ((event.target as HTMLElement).closest('button, a')) return;
     this.expandedElement.update(current => current === row ? null : row);
   }
-
 }

@@ -1,6 +1,6 @@
 <div class="dialog-container" [formGroup]="userForm">
   <div class="dialog-header">
-    <h2 class="text-xl font-bold">Update user</h2>
+    <h2 class="text-xl font-bold">{{ 'users.list.dialogs.updateTitle' | translate }}</h2>
     <button (click)="close()" class="close-btn">
       <mat-icon>close</mat-icon>
     </button>
@@ -8,44 +8,44 @@
 
   <mat-dialog-content class="dialog-body">
     <lib-input
-      label="Email"
-      placeholder="Email"
+      [label]="'auth.email' | translate"
+      [placeholder]="'auth.email' | translate"
       formControlName="email"
     ></lib-input>
     <lib-input
       type="password"
-      label="Password"
-      placeholder="Password"
+      [label]="'auth.password' | translate"
+      [placeholder]="'auth.password' | translate"
       formControlName="password"
     ></lib-input>
     <lib-input
-      label="First Name"
-      placeholder="First Name"
+      [label]="'user.profile.form.firstName' | translate"
+      [placeholder]="'user.profile.form.firstName' | translate"
       formControlName="firstName"
     ></lib-input>
     <lib-input
-      label="Last Name"
-      placeholder="Last Name"
+      [label]="'user.profile.form.lastName' | translate"
+      [placeholder]="'user.profile.form.lastName' | translate"
       formControlName="lastName"
     ></lib-input>
 
     <lib-select
-      label="Department"
-      placeholder="Choose department"
+      [label]="'user.profile.form.department' | translate"
+      [placeholder]="'user.profile.form.chooseDepartment' | translate"
       [options]="departmentOptions"
       formControlName="department"
     ></lib-select>
 
     <lib-select
-      label="Position"
-      placeholder="Choose position"
+      [label]="'user.profile.form.position' | translate"
+      [placeholder]="'user.profile.form.choosePosition' | translate"
       [options]="positionOptions"
       formControlName="position"
     ></lib-select>
 
     <lib-select
-      label="Role"
-      placeholder="Choose Role"
+      [label]="'users.list.form.role' | translate"
+      [placeholder]="'users.list.form.chooseRole' | translate"
       [options]="roleOptions"
       formControlName="role"
     ></lib-select>
@@ -58,13 +58,13 @@
         [variant]="ButtonVariant.OUTLINED"
         [textColor]="ButtonTextColor.SECONDARY"
         (click)="close()">
-        CANCEL
+        {{ 'users.list.dialogs.cancel' | translate }}
       </lib-button>
       <lib-button
         [width]="ButtonSize.FULL"
         (click)="confirm()"
         [disabled]="userForm.invalid">
-        UPDATE
+        {{ 'users.list.dialogs.update' | translate }}
       </lib-button>
     </div>
   </mat-dialog-actions>

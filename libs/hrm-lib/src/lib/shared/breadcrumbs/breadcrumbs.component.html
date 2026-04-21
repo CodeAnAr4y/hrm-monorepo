@@ -4,6 +4,6 @@
   </ng-template>
 
   <ng-container *xngBreadcrumbItem="let label; let bc = breadcrumb">
-    <span class="text-[var(--color-textSecondary)]">{{ label }}</span>
+    <span class="text-[var(--color-textSecondary)]">{{ label | translate }}</span>
   </ng-container>
 </xng-breadcrumb>

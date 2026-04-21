@@ -3,18 +3,19 @@ import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { ButtonComponent, ButtonSize, ButtonVariant, SelectComponent } from '@hrm-monorepo/hrm-lib';
-import { AddProfileSkillInput, Mastery, Skill, SkillMastery } from '../../../../core/models/core.model';
-import { data } from 'autoprefixer';
+import { AddProfileSkillInput, Mastery, Skill } from '../../../../core/models/core.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-add-skill-dialog',
+  selector: 'app-update-skill-dialog',
   standalone: true,
   imports: [
     ReactiveFormsModule,
     MatDialogModule,
     MatIcon,
     ButtonComponent,
-    SelectComponent
+    SelectComponent,
+    TranslateModule
   ],
   templateUrl: './update-skill-dialog.component.html',
   styleUrls: ['./update-skill-dialog.component.scss'],

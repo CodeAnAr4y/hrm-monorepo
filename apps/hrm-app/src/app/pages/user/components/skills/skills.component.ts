@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core'; // Импорт модуля
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -26,7 +27,7 @@ import {
 @Component({
   selector: 'app-skills',
   standalone: true,
-  imports: [ButtonComponent, MatIcon, SkillIndicatorComponent],
+  imports: [ButtonComponent, MatIcon, SkillIndicatorComponent, TranslateModule], // Добавлен TranslateModule
   templateUrl: './skills.component.html',
   styleUrl: './skills.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -44,7 +45,7 @@ export class SkillsComponent {
   // State
   public readonly deleteMode = signal(false);
   public readonly selectedSkillsToDelete = signal<string[]>([]);
-  private readonly refreshTrigger$ = new Subject<void>(); // Триггер для обновления данных
+  private readonly refreshTrigger$ = new Subject<void>();
 
   // Global Data
   public readonly selectedUser = this.userService.selectedUser;

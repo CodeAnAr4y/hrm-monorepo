@@ -16,6 +16,7 @@ import { map } from 'rxjs/operators';
 import { ProjectService } from '../../../../services/shared/project/project.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SkillService } from '../../../../services/shared/skill/skill.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-project-dialog',
@@ -29,7 +30,8 @@ import { SkillService } from '../../../../services/shared/skill/skill.service';
     TextAreaComponent,
     MatDialogActions,
     ButtonComponent,
-    MultiSelectComponent
+    MultiSelectComponent,
+    TranslateModule
   ],
   templateUrl: './add-cv-project-dialog.component.html',
   styleUrl: './add-cv-project-dialog.component.scss',

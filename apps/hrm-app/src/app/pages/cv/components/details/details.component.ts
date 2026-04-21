@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { CvService } from '../../../../services/shared/cv/cv.service';
 import { UpdateCvInput } from '../../../../core/models/core.model';
 import { SnackBarService } from '../../../../services/shared/snack-bar/snack-bar.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-details',
@@ -12,7 +13,8 @@ import { SnackBarService } from '../../../../services/shared/snack-bar/snack-bar
     FormsModule,
     ReactiveFormsModule,
     InputComponent,
-    TextAreaComponent
+    TextAreaComponent,
+    TranslatePipe
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',

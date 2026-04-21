@@ -1,3 +1,296 @@
 {
-  "test": "Test"
+  "sidebar": {
+    "tabs": {
+      "employees": "Employees",
+      "projects": "Projects",
+      "cvs": "CVs",
+      "departments": "Departments",
+      "positions": "Positions",
+      "skills": "Skills",
+      "languages": "Languages"
+    },
+    "menu": {
+      "profile": "Profile",
+      "settings": "Settings",
+      "logout": "Logout"
+    }
+  },
+  "breadcrumbs": {
+    "employees": "Employees",
+    "profile": "Profile",
+    "skills": "Skills",
+    "languages": "Languages",
+    "cvs": "CVs",
+    "details": "Details",
+    "projects": "Projects",
+    "preview": "Preview",
+    "settings": "Settings"
+  },
+  "auth": {
+    "login": "Log In",
+    "signup": "Sign Up",
+    "login-title": "Welcome back",
+    "login-subtitle": "Hello again! Log in to continue",
+    "signup-title": "Register now",
+    "signup-subtitle": "Welcome! Sign up to continue",
+    "email": "Email",
+    "password": "Password",
+    "login-btn": "LOG IN",
+    "signup-btn": "CREATE ACCOUNT",
+    "forgot-password": "FORGOT PASSWORD",
+    "have-account": "I HAVE AN ACCOUNT"
+  },
+  "skills": {
+    "actions": {
+      "add": "ADD SKILL",
+      "delete-mode": "DELETE SKILLS",
+      "delete-confirm": "DELETE",
+      "cancel": "CANCEL"
+    },
+    "form": {
+      "selectSkill": "Skill",
+      "chooseSkill": "Choose a skill",
+      "masteryLevel": "Mastery Level"
+    },
+    "dialogs": {
+      "addTitle": "Add skill",
+      "updateTitle": "Update skill",
+      "confirm": "CONFIRM",
+      "cancel": "CANCEL"
+    },
+    "list": {
+      "table": {
+        "name": "Name",
+        "type": "Type",
+        "category": "Category"
+      }
+    }
+  },
+  "languages": {
+    "actions": {
+      "add": "ADD LANGUAGE",
+      "delete-mode": "DELETE LANGUAGES",
+      "delete-confirm": "DELETE",
+      "cancel": "CANCEL"
+    },
+    "form": {
+      "selectLanguage": "Language",
+      "chooseLanguage": "Choose language",
+      "proficiencyLevel": "Proficiency"
+    },
+    "dialogs": {
+      "addTitle": "Add language",
+      "updateTitle": "Update language",
+      "confirm": "CONFIRM",
+      "cancel": "CANCEL"
+    }
+  },
+  "users": {
+    "list": {
+      "table": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "email": "Email",
+        "department": "Department",
+        "position": "Position"
+      },
+      "actions": {
+        "create": "+ CREATE USER"
+      },
+      "form": {
+        "role": "Role",
+        "chooseRole": "Choose Role"
+      },
+      "dialogs": {
+        "addTitle": "Add user",
+        "updateTitle": "Update user",
+        "create": "CREATE",
+        "update": "UPDATE",
+        "deleteTitle": "Delete user",
+        "deleteConfirm": "Are you sure you want to delete user",
+        "confirm": "CONFIRM",
+        "cancel": "CANCEL"
+      },
+      "messages": {
+        "createSuccess": "User was successfully created!",
+        "updateSuccess": "User was successfully updated!",
+        "deleteSuccess": "User deleted!",
+        "error": "Error occured "
+      }
+    }
+  },
+  "user": {
+    "tabs": {
+      "profile": "Profile",
+      "skills": "Skills",
+      "languages": "Languages"
+    },
+    "profile": {
+      "memberSince": "A member since ",
+      "avatar": {
+        "upload": "Upload avatar image",
+        "hint": "png, jpg or gif no more than 0.5MB"
+      },
+      "form": {
+        "firstName": "First Name",
+        "firstNamePlaceholder": "Enter first name",
+        "lastName": "Last Name",
+        "lastNamePlaceholder": "Enter last name",
+        "department": "Department",
+        "chooseDepartment": "Choose department",
+        "position": "Position",
+        "choosePosition": "Choose position"
+      },
+      "actions": {
+        "update": "UPDATE"
+      },
+      "messages": {
+        "updateSuccess": "User data successfully updated!",
+        "fileTooLarge": "File is too large",
+        "avatarUpdated": "Avatar updated!"
+      }
+    }
+  },
+  "cv": {
+    "tabs": {
+      "details": "Details",
+      "skills": "Skills",
+      "projects": "Projects",
+      "preview": "Preview"
+    },
+    "list": {
+      "table": {
+        "name": "Name",
+        "education": "Education",
+        "employee": "Employee"
+      },
+      "messages": {
+        "deleteSuccess": "CV \"{{name}}\" deleted!",
+        "error": "Error occurred "
+      },
+      "dialogs": {
+        "createTitle": "Create CV",
+        "create": "CREATE",
+        "deleteTitle": "Delete CV",
+        "deleteConfirm": "Are you sure you want to delete CV",
+        "confirm": "CONFIRM",
+        "cancel": "CANCEL"
+      }
+    },
+    "form": {
+      "name": "Name",
+      "education": "Education",
+      "description": "Description"
+    },
+    "actions": {
+      "update": "UPDATE"
+    },
+    "preview": {
+      "actions": {
+        "export": "EXPORT PDF"
+      },
+      "sections": {
+        "education": "Education",
+        "languages": "Language proficiency",
+        "domains": "Domains",
+        "projects": "Projects",
+        "professional-skills": "Professional skills"
+      },
+      "project": {
+        "roles": "Project roles",
+        "period": "Period",
+        "responsibilities": "Responsibilities",
+        "environments": "Environments"
+      }
+    },
+    "projects": {
+      "table": {
+        "name": "Name",
+        "domain": "Domain",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "tillNow": "Till now"
+      },
+      "messages": {
+        "addSuccess": "Project added successfully",
+        "addError": "Failed to add project",
+        "updateSuccess": "Project updated successfully",
+        "updateError": "Failed to update project",
+        "deleteSuccess": "Project deleted successfully",
+        "deleteError": "Failed to delete project"
+      },
+      "form": {
+        "project": "Project",
+        "projectPlaceholder": "Select project",
+        "domain": "Domain",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "description": "Description",
+        "environment": "Environment",
+        "environmentPlaceholder": "Select technologies",
+        "responsibilities": "Responsibilities",
+        "responsibilitiesPlaceholder": "Enter your responsibilities"
+      },
+      "dialogs": {
+        "addTitle": "Add project",
+        "add": "ADD",
+        "updateTitle": "Update project",
+        "update": "UPDATE",
+        "deleteTitle": "Delete Project",
+        "deleteConfirm": "Are you sure you want to delete project",
+        "confirm": "CONFIRM",
+        "cancel": "CANCEL"
+      }
+    }
+  },
+  "projects": {
+    "list": {
+      "table": {
+        "name": "Name",
+        "domain": "Domain",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "tillNow": "Till Now"
+      },
+      "messages": {
+        "createSuccess": "Project successfully created",
+        "updateSuccess": "Project successfully updated",
+        "deleteSuccess": "Project \"{{name}}\" deleted!",
+        "error": "Error occurred "
+      },
+      "form": {
+        "name": "Name",
+        "domain": "Domain",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "description": "Description",
+        "environment": "Environment",
+        "environmentPlaceholder": "Select technologies"
+      },
+      "dialogs": {
+        "addTitle": "Add project",
+        "add": "ADD",
+        "updateTitle": "Update project",
+        "update": "UPDATE",
+        "cancel": "CANCEL",
+        "deleteTitle": "Delete Project",
+        "deleteConfirm": "Are you sure you want to delete project",
+        "confirm": "CONFIRM"
+      }
+    }
+  },
+  "settings": {
+    "language": "Language",
+    "appearance": {
+      "title": "Appearance",
+      "options": {
+        "default": "Device settings",
+        "dark": "Dark",
+        "light": "Light"
+      }
+    }
+  },
+  "common": {
+    "workInProgress": "Work in progress..."
+  }
 }

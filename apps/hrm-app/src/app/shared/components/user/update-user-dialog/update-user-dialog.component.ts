@@ -15,9 +15,11 @@ import { ConstantsService } from '../../../../services/shared/constants/constant
 import { User, UserRole } from '../../../../core/models/core.model';
 import { map } from 'rxjs/operators';
 import { UserService } from '../../../../services/shared/user/user.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-update-user-dialog',
+  standalone: true,
   imports: [
     ButtonComponent,
     FormsModule,
@@ -26,7 +28,8 @@ import { UserService } from '../../../../services/shared/user/user.service';
     MatDialogContent,
     MatIcon,
     ReactiveFormsModule,
-    SelectComponent
+    SelectComponent,
+    TranslateModule
   ],
   templateUrl: './update-user-dialog.component.html',
   styleUrl: './update-user-dialog.component.scss',
@@ -65,7 +68,6 @@ export class UpdateUserDialogComponent implements OnInit {
 
   ngOnInit() {
     this.initSelectOptions();
-
   }
 
   public initSelectOptions(): void {
@@ -96,14 +98,13 @@ export class UpdateUserDialogComponent implements OnInit {
       });
   }
 
-
   close() {
     this.dialogRef.close();
   }
 
   confirm() {
     if (this.userForm.valid) {
-      this.dialogRef.close(this.userForm.value);
+      this.dialogRef.close(this.userForm.getRawValue());
     }
   }
 }

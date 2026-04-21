@@ -3,13 +3,13 @@
     @if (search()) {
       <div class="search">
         <mat-icon matPrefix class="dark:text-[var(--color-text-primary)] mr-2">search</mat-icon>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Search employees..." #input
+        <input matInput (keyup)="applyFilter($event)" [placeholder]="'common.search' | translate" #input
                class="dark:text-[var(--color-text-primary)]">
       </div>
     }
     @if (isAdmin()) {
       <lib-button (click)="addItemBtnAction.emit()" [variant]="ButtonVariant.TEXT"
-                  [width]="ButtonSize.CONTENT">{{ addItemBtnLabel() }}
+                  [width]="ButtonSize.CONTENT">{{ addItemBtnLabel() | translate }}
       </lib-button>
     }
   </div>
@@ -20,7 +20,7 @@
       @for (col of columns(); track col.sourceName) {
         <ng-container [matColumnDef]="col.sourceName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="!col.sortable">
-            {{ col.title }}
+            {{ col.title | translate }}
           </th>
 
           <td mat-cell *matCellDef="let row">
@@ -46,18 +46,18 @@
                   <mat-menu #menu="matMenu">
                     @if (type() === TableType.USER || type() === TableType.CV) {
                       <a [routerLink]="[row.id]" mat-menu-item>
-                        Details
+                        {{ 'common.details' | translate }}
                       </a>
                     }
                     @if (type() === TableType.USER || type() === TableType.PROJECT || type() === TableType.SKILL) {
                       <button (click)="updateItemBtnAction.emit(row.id)" mat-menu-item>
-                        Update
+                        {{ 'common.update' | translate }}
                       </button>
                     }
                     @if (isAdmin()) {
                       <button (click)="deleteItemBtnAction.emit(row.id)" [disabled]="row.id === firstItem()?.id"
                               mat-menu-item>
-                        Delete
+                        {{ 'common.delete' | translate }}
                       </button>
                     }
                   </mat-menu>
@@ -75,6 +75,7 @@
         </ng-container>
       }
 
+      <!-- ... остальной код без изменений ... -->
       <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let row" [attr.colspan]="columnKeys.length">
           <div class="detail-grid-wrapper" [class.expanded]="row === expandedElement()">

@@ -1,6 +1,6 @@
 <div class="dialog-container" [formGroup]="projectForm">
   <div class="dialog-header">
-    <h2>Update project</h2>
+    <h2>{{ 'projects.list.dialogs.updateTitle' | translate }}</h2>
     <button (click)="close()" type="button">
       <mat-icon>close</mat-icon>
     </button>
@@ -9,37 +9,37 @@
   <mat-dialog-content class="dialog-body">
     <div class="grid grid-cols-2 gap-2">
       <lib-input
-        label="Project"
+        [label]="'projects.list.form.name' | translate"
         formControlName="project"
       ></lib-input>
 
       <lib-input
-        label="Domain"
+        [label]="'projects.list.form.domain' | translate"
         formControlName="domain"
       ></lib-input>
 
       <lib-input
         type="date"
-        label="Start Date"
+        [label]="'projects.list.form.startDate' | translate"
         formControlName="startDate"
       ></lib-input>
 
       <lib-input
         type="date"
-        label="End Date"
+        [label]="'projects.list.form.endDate' | translate"
         formControlName="endDate"
       ></lib-input>
 
       <div class="col-span-2">
         <lib-text-area
-          label="Description"
+          [label]="'projects.list.form.description' | translate"
           formControlName="description"
         ></lib-text-area>
       </div>
 
       <div class="col-span-2">
         <lib-multi-select
-          label="Environment"
+          [label]="'projects.list.form.environment' | translate"
           [options]="envOptions()"
           formControlName="environment"
         ></lib-multi-select>
@@ -53,12 +53,12 @@
         [variant]="ButtonVariant.OUTLINED"
         [textColor]="ButtonTextColor.SECONDARY"
         (click)="close()">
-        CANCEL
+        {{ 'projects.list.dialogs.cancel' | translate }}
       </lib-button>
       <lib-button
         (click)="confirm()"
         [disabled]="projectForm.invalid">
-        UPDATE
+        {{ 'projects.list.dialogs.update' | translate }}
       </lib-button>
     </div>
   </mat-dialog-actions>

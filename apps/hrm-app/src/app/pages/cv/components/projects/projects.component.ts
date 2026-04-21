@@ -16,6 +16,7 @@ import {
 import {
   DeleteCvProjectDialogComponent
 } from '../../../../shared/components/cv/delete-cv-project-dialog/delete-cv-project-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-projects',
@@ -30,14 +31,15 @@ export class ProjectsComponent {
   private cvService = inject(CvService);
   private dialog = inject(MatDialog);
   private snackBarService = inject(SnackBarService);
+  private translate = inject(TranslateService);
 
   protected readonly TableType = TableType;
 
   public columns: TableHeader[] = [
-    { title: 'Name', sourceName: 'name', sortable: true },
-    { title: 'Domain', sourceName: 'domain', sortable: true },
-    { title: 'Start Date', sourceName: 'startDate', sortable: true },
-    { title: 'End Date', sourceName: 'endDate', sortable: true },
+    { title: 'cv.projects.table.name', sourceName: 'name', sortable: true },
+    { title: 'cv.projects.table.domain', sourceName: 'domain', sortable: true },
+    { title: 'cv.projects.table.startDate', sourceName: 'startDate', sortable: true },
+    { title: 'cv.projects.table.endDate', sourceName: 'endDate', sortable: true },
     { title: '', sourceName: 'actions', sortable: false, type: 'action' }
   ];
 
@@ -56,7 +58,7 @@ export class ProjectsComponent {
       name: p.name,
       domain: p.domain || '',
       startDate: p.start_date || '',
-      endDate: p.end_date || 'Till now',
+      endDate: p.end_date || this.translate.instant('cv.projects.table.tillNow'),
       description: p.description || '',
       tags: p.responsibilities || []
     }));
@@ -83,8 +85,8 @@ export class ProjectsComponent {
         };
 
         this.cvProjectService.addCvProject(input).subscribe({
-          next: () => this.snackBarService.openSnackBar('Project added successfully'),
-          error: () => this.snackBarService.openSnackBar('Failed to add project')
+          next: () => this.snackBarService.openSnackBar(this.translate.instant('cv.projects.messages.addSuccess')),
+          error: () => this.snackBarService.openSnackBar(this.translate.instant('cv.projects.messages.addError'))
         });
       }
     });
@@ -111,8 +113,8 @@ export class ProjectsComponent {
         };
 
         this.cvProjectService.updateCvProject(input).subscribe({
-          next: () => this.snackBarService.openSnackBar('Project updated successfully'),
-          error: () => this.snackBarService.openSnackBar('Failed to update project')
+          next: () => this.snackBarService.openSnackBar(this.translate.instant('cv.projects.messages.updateSuccess')),
+          error: () => this.snackBarService.openSnackBar(this.translate.instant('cv.projects.messages.updateError'))
         });
       }
     });
@@ -134,8 +136,8 @@ export class ProjectsComponent {
         };
 
         this.cvProjectService.removeCvProject(input).subscribe({
-          next: () => this.snackBarService.openSnackBar('Project deleted successfully'),
-          error: () => this.snackBarService.openSnackBar('Failed to delete project')
+          next: () => this.snackBarService.openSnackBar(this.translate.instant('cv.projects.messages.deleteSuccess')),
+          error: () => this.snackBarService.openSnackBar(this.translate.instant('cv.projects.messages.deleteError'))
         });
       }
     });

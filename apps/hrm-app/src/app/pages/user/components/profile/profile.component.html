@@ -3,32 +3,32 @@
     [src]="selectedUser().profile.avatar"
     [name]="selectedUser().profile.full_name || ''"
     [email]="selectedUser().email"
-    [metadata]="'A member since ' + (selectedUser().created_at | date)"
+    [metadata]="('user.profile.memberSince' | translate) + (selectedUser().created_at | date)"
     [isEditable]="isOwnProfile()"
     (imageChanged)="uploadAvatar($event)"
   ></lib-avatar>
 
   <form [formGroup]="profileForm" (ngSubmit)="updateUserDataAndProfile()" class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
     <lib-input
-      label="First Name"
+      [label]="'user.profile.form.firstName' | translate"
       formControlName="firstName"
-      placeholder="Enter first name"
+      [placeholder]="'user.profile.form.firstNamePlaceholder' | translate"
     ></lib-input>
 
     <lib-input
-      label="Last Name"
+      [label]="'user.profile.form.lastName' | translate"
       formControlName="lastName"
-      placeholder="Enter last name"
+      [placeholder]="'user.profile.form.lastNamePlaceholder' | translate"
     ></lib-input>
 
     <lib-select
-      label="Department"
+      [label]="'user.profile.form.department' | translate"
       [options]="departmentOptions()"
       formControlName="department"
     ></lib-select>
 
     <lib-select
-      label="Position"
+      [label]="'user.profile.form.position' | translate"
       [options]="positionOptions()"
       formControlName="position"
     ></lib-select>
@@ -37,7 +37,7 @@
       <div></div>
       <div>
         <lib-button [disabled]="profileForm.invalid || profileForm.pristine" [variant]=ButtonVariant.CONTAINED [width]="ButtonSize.FULL">
-          UPDATE
+          {{ 'user.profile.actions.update' | translate }}
         </lib-button>
       </div>
     }

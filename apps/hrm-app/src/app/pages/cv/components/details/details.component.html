@@ -1,20 +1,20 @@
 <div class="max-w-4xl mx-auto">
   <form [formGroup]="cvForm" (ngSubmit)="updateCvData()" class="mt-8 grid grid-cols-2 gap-4">
     <lib-input
-      label="Name"
-      placeholder="Name"
+      [label]="'cv.form.name' | translate"
+      [placeholder]="'cv.form.name' | translate"
       formControlName="name"
       class="col-span-2"
     ></lib-input>
     <lib-input
-      label="Education"
-      placeholder="Education"
+      [label]="'cv.form.education' | translate"
+      [placeholder]="'cv.form.education' | translate"
       formControlName="education"
       class="col-span-2"
     ></lib-input>
     <lib-text-area
-      label="Description"
-      placeholder="Description"
+      [label]="'cv.form.description' | translate"
+      [placeholder]="'cv.form.description' | translate"
       formControlName="description"
       class="col-span-2"
     ></lib-text-area>
@@ -23,7 +23,7 @@
     <div>
       <lib-button [disabled]="cvForm.invalid || cvForm.pristine || isUnchanged()" [variant]=ButtonVariant.CONTAINED
                   [width]="ButtonSize.FULL">
-        UPDATE
+        {{ 'cv.actions.update' | translate }}
       </lib-button>
     </div>
   </form>
