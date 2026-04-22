@@ -1,12 +1,10 @@
 :host {
   display: inline-flex;
-
-  --button-width: fit-content;
-  width: var(--button-width);
+  width: fit-content;
 
   &.size-full {
     display: flex;
-    --button-width: 100%;
+    width: 100%;
   }
 }
 
@@ -20,9 +18,7 @@
   &.contained {
     background-color: var(--color-primary);
     color: white;
-  }
-  &.contained:disabled {
-    color: var(--color-text-primary);
+    &:disabled { color: var(--color-text-primary); }
   }
 
   &.outlined {
@@ -35,24 +31,11 @@
     color: var(--color-primary);
     background: transparent;
     @apply hover:bg-black/5 dark:hover:bg-white/5;
+    &:disabled { @apply opacity-100 bg-transparent; }
   }
 
   &:disabled {
     @apply opacity-40 cursor-not-allowed bg-white/10;
-  }
-
-  &.text:disabled {
-    @apply opacity-100 bg-transparent;
-  }
-
-  &.size-full-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  &.size-content-container{
-    --width: fit-content;
   }
 
   &.text-color-secondary {

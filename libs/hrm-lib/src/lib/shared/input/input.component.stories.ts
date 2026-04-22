@@ -22,12 +22,13 @@ const meta: Meta<InputComponent> = {
   args: {
     type: 'text',
     placeholder: 'Enter value',
+    label: 'Default Label',
   },
 
   argTypes: {
     type: {
       control: 'inline-radio',
-      options: ['text', 'password', 'email'],
+      options: ['text', 'password', 'email', 'label'],
     },
     placeholder: {
       control: 'text',
@@ -48,6 +49,7 @@ const meta: Meta<InputComponent> = {
             [type]="type"
             [placeholder]="placeholder"
             [formControl]="control"
+            [label]="label"
           />
         </div>
       `,
@@ -65,6 +67,7 @@ export const Password: Story = {
   args: {
     type: 'password',
     placeholder: 'Password',
+    label: 'Password',
   },
 };
 
@@ -72,5 +75,6 @@ export const Email: Story = {
   args: {
     type: 'email',
     placeholder: 'Email',
+    label: 'Email',
   },
 };

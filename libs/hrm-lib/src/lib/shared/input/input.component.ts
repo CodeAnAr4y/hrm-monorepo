@@ -37,14 +37,13 @@ import { MatNativeDateModule } from '@angular/material/core';
   ]
 })
 export class InputComponent implements ControlValueAccessor {
-  // Добавили 'date'
   type = input<'text' | 'password' | 'email' | 'date'>('text');
   placeholder = input<string>('');
   label = input<string>('');
   autocomplete = input<boolean>(false);
 
   private _disabled = signal(false);
-  value = signal<any>(''); // Изменили на any для поддержки Date объектов
+  value = signal<any>('');
 
   hide = signal(true);
 
